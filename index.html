@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaborCompare</title>
+    <meta name="description" content="Compare labor market statistics across US states, metros, and counties">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="LaborCompare">
+    <meta property="og:description" content="Interactive map comparing labor market data across US states including unemployment, wages, employment, and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://laborcompare.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LaborCompare">
+    <meta name="twitter:description" content="Interactive map comparing labor market data across US states including unemployment, wages, employment, and more.">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <a href="#main-map" class="skip-link">Skip to map</a>
+    <div class="app-container">
+        <!-- Top Header Bar -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="header-btn" id="sources-btn" aria-label="View data sources">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    <span>Sources</span>
+                </button>
+            </div>
+            <div class="header-center">
+                <h1 class="site-title">LaborCompare</h1>
+                <div class="header-context">
+                    <span class="context-program" id="context-program">Unemployment Rate</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="header-btn" id="screenshot-btn" aria-label="Screenshot mode" title="Enter screenshot mode for printing or sharing">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                        <circle cx="12" cy="13" r="4"/>
+                    </svg>
+                    <span>Screenshot</span>
+                </button>
+                <button class="header-btn primary" id="compare-btn" aria-label="Compare states">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M16 3h5v5M8 3H3v5M3 16v5h5M21 16v5h-5"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    <span>Compare</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Sidebar - Controls -->
+            <aside class="sidebar left-sidebar">
+                <div class="panel">
+                    <!-- View Level selector -->
+                    <div class="panel-section">
+                        <label class="panel-label">View Level</label>
+                        <div class="toggle-group toggle-group-3">
+                            <button class="toggle-btn active" id="state-view-btn" data-view="state">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                States
+                            </button>
+                            <button class="toggle-btn" id="metro-view-btn" data-view="metro">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <circle cx="12" cy="12" r="4"/>
+                                </svg>
+                                Metro
+                            </button>
+                            <button class="toggle-btn" id="county-view-btn" data-view="county">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="7" height="7"/>
+                                    <rect x="14" y="3" width="7" height="7"/>
+                                    <rect x="14" y="14" width="7" height="7"/>
+                                    <rect x="3" y="14" width="7" height="7"/>
+                                </svg>
+                                Counties
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Data section with active indicator -->
+                    <div class="panel-section data-ratio-section" id="data-section">
+                        <label class="panel-label panel-label-active" id="data-label">
+                            <span class="active-indicator"></span>
+                            Data
+                        </label>
+                        <!-- State view data selector -->
+                        <div id="state-program-section">
+                            <select id="program-select" class="select-input">
+                                <optgroup label="Employment Status">
+                                    <option value="unemployment_rate" selected>Unemployment Rate</option>
+                                    <option value="labor_force_participation_rate">Labor Force Participation Rate</option>
+                                </optgroup>
+                                <optgroup label="Employment">
+                                    <option value="total_nonfarm_employment">Total Nonfarm Employment</option>
+                                    <option value="job_growth_yoy">Job Growth (YoY %)</option>
+                                </optgroup>
+                                <optgroup label="Wages & Earnings">
+                                    <option value="avg_hourly_earnings">Average Hourly Earnings</option>
+                                    <option value="avg_weekly_earnings">Average Weekly Earnings</option>
+                                    <option value="median_household_income">Median Household Income</option>
+                                    <option value="median_earnings">Median Earnings</option>
+                                    <option value="per_capita_income">Per Capita Income</option>
+                                </optgroup>
+                                <optgroup label="Cost of Living">
+                                    <option value="minimum_wage">Minimum Wage</option>
+                                </optgroup>
+                                <optgroup label="Demographics">
+                                    <option value="population">Population</option>
+                                    <option value="median_age">Median Age</option>
+                                </optgroup>
+                                <optgroup label="Education">
+                                    <option value="bachelors_or_higher_pct">Bachelor's Degree or Higher</option>
+                                    <option value="hs_diploma_or_higher_pct">HS Diploma or Higher</option>
+                                </optgroup>
+                                <optgroup label="Economic Indicators">
+                                    <option value="poverty_rate">Poverty Rate</option>
+                                    <option value="gini_index">Gini Index</option>
+                                    <option value="homeownership_rate">Homeownership Rate</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <!-- Metro view data selector -->
+                        <div class="metro-controls" id="metro-program-section" style="display: none;">
+                            <select id="metro-program-select" class="select-input">
+                                <optgroup label="Employment">
+                                    <option value="unemployment_rate" selected>Unemployment Rate</option>
+                                    <option value="total_nonfarm_employment">Total Nonfarm Employment</option>
+                                </optgroup>
+                                <optgroup label="Wages">
+                                    <option value="avg_hourly_earnings">Average Hourly Earnings</option>
+                                    <option value="avg_weekly_earnings">Average Weekly Earnings</option>
+                                    <option value="median_household_income">Median Household Income</option>
+                                    <option value="median_earnings">Median Earnings</option>
+                                    <option value="per_capita_income">Per Capita Income</option>
+                                </optgroup>
+                                <optgroup label="Demographics">
+                                    <option value="population">Population</option>
+                                    <option value="poverty_rate">Poverty Rate</option>
+                                    <option value="median_age">Median Age</option>
+                                </optgroup>
+                                <optgroup label="Education">
+                                    <option value="bachelors_or_higher_pct">Bachelor's Degree or Higher</option>
+                                    <option value="hs_diploma_or_higher_pct">HS Diploma or Higher</option>
+                                </optgroup>
+                                <optgroup label="Economic">
+                                    <option value="gini_index">Gini Index</option>
+                                    <option value="homeownership_rate">Homeownership Rate</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <!-- County view data selector -->
+                        <div class="county-controls" id="county-program-section" style="display: none;">
+                            <select id="county-program-select" class="select-input">
+                                <optgroup label="Employment">
+                                    <option value="unemployment_rate" selected>Unemployment Rate</option>
+                                    <option value="labor_force">Labor Force</option>
+                                    <option value="employment_count">Employment Count</option>
+                                </optgroup>
+                                <optgroup label="Income">
+                                    <option value="median_household_income">Median Household Income</option>
+                                    <option value="median_earnings">Median Earnings</option>
+                                    <option value="per_capita_income">Per Capita Income</option>
+                                </optgroup>
+                                <optgroup label="Demographics">
+                                    <option value="population">Population</option>
+                                    <option value="poverty_rate">Poverty Rate</option>
+                                    <option value="median_age">Median Age</option>
+                                </optgroup>
+                                <optgroup label="Education">
+                                    <option value="bachelors_or_higher_pct">Bachelor's Degree or Higher</option>
+                                    <option value="hs_diploma_or_higher_pct">HS Diploma or Higher</option>
+                                </optgroup>
+                                <optgroup label="Economic">
+                                    <option value="gini_index">Gini Index</option>
+                                    <option value="homeownership_rate">Homeownership Rate</option>
+                                    <option value="vacancy_rate">Vacancy Rate</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Toggle button between Data and Ratio -->
+                    <div class="panel-section mode-toggle-section">
+                        <button id="mode-toggle-btn" class="btn-mode-toggle" title="Switch between Data and Ratio view">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 4l-4 4 4 4"/>
+                                <path d="M17 20l4-4-4-4"/>
+                                <path d="M3 8h18"/>
+                                <path d="M3 16h18"/>
+                            </svg>
+                            Switch to Ratio
+                        </button>
+                    </div>
+
+                    <!-- Ratio section with active indicator -->
+                    <div class="panel-section data-ratio-section" id="ratio-section">
+                        <label class="panel-label" id="ratio-label">
+                            <span class="active-indicator"></span>
+                            Ratio
+                        </label>
+                        <div class="ratio-builder-new">
+                            <div class="ratio-dropdowns">
+                                <select id="ratio-numerator" class="select-input select-small">
+                                    <option value="">Numerator...</option>
+                                </select>
+                                <span class="ratio-divider-symbol">&divide;</span>
+                                <select id="ratio-denominator" class="select-input select-small">
+                                    <option value="">Denominator...</option>
+                                </select>
+                            </div>
+                            <button id="ratio-swap-btn" class="btn-swap" title="Swap numerator and denominator">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 16l-4-4 4-4"/>
+                                    <path d="M17 8l4 4-4 4"/>
+                                    <path d="M3 12h18"/>
+                                </svg>
+                                Swap
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel">
+                    <label class="panel-label">Legend</label>
+                    <div class="legend" id="legend"></div>
+
+                    <div class="panel-section color-scale-section">
+                        <label class="panel-label">Color Scheme</label>
+                        <div class="color-scale-selector" id="color-scale-selector">
+                            <button class="color-option active" data-palette="blue" title="Blue Sequential">
+                                <span class="color-preview" style="background: linear-gradient(to right, #eff6ff, #1e3a8a)"></span>
+                            </button>
+                            <button class="color-option" data-palette="green" title="Green Sequential">
+                                <span class="color-preview" style="background: linear-gradient(to right, #f0fdf4, #14532d)"></span>
+                            </button>
+                            <button class="color-option" data-palette="red" title="Red Sequential">
+                                <span class="color-preview" style="background: linear-gradient(to right, #fef2f2, #7f1d1d)"></span>
+                            </button>
+                            <button class="color-option" data-palette="diverging" title="Diverging (Red-Green)">
+                                <span class="color-preview" style="background: linear-gradient(to right, #dc2626, #fde047, #16a34a)"></span>
+                            </button>
+                            <button class="color-option" data-palette="colorblind" title="Colorblind Safe">
+                                <span class="color-preview" style="background: linear-gradient(to right, #f0f9ff, #7c2d12)"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel stats-panel">
+                    <label class="panel-label">National Overview</label>
+                    <div class="stats-grid" id="stats-content"></div>
+                </div>
+            </aside>
+
+            <!-- Map Container -->
+            <div class="map-wrapper">
+                <div id="main-map" class="map-view"></div>
+
+                <!-- Screenshot mode overlay elements -->
+                <div class="screenshot-title" id="screenshot-title"></div>
+                <button class="screenshot-exit" id="screenshot-exit">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                    Exit Screenshot Mode
+                </button>
+
+                <div class="map-overlay" id="loading-overlay">
+                    <div class="loader"></div>
+                    <span>Loading...</span>
+                </div>
+            </div>
+
+            <!-- Right Sidebar - Info (Desktop) -->
+            <aside class="sidebar right-sidebar">
+                <div class="panel info-panel">
+                    <div class="info-header" id="info-header">
+                        <span class="info-location">Select a Location</span>
+                    </div>
+                    <div class="info-body" id="info-content">
+                        <p class="hint-text">Click on any state to see detailed labor market information.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Mobile Bottom Panel -->
+            <div class="mobile-panel">
+                <div class="mobile-tabs">
+                    <button class="mobile-tab active" data-tab="controls" aria-label="Controls">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1v6m0 6v10M4.22 4.22l4.24 4.24m7.08 7.08l4.24 4.24M1 12h6m6 0h10M4.22 19.78l4.24-4.24m7.08-7.08l4.24-4.24"/>
+                        </svg>
+                        <span>Controls</span>
+                    </button>
+                    <button class="mobile-tab" data-tab="legend" aria-label="Legend">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7" rx="1"/>
+                            <rect x="14" y="3" width="7" height="7" rx="1"/>
+                            <rect x="3" y="14" width="7" height="7" rx="1"/>
+                            <rect x="14" y="14" width="7" height="7" rx="1"/>
+                        </svg>
+                        <span>Legend</span>
+                    </button>
+                    <button class="mobile-tab" data-tab="info" aria-label="Info">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 16v-4m0-4h.01"/>
+                        </svg>
+                        <span>Info</span>
+                    </button>
+                    <button class="mobile-tab" data-tab="stats" aria-label="Stats">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 20V10M12 20V4M6 20v-6"/>
+                        </svg>
+                        <span>Stats</span>
+                    </button>
+                </div>
+
+                <!-- Controls Tab -->
+                <div class="mobile-tab-content active" id="mobile-controls">
+                    <!-- View Level (mobile) -->
+                    <div class="panel-section">
+                        <label class="panel-label">View Level</label>
+                        <div class="toggle-group toggle-group-3">
+                            <button class="toggle-btn active" id="mobile-state-view-btn" data-view="state">States</button>
+                            <button class="toggle-btn" id="mobile-metro-view-btn" data-view="metro">Metro</button>
+                            <button class="toggle-btn" id="mobile-county-view-btn" data-view="county">Counties</button>
+                        </div>
+                    </div>
+
+                    <!-- Data section (mobile) with active indicator -->
+                    <div class="panel-section data-ratio-section" id="mobile-data-section">
+                        <label class="panel-label panel-label-active" id="mobile-data-label">
+                            <span class="active-indicator"></span>
+                            Data
+                        </label>
+                        <!-- State view data selector (mobile) -->
+                        <div id="mobile-state-program-section">
+                            <select id="mobile-program-select" class="select-input">
+                                <optgroup label="Employment Status">
+                                    <option value="unemployment_rate" selected>Unemployment Rate</option>
+                                    <option value="labor_force_participation_rate">Labor Force Participation Rate</option>
+                                </optgroup>
+                                <optgroup label="Employment">
+                                    <option value="total_nonfarm_employment">Total Nonfarm Employment</option>
+                                    <option value="job_growth_yoy">Job Growth (YoY %)</option>
+                                </optgroup>
+                                <optgroup label="Wages & Earnings">
+                                    <option value="avg_hourly_earnings">Average Hourly Earnings</option>
+                                    <option value="avg_weekly_earnings">Average Weekly Earnings</option>
+                                    <option value="median_household_income">Median Household Income</option>
+                                    <option value="median_earnings">Median Earnings</option>
+                                    <option value="per_capita_income">Per Capita Income</option>
+                                </optgroup>
+                                <optgroup label="Cost of Living">
+                                    <option value="minimum_wage">Minimum Wage</option>
+                                </optgroup>
+                                <optgroup label="Demographics">
+                                    <option value="population">Population</option>
+                                    <option value="median_age">Median Age</option>
+                                </optgroup>
+                                <optgroup label="Education">
+                                    <option value="bachelors_or_higher_pct">Bachelor's Degree or Higher</option>
+                                    <option value="hs_diploma_or_higher_pct">HS Diploma or Higher</option>
+                                </optgroup>
+                                <optgroup label="Economic Indicators">
+                                    <option value="poverty_rate">Poverty Rate</option>
+                                    <option value="gini_index">Gini Index</option>
+                                    <option value="homeownership_rate">Homeownership Rate</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <!-- Metro view data selector (mobile) -->
+                        <div class="metro-controls" id="mobile-metro-program-section" style="display: none;">
+                            <select id="mobile-metro-program-select" class="select-input">
+                                <optgroup label="Employment">
+                                    <option value="unemployment_rate" selected>Unemployment Rate</option>
+                                    <option value="total_nonfarm_employment">Total Nonfarm Employment</option>
+                                </optgroup>
+                                <optgroup label="Wages">
+                                    <option value="avg_hourly_earnings">Average Hourly Earnings</option>
+                                    <option value="avg_weekly_earnings">Average Weekly Earnings</option>
+                                    <option value="median_household_income">Median Household Income</option>
+                                    <option value="median_earnings">Median Earnings</option>
+                                    <option value="per_capita_income">Per Capita Income</option>
+                                </optgroup>
+                                <optgroup label="Demographics">
+                                    <option value="population">Population</option>
+                                    <option value="poverty_rate">Poverty Rate</option>
+                                    <option value="median_age">Median Age</option>
+                                </optgroup>
+                                <optgroup label="Education">
+                                    <option value="bachelors_or_higher_pct">Bachelor's Degree or Higher</option>
+                                    <option value="hs_diploma_or_higher_pct">HS Diploma or Higher</option>
+                                </optgroup>
+                                <optgroup label="Economic">
+                                    <option value="gini_index">Gini Index</option>
+                                    <option value="homeownership_rate">Homeownership Rate</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <!-- County view data selector (mobile) -->
+                        <div class="county-controls" id="mobile-county-program-section" style="display: none;">
+                            <select id="mobile-county-program-select" class="select-input">
+                                <optgroup label="Employment">
+                                    <option value="unemployment_rate" selected>Unemployment Rate</option>
+                                    <option value="labor_force">Labor Force</option>
+                                    <option value="employment_count">Employment Count</option>
+                                </optgroup>
+                                <optgroup label="Income">
+                                    <option value="median_household_income">Median Household Income</option>
+                                    <option value="median_earnings">Median Earnings</option>
+                                    <option value="per_capita_income">Per Capita Income</option>
+                                </optgroup>
+                                <optgroup label="Demographics">
+                                    <option value="population">Population</option>
+                                    <option value="poverty_rate">Poverty Rate</option>
+                                    <option value="median_age">Median Age</option>
+                                </optgroup>
+                                <optgroup label="Education">
+                                    <option value="bachelors_or_higher_pct">Bachelor's Degree or Higher</option>
+                                    <option value="hs_diploma_or_higher_pct">HS Diploma or Higher</option>
+                                </optgroup>
+                                <optgroup label="Economic">
+                                    <option value="gini_index">Gini Index</option>
+                                    <option value="homeownership_rate">Homeownership Rate</option>
+                                    <option value="vacancy_rate">Vacancy Rate</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Toggle button between Data and Ratio (mobile) -->
+                    <div class="panel-section mode-toggle-section">
+                        <button id="mobile-mode-toggle-btn" class="btn-mode-toggle" title="Switch between Data and Ratio view">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 4l-4 4 4 4"/>
+                                <path d="M17 20l4-4-4-4"/>
+                                <path d="M3 8h18"/>
+                                <path d="M3 16h18"/>
+                            </svg>
+                            Switch to Ratio
+                        </button>
+                    </div>
+
+                    <!-- Ratio section (mobile) with active indicator -->
+                    <div class="panel-section data-ratio-section" id="mobile-ratio-section">
+                        <label class="panel-label" id="mobile-ratio-label">
+                            <span class="active-indicator"></span>
+                            Ratio
+                        </label>
+                        <div class="ratio-builder-new">
+                            <div class="ratio-dropdowns">
+                                <select id="mobile-ratio-numerator" class="select-input select-small">
+                                    <option value="">Numerator...</option>
+                                </select>
+                                <span class="ratio-divider-symbol">&divide;</span>
+                                <select id="mobile-ratio-denominator" class="select-input select-small">
+                                    <option value="">Denominator...</option>
+                                </select>
+                            </div>
+                            <button id="mobile-ratio-swap-btn" class="btn-swap" title="Swap numerator and denominator">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 16l-4-4 4-4"/>
+                                    <path d="M17 8l4 4-4 4"/>
+                                    <path d="M3 12h18"/>
+                                </svg>
+                                Swap
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Legend Tab -->
+                <div class="mobile-tab-content" id="mobile-legend">
+                    <label class="panel-label">Legend</label>
+                    <div class="legend" id="mobile-legend-content"></div>
+                </div>
+
+                <!-- Info Tab -->
+                <div class="mobile-tab-content" id="mobile-info">
+                    <div class="info-header" id="mobile-info-header">
+                        <span class="info-location">Select a Location</span>
+                    </div>
+                    <div class="info-body" id="mobile-info-content">
+                        <p class="hint-text">Tap on any state to see detailed labor market information.</p>
+                    </div>
+                </div>
+
+                <!-- Stats Tab -->
+                <div class="mobile-tab-content" id="mobile-stats">
+                    <label class="panel-label">National Overview</label>
+                    <div class="stats-grid" id="mobile-stats-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Compare Modal -->
+    <div class="modal" id="compare-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Compare States</h2>
+                <button class="modal-close" id="close-compare" aria-label="Close compare modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="compare-controls">
+                    <div class="compare-select-group">
+                        <select id="compare-state-1" class="select-input">
+                            <option value="">Select state...</option>
+                        </select>
+                    </div>
+                    <span class="vs-badge">VS</span>
+                    <div class="compare-select-group">
+                        <select id="compare-state-2" class="select-input">
+                            <option value="">Select state...</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="compare-results"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sources Modal -->
+    <div class="modal" id="sources-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Data Sources</h2>
+                <button class="modal-close" id="close-sources" aria-label="Close sources modal">&times;</button>
+            </div>
+            <div class="modal-body sources-grid">
+                <div class="source-card">
+                    <h4>Employment &amp; Unemployment</h4>
+                    <p>Bureau of Labor Statistics - Current Employment Statistics (CES) &amp; Local Area Unemployment Statistics (LAUS)</p>
+                    <a href="https://www.bls.gov/ces/" target="_blank" rel="noopener noreferrer">bls.gov/ces</a>
+                </div>
+                <div class="source-card">
+                    <h4>Wages &amp; Earnings</h4>
+                    <p>Bureau of Labor Statistics - Current Employment Statistics (CES)</p>
+                    <a href="https://www.bls.gov/ces/data/" target="_blank" rel="noopener noreferrer">bls.gov/ces/data</a>
+                </div>
+                <div class="source-card">
+                    <h4>Income, Housing &amp; Demographics</h4>
+                    <p>U.S. Census Bureau - American Community Survey (ACS)</p>
+                    <a href="https://www.census.gov/programs-surveys/acs" target="_blank" rel="noopener noreferrer">census.gov</a>
+                </div>
+                <div class="source-card">
+                    <h4>Per Capita Income &amp; GDP</h4>
+                    <p>Bureau of Economic Analysis (BEA)</p>
+                    <a href="https://www.bea.gov/data/income-saving/personal-income-county-metro-and-other-areas" target="_blank" rel="noopener noreferrer">bea.gov</a>
+                </div>
+                <div class="source-card">
+                    <h4>Minimum Wage</h4>
+                    <p>U.S. Department of Labor - Wage and Hour Division</p>
+                    <a href="https://www.dol.gov/agencies/whd/minimum-wage/state" target="_blank" rel="noopener noreferrer">dol.gov</a>
+                </div>
+
+                <div class="source-note">
+                    <h4>Data Timing</h4>
+                    <p>Employment and wage data from BLS is updated monthly and reflects the most recent available period. Economic data from the Census Bureau (ACS) is released approximately 18 months after collection.</p>
+                </div>
+
+                <p class="source-disclaimer">Data is updated monthly via automated pipeline. Values shown reflect the latest available data from each source.</p>
+                <p class="source-disclaimer" style="margin-top: 8px;">Version 2026.02.22.1</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Tooltip -->
+    <div class="custom-tooltip" id="custom-tooltip"></div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Utility modules (load first) -->
+    <script src="js/constants.js"></script>
+    <script src="js/dom-elements.js"></script>
+    <script src="js/ui-updater.js"></script>
+    <!-- Data modules -->
+    <script src="js/data.js"></script>
+    <script src="js/color-scales.js"></script>
+    <script src="js/ratios.js"></script>
+    <script src="js/county-loader.js"></script>
+    <script src="js/metro-data.js"></script>
+    <!-- Main application -->
+    <script src="js/app.js"></script>
+</body>
+</html>

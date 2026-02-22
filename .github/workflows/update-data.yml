@@ -1,0 +1,72 @@
+name: Update Labor Data
+
+on:
+  schedule:
+    - cron: '0 6 1 * *'  # Monthly, 1st at 6 AM UTC
+  workflow_dispatch:
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Create data directories
+        run: |
+          mkdir -p data/raw
+          mkdir -p data/counties
+          mkdir -p data/states
+          mkdir -p data/metros
+          mkdir -p data/geojson/counties
+
+      - name: Fetch BLS LAUS data
+        working-directory: scripts
+        env:
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+        run: node fetch-bls-laus.js
+
+      - name: Fetch BLS CES data
+        working-directory: scripts
+        env:
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+        run: node fetch-bls-ces.js
+
+      - name: Fetch Census ACS data
+        working-directory: scripts
+        env:
+          CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
+        run: node fetch-census.js
+
+      - name: Fetch BEA data
+        working-directory: scripts
+        env:
+          BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
+        run: node fetch-bea.js
+
+      - name: Generate state files
+        working-directory: scripts
+        run: node generate-state-files.js
+
+      - name: Generate metro data
+        working-directory: scripts
+        run: node generate-metro-data.js
+
+      - name: Generate national files
+        working-directory: scripts
+        run: node generate-national-counties.js
+
+      - name: Commit and push
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git diff --staged --quiet || git commit -m "Update labor data $(date +%Y-%m-%d)"
+          git push

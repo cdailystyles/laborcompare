@@ -1,0 +1,10 @@
+{
+  "name": "laborcompare-scripts",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "fetch-all": "node fetch-bls-laus.js && node fetch-bls-ces.js && node fetch-census.js && node fetch-bea.js",
+    "generate": "node generate-state-files.js && node generate-metro-data.js && node generate-national-counties.js"
+  },
+  "dependencies": {}
+}
