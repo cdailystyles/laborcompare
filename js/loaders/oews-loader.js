@@ -13,14 +13,18 @@ const OEWSLoader = (() => {
     async function fetchJSON(url) {
         if (cache.has(url)) return cache.get(url);
 
-        const resp = await fetch(url);
-        if (!resp.ok) {
-            if (resp.status === 404) return null;
-            throw new Error(`Failed to load ${url}: ${resp.status}`);
+        try {
+            const resp = await fetch(url);
+            if (!resp.ok) return null;
+            // Cloudflare Pages returns 200 + HTML for missing files (SPA fallback)
+            const ct = resp.headers.get('content-type') || '';
+            if (!ct.includes('json')) return null;
+            const data = await resp.json();
+            cache.set(url, data);
+            return data;
+        } catch {
+            return null;
         }
-        const data = await resp.json();
-        cache.set(url, data);
-        return data;
     }
 
     /**
