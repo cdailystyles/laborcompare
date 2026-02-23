@@ -7,7 +7,9 @@
 const AreaProfilePage = (() => {
     function getTitle(params) {
         const name = Constants.STATE_FIPS_TO_NAME[params?.fips];
-        return name ? `${name} Labor Market` : 'Area Profile';
+        if (name) return `${name} Labor Market`;
+        // Metro areas — title set dynamically in mount()
+        return 'Area Profile';
     }
 
     async function mount(params, container) {
