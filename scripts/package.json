@@ -4,7 +4,12 @@
   "type": "module",
   "scripts": {
     "fetch-all": "node fetch-bls-laus.js && node fetch-bls-ces.js && node fetch-census.js && node fetch-bea.js",
-    "generate": "node generate-state-files.js && node generate-metro-data.js && node generate-national-counties.js"
+    "fetch-oews": "node fetch-oews.js && node process-oews.js",
+    "generate": "node generate-state-files.js && node generate-metro-data.js && node generate-national-counties.js",
+    "build-search": "node build-search-index.js",
+    "all": "npm run fetch-all && npm run fetch-oews && npm run generate && npm run build-search"
   },
-  "dependencies": {}
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
 }
