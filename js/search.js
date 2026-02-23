@@ -225,10 +225,11 @@ const Search = (() => {
     }
 
     function hideDropdown() {
-        if (dropdown) {
-            dropdown.classList.remove('visible');
-            dropdown.innerHTML = '';
-        }
+        // Hide all search dropdowns (not just active one)
+        document.querySelectorAll('.search-dropdown').forEach(d => {
+            d.classList.remove('visible');
+            d.innerHTML = '';
+        });
         results = [];
         selectedIdx = -1;
     }
@@ -252,11 +253,11 @@ const Search = (() => {
     function attach(inputEl, dropdownEl) {
         if (!inputEl || !dropdownEl) return;
 
-        dropdown = dropdownEl;
         let debounceTimer = null;
 
         inputEl.addEventListener('focus', () => {
             activeInput = inputEl;
+            dropdown = dropdownEl;
             loadIndex();
         });
 
