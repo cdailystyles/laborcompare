@@ -160,10 +160,34 @@ const CPI_ITEMS = {
     'CUUR0000SAR': 'Recreation'
 };
 
+// Metro area center coordinates (top 20 CBSAs in OEWS data)
+const METRO_COORDS = {
+    '12060': { lat: 33.749, lng: -84.388 },  // Atlanta
+    '14460': { lat: 42.361, lng: -71.057 },  // Boston
+    '16980': { lat: 41.878, lng: -87.630 },  // Chicago
+    '19100': { lat: 32.777, lng: -96.797 },  // Dallas
+    '19740': { lat: 39.739, lng: -104.990 }, // Denver
+    '19820': { lat: 42.331, lng: -83.046 },  // Detroit
+    '26420': { lat: 29.760, lng: -95.370 },  // Houston
+    '31080': { lat: 34.052, lng: -118.244 }, // Los Angeles
+    '33100': { lat: 25.762, lng: -80.192 },  // Miami
+    '33460': { lat: 44.977, lng: -93.265 },  // Minneapolis
+    '35620': { lat: 40.713, lng: -74.006 },  // New York
+    '37980': { lat: 39.953, lng: -75.164 },  // Philadelphia
+    '38060': { lat: 33.449, lng: -112.074 }, // Phoenix
+    '40140': { lat: 33.953, lng: -117.396 }, // Riverside
+    '41180': { lat: 38.627, lng: -90.199 },  // St. Louis
+    '41740': { lat: 32.716, lng: -117.161 }, // San Diego
+    '41860': { lat: 37.775, lng: -122.419 }, // San Francisco
+    '42660': { lat: 47.606, lng: -122.332 }, // Seattle
+    '45300': { lat: 27.951, lng: -82.458 },  // Tampa
+    '47900': { lat: 38.907, lng: -77.037 }   // Washington DC
+};
+
 window.Constants = {
     FIELD_MAP, CT_FIPS_MAP, LABOR_INDICATORS,
     STATES_GEOJSON_URL, MAP_CONFIG, MOBILE_BREAKPOINT,
     SOC_MAJOR_GROUPS, AREA_TYPES, STATE_FIPS_TO_NAME, STATE_NAME_TO_FIPS,
-    TICKER_SERIES, CPI_ITEMS,
+    TICKER_SERIES, CPI_ITEMS, METRO_COORDS,
     normalizeCtFips, getDataField, isLaborIndicator, isMobile
 };

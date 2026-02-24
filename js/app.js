@@ -18,6 +18,7 @@
     Router.register('/states/:fips', StatesPage);
     Router.register('/outlook', OutlookPage);
     Router.register('/map', MapExplorerPage);
+    Router.register('/map/:soc', MapExplorerPage);
     Router.register('/compare', ComparePage);
 
     // Legacy redirects
