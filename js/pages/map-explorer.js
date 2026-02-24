@@ -1,6 +1,6 @@
 /**
  * LaborCompare — Map Explorer Page
- * Choropleth map with occupation wage overlay.
+ * 3-panel layout: left sidebar (controls/legend) | center map | right sidebar (state detail)
  * Route: #/map
  */
 
@@ -8,8 +8,10 @@ const MapExplorerPage = (() => {
     let map = null;
     let geoLayer = null;
     let currentData = null;
-    let currentField = 'unemployment_rate';
+    let geoData = null;
+    let currentField = 'median_household_income';
     let selectedOccupation = null;
+    let selectedState = null;
 
     function getTitle() {
         return 'Map Explorer';
@@ -19,60 +21,85 @@ const MapExplorerPage = (() => {
         await loadLeaflet();
 
         container.innerHTML = `
-            <div class="map-page">
-                <div class="map-controls-bar">
-                    <div class="map-control-group">
-                        <label class="map-control-label">Data</label>
-                        <select id="map-field-select" class="select-input select-compact">
-                            <optgroup label="Employment">
-                                <option value="unemployment_rate" selected>Unemployment Rate</option>
-                                <option value="labor_force_participation_rate">Labor Force Participation</option>
-                            </optgroup>
-                            <optgroup label="Wages & Income">
-                                <option value="avg_hourly_earnings">Avg Hourly Earnings</option>
-                                <option value="avg_weekly_earnings">Avg Weekly Earnings</option>
-                                <option value="median_household_income">Median Household Income</option>
-                                <option value="median_earnings">Median Earnings</option>
-                                <option value="per_capita_income">Per Capita Income</option>
-                            </optgroup>
-                            <optgroup label="Demographics">
-                                <option value="population">Population</option>
-                                <option value="poverty_rate">Poverty Rate</option>
-                                <option value="median_age">Median Age</option>
-                            </optgroup>
-                            <optgroup label="Education">
-                                <option value="bachelors_or_higher_pct">Bachelor's Degree+</option>
-                                <option value="hs_diploma_or_higher_pct">HS Diploma+</option>
-                            </optgroup>
-                            <optgroup label="Economic">
-                                <option value="gini_index">Gini Index</option>
-                                <option value="homeownership_rate">Homeownership Rate</option>
-                            </optgroup>
-                        </select>
-                    </div>
-
-                    <div class="map-control-group">
-                        <label class="map-control-label">Occupation Overlay</label>
-                        <div class="map-occ-search">
-                            <input type="text"
-                                   id="map-occ-search"
-                                   class="filter-input"
-                                   placeholder="Search an occupation to overlay wages..."
-                                   autocomplete="off">
-                            <div class="search-dropdown" id="map-occ-dropdown"></div>
+            <div class="map-3col">
+                <!-- Left Sidebar -->
+                <aside class="map-sidebar map-sidebar-left">
+                    <div class="map-panel">
+                        <div class="map-panel-section">
+                            <label class="map-panel-label">Data</label>
+                            <select id="map-field-select" class="select-input">
+                                <optgroup label="Wages & Income">
+                                    <option value="median_household_income" selected>Median Household Income</option>
+                                    <option value="median_earnings">Median Earnings</option>
+                                    <option value="per_capita_income">Per Capita Income</option>
+                                    <option value="avg_hourly_earnings">Avg Hourly Earnings</option>
+                                    <option value="avg_weekly_earnings">Avg Weekly Earnings</option>
+                                </optgroup>
+                                <optgroup label="Employment">
+                                    <option value="unemployment_rate">Unemployment Rate</option>
+                                    <option value="labor_force_participation_rate">Labor Force Participation</option>
+                                </optgroup>
+                                <optgroup label="Demographics">
+                                    <option value="population">Population</option>
+                                    <option value="poverty_rate">Poverty Rate</option>
+                                    <option value="median_age">Median Age</option>
+                                </optgroup>
+                                <optgroup label="Education">
+                                    <option value="bachelors_or_higher_pct">Bachelor's Degree+</option>
+                                    <option value="hs_diploma_or_higher_pct">HS Diploma+</option>
+                                </optgroup>
+                                <optgroup label="Economic">
+                                    <option value="gini_index">Gini Index</option>
+                                    <option value="homeownership_rate">Homeownership Rate</option>
+                                </optgroup>
+                            </select>
                         </div>
-                        <button id="map-clear-occ" class="btn-small btn-muted" style="display: none;">Clear Overlay</button>
+
+                        <div class="map-panel-section">
+                            <label class="map-panel-label">Occupation Overlay</label>
+                            <div class="map-occ-search">
+                                <input type="text"
+                                       id="map-occ-search"
+                                       class="filter-input"
+                                       placeholder="Search occupation..."
+                                       autocomplete="off">
+                                <div class="search-dropdown" id="map-occ-dropdown"></div>
+                            </div>
+                            <button id="map-clear-occ" class="btn-small btn-muted" style="display: none; margin-top: 6px; width: 100%;">Clear Overlay</button>
+                        </div>
+                    </div>
+
+                    <div class="map-panel">
+                        <label class="map-panel-label">Legend</label>
+                        <div id="map-legend"></div>
+                    </div>
+
+                    <div class="map-panel">
+                        <label class="map-panel-label">National Overview</label>
+                        <div id="map-stats" class="map-stats-grid"></div>
+                    </div>
+                </aside>
+
+                <!-- Center Map -->
+                <div class="map-center">
+                    <div id="explorer-map" class="explorer-map-full"></div>
+                    <div class="map-loading" id="map-loading">
+                        <div class="map-spinner"></div>
+                        <span>Loading map data...</span>
                     </div>
                 </div>
 
-                <div class="map-main-wrapper">
-                    <div id="explorer-map" class="explorer-map"></div>
-                    <div class="map-legend-panel" id="map-legend"></div>
-                </div>
-
-                <div class="map-info-bar" id="map-info-bar">
-                    <span class="hint-text">Click a state to view its full profile</span>
-                </div>
+                <!-- Right Sidebar -->
+                <aside class="map-sidebar map-sidebar-right">
+                    <div class="map-panel map-info-panel">
+                        <div class="map-info-header" id="map-info-header">
+                            <span class="map-info-location">Select a State</span>
+                        </div>
+                        <div class="map-info-body" id="map-info-body">
+                            <p class="map-hint-text">Click on any state to see detailed information.</p>
+                        </div>
+                    </div>
+                </aside>
             </div>
         `;
 
@@ -97,16 +124,20 @@ const MapExplorerPage = (() => {
             maxZoom: 10
         }).addTo(map);
 
-        // Load state data and GeoJSON
         const [stateEcon, geo] = await Promise.all([
             OEWSLoader.loadStateEconomic(),
             OEWSLoader.loadStatesGeoJSON()
         ]);
 
+        const loading = document.getElementById('map-loading');
+        if (loading) loading.style.display = 'none';
+
         if (!geo || !stateEcon) return;
         currentData = stateEcon;
+        geoData = geo;
 
         renderChoropleth(geo, stateEcon, currentField);
+        renderNationalStats(stateEcon);
     }
 
     function renderChoropleth(geo, data, field) {
@@ -115,17 +146,17 @@ const MapExplorerPage = (() => {
             geoLayer = null;
         }
 
-        // Calculate min/max for this field
         const values = Object.values(data)
             .map(d => d[field])
             .filter(v => v != null && !isNaN(v));
 
-        if (values.length === 0) return;
+        if (values.length === 0) {
+            renderLegend(field, 0, 0, false);
+            return;
+        }
 
         const min = Math.min(...values);
         const max = Math.max(...values);
-
-        // Determine if higher = worse (like unemployment, poverty)
         const invertScale = ['unemployment_rate', 'poverty_rate', 'gini_index'].includes(field);
 
         geoLayer = L.geoJSON(geo, {
@@ -138,14 +169,15 @@ const MapExplorerPage = (() => {
                 if (val != null && max > min) {
                     let t = (val - min) / (max - min);
                     if (invertScale) t = 1 - t;
-                    fillColor = interpolateBlueRed(t);
+                    fillColor = interpolateColor(t);
                 }
 
+                const isSelected = selectedState === stateName;
                 return {
                     fillColor,
-                    weight: 1,
+                    weight: isSelected ? 2.5 : 1,
                     opacity: 0.8,
-                    color: '#d1d5db',
+                    color: isSelected ? '#dc2626' : '#d1d5db',
                     fillOpacity: 0.85
                 };
             },
@@ -161,16 +193,24 @@ const MapExplorerPage = (() => {
 
                 layer.on({
                     mouseover: (e) => {
-                        e.target.setStyle({ weight: 2, color: '#dc2626' });
-                        e.target.bringToFront();
-                        updateInfoBar(stateName, stateData, field);
+                        if (selectedState !== stateName) {
+                            e.target.setStyle({ weight: 2, color: '#dc2626' });
+                            e.target.bringToFront();
+                        }
                     },
                     mouseout: (e) => {
-                        geoLayer.resetStyle(e.target);
+                        if (selectedState !== stateName) {
+                            geoLayer.resetStyle(e.target);
+                        }
                     },
                     click: () => {
-                        const fips = Constants.STATE_NAME_TO_FIPS[stateName];
-                        if (fips) Router.navigate(`/states/${fips}`);
+                        selectedState = stateName;
+                        updateInfoPanel(stateName, stateData, field, data);
+                        // Re-render to highlight selected
+                        if (geoData && currentData) {
+                            if (selectedOccupation) return; // Don't re-render during occupation overlay
+                            renderChoropleth(geoData, currentData, currentField);
+                        }
                     }
                 });
             }
@@ -202,14 +242,15 @@ const MapExplorerPage = (() => {
                 let fillColor = '#e5e7eb';
                 if (val != null && max > min) {
                     const t = (val - min) / (max - min);
-                    fillColor = interpolateBlueRed(t);
+                    fillColor = interpolateColor(t);
                 }
 
+                const isSelected = selectedState === stateName;
                 return {
                     fillColor,
-                    weight: 1,
+                    weight: isSelected ? 2.5 : 1,
                     opacity: 0.8,
-                    color: '#d1d5db',
+                    color: isSelected ? '#dc2626' : '#d1d5db',
                     fillOpacity: 0.85
                 };
             },
@@ -225,12 +266,20 @@ const MapExplorerPage = (() => {
 
                 layer.on({
                     mouseover: (e) => {
-                        e.target.setStyle({ weight: 2, color: '#dc2626' });
-                        e.target.bringToFront();
+                        if (selectedState !== stateName) {
+                            e.target.setStyle({ weight: 2, color: '#dc2626' });
+                            e.target.bringToFront();
+                        }
                     },
-                    mouseout: (e) => geoLayer.resetStyle(e.target),
+                    mouseout: (e) => {
+                        if (selectedState !== stateName) {
+                            geoLayer.resetStyle(e.target);
+                        }
+                    },
                     click: () => {
-                        if (fips) Router.navigate(`/states/${fips}`);
+                        selectedState = stateName;
+                        // Show occupation wage detail in right panel
+                        updateOccInfoPanel(stateName, data, occData.title);
                     }
                 });
             }
@@ -239,8 +288,8 @@ const MapExplorerPage = (() => {
         renderLegend('med', min, max, false, occData.title);
     }
 
-    function interpolateBlueRed(t) {
-        // Light blue (#dbeafe) to red (#dc2626)
+    function interpolateColor(t) {
+        // Blue (#dbeafe) to red (#dc2626) — matches accent color
         const r = Math.round(219 + t * (220 - 219));
         const g = Math.round(234 + t * (38 - 234));
         const b = Math.round(254 + t * (38 - 254));
@@ -251,8 +300,13 @@ const MapExplorerPage = (() => {
         const legend = document.getElementById('map-legend');
         if (!legend) return;
 
+        if (min === 0 && max === 0) {
+            legend.innerHTML = '<div class="map-no-data">No data available for this metric</div>';
+            return;
+        }
+
         const label = overlayTitle
-            ? `${overlayTitle} - Median Salary`
+            ? `${overlayTitle} — Median Salary`
             : getFieldLabel(field);
 
         const steps = 5;
@@ -260,7 +314,7 @@ const MapExplorerPage = (() => {
         for (let i = 0; i <= steps; i++) {
             const t = i / steps;
             const val = min + t * (max - min);
-            const color = interpolateBlueRed(invert ? 1 - t : t);
+            const color = interpolateColor(invert ? 1 - t : t);
             swatches.push(`
                 <div class="legend-step">
                     <span class="legend-swatch" style="background: ${color}"></span>
@@ -295,12 +349,139 @@ const MapExplorerPage = (() => {
         return labels[field] || field;
     }
 
-    function updateInfoBar(stateName, data, field) {
-        const bar = document.getElementById('map-info-bar');
-        if (!bar || !data) return;
-        bar.innerHTML = `
-            <strong>${stateName}</strong>: ${Formatters.auto(data[field], field)}
-            ${data.population ? ` · Pop: ${Formatters.count(data.population)}` : ''}
+    function updateInfoPanel(stateName, data, field, allData) {
+        const header = document.getElementById('map-info-header');
+        const body = document.getElementById('map-info-body');
+        if (!header || !body || !data) return;
+
+        const fips = Constants.STATE_NAME_TO_FIPS[stateName];
+        const val = data[field];
+
+        // Compute rank
+        const allValues = Object.entries(allData)
+            .filter(([, d]) => d[field] != null && !isNaN(d[field]))
+            .sort((a, b) => b[1][field] - a[1][field]);
+        const rank = allValues.findIndex(([name]) => name === stateName) + 1;
+        const total = allValues.length;
+
+        // Highest and lowest
+        const highest = allValues[0];
+        const lowest = allValues[allValues.length - 1];
+
+        header.innerHTML = `
+            <span class="map-info-location">${stateName}</span>
+            ${fips ? `<a href="#/states/${fips}" class="map-info-link">View Full Profile &rarr;</a>` : ''}
+        `;
+
+        body.innerHTML = `
+            <div class="map-info-value-large">${Formatters.auto(val, field)}</div>
+            <div class="map-info-metric">${getFieldLabel(field)}</div>
+            ${rank ? `<div class="map-info-rank">#${rank} of ${total}</div>` : ''}
+
+            <div class="map-info-divider"></div>
+
+            <div class="map-info-comparison">
+                <div class="map-info-comp-row">
+                    <span class="map-info-comp-label">Highest</span>
+                    <span class="map-info-comp-value">${highest ? `${highest[0]}: ${Formatters.auto(highest[1][field], field)}` : '—'}</span>
+                </div>
+                <div class="map-info-comp-row">
+                    <span class="map-info-comp-label">Lowest</span>
+                    <span class="map-info-comp-value">${lowest ? `${lowest[0]}: ${Formatters.auto(lowest[1][field], field)}` : '—'}</span>
+                </div>
+            </div>
+
+            <div class="map-info-divider"></div>
+
+            <div class="map-info-stats">
+                ${statRow('Population', Formatters.count(data.population))}
+                ${statRow('Median HH Income', Formatters.salary(data.median_household_income))}
+                ${statRow('Per Capita Income', Formatters.salary(data.per_capita_income))}
+                ${statRow('Poverty Rate', data.poverty_rate != null ? data.poverty_rate.toFixed(1) + '%' : '—')}
+                ${statRow('Median Age', data.median_age != null ? data.median_age.toFixed(1) : '—')}
+                ${statRow("Bachelor's+", data.bachelors_or_higher_pct != null ? data.bachelors_or_higher_pct.toFixed(1) + '%' : '—')}
+            </div>
+        `;
+    }
+
+    function updateOccInfoPanel(stateName, occStateData, occTitle) {
+        const header = document.getElementById('map-info-header');
+        const body = document.getElementById('map-info-body');
+        if (!header || !body) return;
+
+        const fips = Constants.STATE_NAME_TO_FIPS[stateName];
+
+        header.innerHTML = `
+            <span class="map-info-location">${stateName}</span>
+            ${fips ? `<a href="#/states/${fips}" class="map-info-link">View Full Profile &rarr;</a>` : ''}
+        `;
+
+        if (!occStateData) {
+            body.innerHTML = '<p class="map-hint-text">No wage data available for this occupation in this state.</p>';
+            return;
+        }
+
+        body.innerHTML = `
+            <div class="map-info-occ-title">${occTitle || 'Occupation'}</div>
+            <div class="map-info-value-large">${Formatters.salary(occStateData.med)}</div>
+            <div class="map-info-metric">Median Annual Salary</div>
+
+            <div class="map-info-divider"></div>
+
+            <div class="map-info-stats">
+                ${statRow('Hourly (Median)', Formatters.hourly(occStateData.medHr))}
+                ${statRow('10th Percentile', Formatters.salary(occStateData.p10))}
+                ${statRow('25th Percentile', Formatters.salary(occStateData.p25))}
+                ${statRow('75th Percentile', Formatters.salary(occStateData.p75))}
+                ${statRow('90th Percentile', Formatters.salary(occStateData.p90))}
+                ${statRow('Employment', occStateData.emp ? Formatters.count(occStateData.emp) : '—')}
+            </div>
+        `;
+    }
+
+    function statRow(label, value) {
+        return `
+            <div class="map-info-stat-row">
+                <span class="map-info-stat-label">${label}</span>
+                <span class="map-info-stat-value">${value || '—'}</span>
+            </div>
+        `;
+    }
+
+    function renderNationalStats(data) {
+        const stats = document.getElementById('map-stats');
+        if (!stats) return;
+
+        const allVals = Object.values(data);
+        const median = (arr) => {
+            const sorted = arr.filter(v => v != null).sort((a, b) => a - b);
+            if (sorted.length === 0) return null;
+            const mid = Math.floor(sorted.length / 2);
+            return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+        };
+
+        const medIncome = median(allVals.map(d => d.median_household_income));
+        const medPCI = median(allVals.map(d => d.per_capita_income));
+        const medPoverty = median(allVals.map(d => d.poverty_rate));
+        const totalPop = allVals.reduce((s, d) => s + (d.population || 0), 0);
+
+        stats.innerHTML = `
+            <div class="map-stat-item">
+                <span class="map-stat-val">${totalPop ? Formatters.count(totalPop) : '—'}</span>
+                <span class="map-stat-label">Total Population</span>
+            </div>
+            <div class="map-stat-item">
+                <span class="map-stat-val">${medIncome ? Formatters.salary(medIncome) : '—'}</span>
+                <span class="map-stat-label">Median HH Income</span>
+            </div>
+            <div class="map-stat-item">
+                <span class="map-stat-val">${medPCI ? Formatters.salary(medPCI) : '—'}</span>
+                <span class="map-stat-label">Per Capita Income</span>
+            </div>
+            <div class="map-stat-item">
+                <span class="map-stat-val">${medPoverty != null ? medPoverty.toFixed(1) + '%' : '—'}</span>
+                <span class="map-stat-label">Median Poverty Rate</span>
+            </div>
         `;
     }
 
@@ -310,12 +491,13 @@ const MapExplorerPage = (() => {
         fieldSelect?.addEventListener('change', async () => {
             currentField = fieldSelect.value;
             selectedOccupation = null;
+            selectedState = null;
             document.getElementById('map-clear-occ').style.display = 'none';
             document.getElementById('map-occ-search').value = '';
+            resetInfoPanel();
 
-            const geo = await OEWSLoader.loadStatesGeoJSON();
-            if (geo && currentData) {
-                renderChoropleth(geo, currentData, currentField);
+            if (geoData && currentData) {
+                renderChoropleth(geoData, currentData, currentField);
             }
         });
 
@@ -323,7 +505,6 @@ const MapExplorerPage = (() => {
         const occInput = document.getElementById('map-occ-search');
         const occDropdown = document.getElementById('map-occ-dropdown');
         if (occInput && occDropdown) {
-            // Custom search that only returns occupations
             let debounce = null;
             occInput.addEventListener('focus', () => Search.loadIndex());
             occInput.addEventListener('input', () => {
@@ -356,13 +537,14 @@ const MapExplorerPage = (() => {
                             occInput.value = el.querySelector('.search-result-title').textContent;
                             occDropdown.classList.remove('visible');
 
-                            // Load and overlay
                             const [occData, geo] = await Promise.all([
                                 OEWSLoader.loadOccupationByState(soc),
                                 OEWSLoader.loadStatesGeoJSON()
                             ]);
                             if (occData && geo) {
                                 selectedOccupation = soc;
+                                selectedState = null;
+                                resetInfoPanel();
                                 renderOccupationOverlay(geo, occData);
                                 document.getElementById('map-clear-occ').style.display = '';
                             }
@@ -381,14 +563,22 @@ const MapExplorerPage = (() => {
         // Clear overlay button
         document.getElementById('map-clear-occ')?.addEventListener('click', async () => {
             selectedOccupation = null;
+            selectedState = null;
             document.getElementById('map-occ-search').value = '';
             document.getElementById('map-clear-occ').style.display = 'none';
+            resetInfoPanel();
 
-            const geo = await OEWSLoader.loadStatesGeoJSON();
-            if (geo && currentData) {
-                renderChoropleth(geo, currentData, currentField);
+            if (geoData && currentData) {
+                renderChoropleth(geoData, currentData, currentField);
             }
         });
+    }
+
+    function resetInfoPanel() {
+        const header = document.getElementById('map-info-header');
+        const body = document.getElementById('map-info-body');
+        if (header) header.innerHTML = '<span class="map-info-location">Select a State</span>';
+        if (body) body.innerHTML = '<p class="map-hint-text">Click on any state to see detailed information.</p>';
     }
 
     function unmount() {
@@ -396,8 +586,10 @@ const MapExplorerPage = (() => {
             map.remove();
             map = null;
             geoLayer = null;
+            geoData = null;
         }
         selectedOccupation = null;
+        selectedState = null;
     }
 
     return { getTitle, mount, unmount };
