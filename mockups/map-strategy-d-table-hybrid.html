@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategy D: Table + Map Hybrid</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f7f7f8;
+    color: #1a1a1a;
+    min-height: 100vh;
+  }
+
+  /* Strategy Banner */
+  .strategy-banner {
+    background: #1a1a1a;
+    color: #fff;
+    text-align: center;
+    padding: 10px 16px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .strategy-banner span { color: #dc2626; font-weight: 700; }
+
+  /* Header */
+  .page-header {
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .page-header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .metric-select {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    padding: 8px 32px 8px 12px;
+    border: 1px solid #d4d4d4;
+    border-radius: 6px;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3' stroke='%23666' fill='none' stroke-width='1.5'/%3E%3C/svg%3E") right 10px center no-repeat;
+    appearance: none;
+    cursor: pointer;
+    color: #1a1a1a;
+  }
+  .metric-select:focus { outline: none; border-color: #dc2626; }
+
+  .search-box {
+    flex: 1;
+    min-width: 180px;
+    max-width: 320px;
+    position: relative;
+  }
+  .search-box input {
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    padding: 8px 12px 8px 34px;
+    border: 1px solid #d4d4d4;
+    border-radius: 6px;
+    background: #fff;
+    color: #1a1a1a;
+  }
+  .search-box input:focus { outline: none; border-color: #dc2626; }
+  .search-box::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%23999' stroke-width='2'%3E%3Ccircle cx='6' cy='6' r='4.5'/%3E%3Cline x1='9.5' y1='9.5' x2='13' y2='13'/%3E%3C/svg%3E") no-repeat center;
+  }
+
+  .header-actions { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+
+  .btn-export {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border: 1px solid #d4d4d4;
+    border-radius: 6px;
+    background: #fff;
+    color: #1a1a1a;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+  }
+  .btn-export:hover { border-color: #dc2626; color: #dc2626; }
+  .btn-export svg { width: 14px; height: 14px; }
+
+  /* Main Layout */
+  .main-layout {
+    display: flex;
+    height: calc(100vh - 100px);
+    overflow: hidden;
+  }
+
+  /* Left Panel — Table */
+  .table-panel {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #e5e5e5;
+    background: #fff;
+  }
+
+  .table-wrap {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  thead th {
+    background: #f7f7f8;
+    border-bottom: 2px solid #e5e5e5;
+    padding: 10px 14px;
+    text-align: left;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #666;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+  thead th:hover { color: #1a1a1a; }
+
+  .sort-arrow {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 10px;
+    color: #bbb;
+    vertical-align: middle;
+  }
+  .sort-arrow.active { color: #dc2626; }
+
+  tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.1s;
+  }
+  tbody tr:nth-child(even) { background: #fafafa; }
+  tbody tr:hover { background: #f0f0f0; }
+
+  /* Hovered row demo */
+  tbody tr.row-hover { background: #ebebeb; }
+
+  /* Selected row */
+  tbody tr.row-selected {
+    background: #fef2f2 !important;
+    border-left: 3px solid #dc2626;
+  }
+  tbody tr.row-selected td:first-child { padding-left: 11px; }
+
+  tbody td {
+    padding: 9px 14px;
+    vertical-align: middle;
+  }
+
+  .col-rank {
+    width: 50px;
+    color: #999;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .col-state { font-weight: 500; }
+  .col-value {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* vs National bar */
+  .vs-national {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+  .bar-track {
+    width: 80px;
+    height: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+  }
+  .bar-fill.positive { background: #16a34a; }
+  .bar-fill.negative { background: #dc2626; }
+  .vs-text.positive { color: #16a34a; }
+  .vs-text.negative { color: #dc2626; }
+
+  /* Trend sparkline */
+  .trend-cell { display: flex; align-items: center; gap: 6px; }
+  .trend-label { font-size: 11px; font-weight: 600; }
+  .trend-label.up { color: #16a34a; }
+  .trend-label.down { color: #dc2626; }
+
+  /* Table footer */
+  .table-footer {
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #888;
+    border-top: 1px solid #e5e5e5;
+    background: #fafafa;
+  }
+
+  /* Right Panel — Map */
+  .map-panel {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    background: #f7f7f8;
+  }
+
+  .map-container {
+    flex: 1;
+    margin: 16px 16px 0 16px;
+    border-radius: 8px;
+    background: #e8ecf0;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #ddd;
+  }
+
+  /* Placeholder US map using inline SVG shapes */
+  .map-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .map-placeholder svg { width: 92%; height: 82%; }
+
+  /* Map legend */
+  .map-legend {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 11px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    z-index: 2;
+  }
+  .map-legend-title {
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+    margin-bottom: 6px;
+    font-size: 11px;
+    color: #555;
+  }
+  .legend-scale {
+    display: flex;
+    gap: 0;
+    margin-bottom: 4px;
+  }
+  .legend-block {
+    width: 28px;
+    height: 10px;
+  }
+  .legend-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #888;
+    width: 140px;
+  }
+
+  /* Idaho highlight label */
+  .map-highlight-label {
+    position: absolute;
+    top: 28%;
+    left: 22%;
+    background: #fff;
+    border: 2px solid #dc2626;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #dc2626;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .map-highlight-label::after {
+    content: '';
+    position: absolute;
+    bottom: -7px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 7px solid #dc2626;
+  }
+
+  /* Stat cards below map */
+  .map-stats {
+    display: flex;
+    gap: 10px;
+    padding: 12px 16px 16px 16px;
+  }
+  .stat-card {
+    flex: 1;
+    background: #fff;
+    border-radius: 8px;
+    padding: 12px 14px;
+    border: 1px solid #e5e5e5;
+  }
+  .stat-card-label {
+    font-size: 11px;
+    color: #888;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 4px;
+  }
+  .stat-card-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .stat-card-sub {
+    font-size: 11px;
+    color: #999;
+    margin-top: 2px;
+  }
+  .stat-card-value.high { color: #16a34a; }
+  .stat-card-value.low { color: #dc2626; }
+  .stat-card-value.spread { color: #2563eb; }
+</style>
+</head>
+<body>
+
+<!-- Strategy Banner -->
+<div class="strategy-banner">
+  <span>Strategy D:</span> Table + Map Hybrid &mdash; Sortable data table drives the map
+</div>
+
+<!-- Header -->
+<div class="page-header">
+  <h1>State Data Explorer</h1>
+  <select class="metric-select">
+    <option selected>Median Household Income</option>
+    <option>Per Capita Income</option>
+    <option>Poverty Rate</option>
+    <option>Unemployment Rate</option>
+    <option>Cost of Living Index</option>
+  </select>
+  <div class="search-box">
+    <input type="text" placeholder="Search states...">
+  </div>
+  <div class="header-actions">
+    <button class="btn-export">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1v9M4 7l3 3 3-3"/><path d="M1 11v2h12v-2"/></svg>
+      Export CSV
+    </button>
+  </div>
+</div>
+
+<!-- Main Layout -->
+<div class="main-layout">
+
+  <!-- Left: Data Table -->
+  <div class="table-panel">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="col-rank"># <span class="sort-arrow">&#9650;&#9660;</span></th>
+            <th>State <span class="sort-arrow">&#9650;&#9660;</span></th>
+            <th>Value <span class="sort-arrow active">&#9660;</span></th>
+            <th>vs National <span class="sort-arrow">&#9650;&#9660;</span></th>
+            <th>Trend <span class="sort-arrow">&#9650;&#9660;</span></th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+    <div class="table-footer">
+      Showing 51 states &middot; Median: $76,193 &middot; Source: Census ACS 2023
+    </div>
+  </div>
+
+  <!-- Right: Map -->
+  <div class="map-panel">
+    <div class="map-container">
+      <div class="map-placeholder">
+        <svg viewBox="0 0 960 600" xmlns="http://www.w3.org/2000/svg">
+          <!-- Simplified US state outlines as colored rectangles for placeholder -->
+          <!-- West -->
+          <rect x="40" y="60" width="90" height="70" rx="4" fill="#86efac" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="85" y="100" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">WA</text>
+
+          <rect x="40" y="140" width="90" height="70" rx="4" fill="#6ee7b7" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="85" y="180" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">OR</text>
+
+          <rect x="40" y="220" width="90" height="130" rx="4" fill="#bbf7d0" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="85" y="290" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">CA</text>
+
+          <rect x="140" y="80" width="70" height="70" rx="4" fill="#fca5a5" stroke="#dc2626" stroke-width="3" opacity="0.95"/>
+          <text x="175" y="120" text-anchor="middle" font-size="11" fill="#333" font-weight="bold" font-family="Inter">ID</text>
+
+          <rect x="140" y="160" width="70" height="70" rx="4" fill="#fecaca" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="175" y="200" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">NV</text>
+
+          <rect x="140" y="240" width="70" height="60" rx="4" fill="#fecaca" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="175" y="275" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">UT</text>
+
+          <rect x="140" y="310" width="70" height="60" rx="4" fill="#fecdd3" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="175" y="345" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">AZ</text>
+
+          <rect x="220" y="60" width="70" height="60" rx="4" fill="#bbf7d0" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="255" y="95" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">MT</text>
+
+          <rect x="220" y="130" width="70" height="60" rx="4" fill="#d9f99d" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="255" y="165" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">WY</text>
+
+          <rect x="220" y="200" width="70" height="60" rx="4" fill="#bbf7d0" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="255" y="235" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">CO</text>
+
+          <rect x="220" y="270" width="70" height="60" rx="4" fill="#fecdd3" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="255" y="305" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">NM</text>
+
+          <!-- Central -->
+          <rect x="310" y="60" width="65" height="55" rx="4" fill="#fecaca" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="342" y="92" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">ND</text>
+
+          <rect x="310" y="125" width="65" height="55" rx="4" fill="#fecdd3" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="342" y="157" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">SD</text>
+
+          <rect x="310" y="190" width="65" height="55" rx="4" fill="#fecdd3" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="342" y="222" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">NE</text>
+
+          <rect x="310" y="255" width="65" height="55" rx="4" fill="#fecdd3" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="342" y="287" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">KS</text>
+
+          <rect x="310" y="320" width="65" height="55" rx="4" fill="#fecdd3" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="342" y="352" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">OK</text>
+
+          <rect x="310" y="385" width="65" height="65" rx="4" fill="#fecaca" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="342" y="422" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">TX</text>
+
+          <rect x="385" y="60" width="65" height="55" rx="4" fill="#bbf7d0" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="417" y="92" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">MN</text>
+
+          <rect x="385" y="125" width="65" height="55" rx="4" fill="#fecdd3" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="417" y="157" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">IA</text>
+
+          <rect x="385" y="190" width="65" height="55" rx="4" fill="#fecdd3" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="417" y="222" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">MO</text>
+
+          <rect x="385" y="255" width="65" height="55" rx="4" fill="#fca5a5" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="417" y="287" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">AR</text>
+
+          <rect x="385" y="320" width="65" height="55" rx="4" fill="#fca5a5" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="417" y="352" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">LA</text>
+
+          <!-- Midwest/East -->
+          <rect x="460" y="60" width="60" height="55" rx="4" fill="#bbf7d0" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="490" y="92" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">WI</text>
+
+          <rect x="460" y="125" width="60" height="55" rx="4" fill="#a7f3d0" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="490" y="157" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">IL</text>
+
+          <rect x="530" y="60" width="60" height="55" rx="4" fill="#a7f3d0" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="560" y="92" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">MI</text>
+
+          <rect x="530" y="125" width="60" height="50" rx="4" fill="#bbf7d0" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="560" y="155" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">IN</text>
+
+          <rect x="530" y="185" width="60" height="50" rx="4" fill="#bbf7d0" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="560" y="215" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">OH</text>
+
+          <rect x="460" y="190" width="60" height="50" rx="4" fill="#fecdd3" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="490" y="220" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">KY</text>
+
+          <rect x="460" y="250" width="60" height="50" rx="4" fill="#fca5a5" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="490" y="280" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">TN</text>
+
+          <rect x="460" y="310" width="60" height="50" rx="4" fill="#fca5a5" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="490" y="340" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">MS</text>
+
+          <rect x="530" y="245" width="60" height="50" rx="4" fill="#fecaca" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="560" y="275" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">WV</text>
+
+          <rect x="530" y="305" width="60" height="50" rx="4" fill="#fecdd3" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="560" y="335" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">NC</text>
+
+          <rect x="530" y="365" width="60" height="45" rx="4" fill="#fecdd3" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="560" y="392" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">SC</text>
+
+          <rect x="460" y="370" width="60" height="45" rx="4" fill="#fecdd3" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="490" y="397" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">AL</text>
+
+          <rect x="530" y="420" width="60" height="45" rx="4" fill="#fecdd3" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="560" y="447" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">GA</text>
+
+          <rect x="600" y="420" width="55" height="50" rx="4" fill="#bbf7d0" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="627" y="450" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">FL</text>
+
+          <!-- East Coast -->
+          <rect x="600" y="50" width="55" height="45" rx="4" fill="#a7f3d0" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="627" y="77" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">NY</text>
+
+          <rect x="600" y="105" width="55" height="40" rx="4" fill="#a7f3d0" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="627" y="130" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">PA</text>
+
+          <rect x="600" y="155" width="55" height="40" rx="4" fill="#6ee7b7" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="627" y="180" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">NJ</text>
+
+          <rect x="600" y="205" width="55" height="35" rx="4" fill="#86efac" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="627" y="227" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">MD</text>
+
+          <rect x="600" y="250" width="55" height="40" rx="4" fill="#a7f3d0" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="627" y="275" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">VA</text>
+
+          <rect x="600" y="300" width="55" height="50" rx="4" fill="#fecdd3" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="627" y="330" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">NC</text>
+
+          <!-- New England -->
+          <rect x="665" y="30" width="48" height="35" rx="4" fill="#a7f3d0" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="689" y="52" text-anchor="middle" font-size="10" fill="#333" font-family="Inter">VT</text>
+
+          <rect x="720" y="30" width="48" height="35" rx="4" fill="#86efac" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="744" y="52" text-anchor="middle" font-size="10" fill="#333" font-family="Inter">NH</text>
+
+          <rect x="775" y="30" width="45" height="35" rx="4" fill="#6ee7b7" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="797" y="52" text-anchor="middle" font-size="10" fill="#333" font-family="Inter">ME</text>
+
+          <rect x="720" y="72" width="48" height="30" rx="4" fill="#86efac" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="744" y="92" text-anchor="middle" font-size="10" fill="#333" font-family="Inter">MA</text>
+
+          <rect x="665" y="72" width="48" height="30" rx="4" fill="#6ee7b7" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="689" y="92" text-anchor="middle" font-size="10" fill="#333" font-family="Inter">CT</text>
+
+          <rect x="720" y="109" width="48" height="25" rx="4" fill="#bbf7d0" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="744" y="126" text-anchor="middle" font-size="10" fill="#333" font-family="Inter">RI</text>
+
+          <!-- DC tiny -->
+          <rect x="660" y="210" width="40" height="25" rx="4" fill="#22c55e" stroke="#fff" stroke-width="2" opacity="0.95"/>
+          <text x="680" y="227" text-anchor="middle" font-size="9" fill="#fff" font-weight="bold" font-family="Inter">DC</text>
+
+          <!-- Alaska & Hawaii -->
+          <rect x="80" y="420" width="80" height="50" rx="4" fill="#bbf7d0" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="120" y="450" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">AK</text>
+
+          <rect x="200" y="440" width="60" height="35" rx="4" fill="#a7f3d0" stroke="#fff" stroke-width="2" opacity="0.9"/>
+          <text x="230" y="462" text-anchor="middle" font-size="11" fill="#333" font-family="Inter">HI</text>
+        </svg>
+
+        <!-- Idaho highlight label -->
+        <div class="map-highlight-label">Idaho &middot; $67,058</div>
+      </div>
+
+      <!-- Legend -->
+      <div class="map-legend">
+        <div class="map-legend-title">Median Household Income</div>
+        <div class="legend-scale">
+          <div class="legend-block" style="background:#fca5a5; border-radius:4px 0 0 4px;"></div>
+          <div class="legend-block" style="background:#fecaca;"></div>
+          <div class="legend-block" style="background:#fef9c3;"></div>
+          <div class="legend-block" style="background:#bbf7d0;"></div>
+          <div class="legend-block" style="background:#22c55e; border-radius:0 4px 4px 0;"></div>
+        </div>
+        <div class="legend-labels">
+          <span>$56k</span>
+          <span>$76k</span>
+          <span>$106k</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stat Cards -->
+    <div class="map-stats">
+      <div class="stat-card">
+        <div class="stat-card-label">Highest</div>
+        <div class="stat-card-value high">$106,287</div>
+        <div class="stat-card-sub">District of Columbia</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Lowest</div>
+        <div class="stat-card-value low">$56,121</div>
+        <div class="stat-card-sub">Mississippi</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Spread</div>
+        <div class="stat-card-value spread">$50,166</div>
+        <div class="stat-card-sub">Max &minus; Min range</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Realistic data: State, median household income, trend direction
+const states = [
+  { rank: 1, state: 'District of Columbia', value: 106287, trend: 'up' },
+  { rank: 2, state: 'Maryland', value: 98461, trend: 'up' },
+  { rank: 3, state: 'New Jersey', value: 97126, trend: 'up' },
+  { rank: 4, state: 'Massachusetts', value: 96505, trend: 'up' },
+  { rank: 5, state: 'Connecticut', value: 93228, trend: 'up' },
+  { rank: 6, state: 'California', value: 91905, trend: 'up' },
+  { rank: 7, state: 'Washington', value: 90325, trend: 'up' },
+  { rank: 8, state: 'New Hampshire', value: 90115, trend: 'up' },
+  { rank: 9, state: 'Colorado', value: 87598, trend: 'up' },
+  { rank: 10, state: 'Virginia', value: 87249, trend: 'up' },
+  { rank: 11, state: 'Hawaii', value: 86744, trend: 'up' },
+  { rank: 12, state: 'Minnesota', value: 84313, trend: 'up' },
+  { rank: 13, state: 'Utah', value: 83670, trend: 'up' },
+  { rank: 14, state: 'New York', value: 81386, trend: 'up' },
+  { rank: 15, state: 'Illinois', value: 78433, trend: 'down' },
+  { rank: 16, state: 'Oregon', value: 76362, trend: 'up' },
+  { rank: 17, state: 'Rhode Island', value: 76117, trend: 'up' },
+  { rank: 18, state: 'Pennsylvania', value: 73170, trend: 'down' },
+  { rank: 19, state: 'Delaware', value: 72724, trend: 'down' },
+  { rank: 20, state: 'Wisconsin', value: 72458, trend: 'up' },
+  { rank: 21, state: 'Michigan', value: 68505, trend: 'up' },
+  { rank: 22, state: 'Idaho', value: 67058, trend: 'up' },
+  { rank: 23, state: 'Ohio', value: 65720, trend: 'down' },
+  { rank: 24, state: 'Georgia', value: 65030, trend: 'up' },
+  { rank: 25, state: 'Florida', value: 64420, trend: 'up' },
+  { rank: 26, state: 'Texas', value: 63826, trend: 'down' },
+  { rank: 27, state: 'Indiana', value: 63410, trend: 'down' },
+  { rank: 28, state: 'North Carolina', value: 62891, trend: 'up' },
+  { rank: 29, state: 'Missouri', value: 62204, trend: 'down' },
+  { rank: 30, state: 'Tennessee', value: 61542, trend: 'down' },
+  { rank: 31, state: 'South Carolina', value: 60781, trend: 'up' },
+  { rank: 32, state: 'Kentucky', value: 60407, trend: 'down' },
+  { rank: 33, state: 'Alabama', value: 58610, trend: 'down' },
+  { rank: 34, state: 'Louisiana', value: 57852, trend: 'down' },
+  { rank: 35, state: 'Arkansas', value: 56943, trend: 'down' },
+  { rank: 36, state: 'West Virginia', value: 56560, trend: 'down' },
+  { rank: 37, state: 'Mississippi', value: 56121, trend: 'down' },
+];
+
+const national = 76193;
+
+function sparkSvg(dir) {
+  if (dir === 'up') {
+    return `<svg width="40" height="16" viewBox="0 0 40 16"><polyline points="2,13 10,11 18,9 26,6 34,3" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  }
+  return `<svg width="40" height="16" viewBox="0 0 40 16"><polyline points="2,4 10,5 18,8 26,11 34,14" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
+
+const tbody = document.getElementById('tableBody');
+const maxDiff = Math.max(...states.map(s => Math.abs(s.value - national)));
+
+states.forEach((s, i) => {
+  const diff = s.value - national;
+  const pct = diff / national * 100;
+  const isPositive = diff >= 0;
+  const barWidth = Math.min(Math.abs(diff) / maxDiff * 100, 100);
+  const isSelected = s.state === 'Idaho';
+  const isHovered = s.state === 'Florida';
+
+  let cls = '';
+  if (isSelected) cls = 'row-selected';
+  else if (isHovered) cls = 'row-hover';
+
+  const sign = isPositive ? '+' : '';
+  const formatted = '$' + s.value.toLocaleString();
+  const diffFormatted = sign + pct.toFixed(1) + '%';
+
+  tbody.innerHTML += `
+    <tr class="${cls}">
+      <td class="col-rank">${s.rank}</td>
+      <td class="col-state">${s.state}</td>
+      <td class="col-value">${formatted}</td>
+      <td>
+        <div class="vs-national">
+          <div class="bar-track">
+            <div class="bar-fill ${isPositive ? 'positive' : 'negative'}" style="width:${barWidth}%"></div>
+          </div>
+          <span class="vs-text ${isPositive ? 'positive' : 'negative'}">${diffFormatted}</span>
+        </div>
+      </td>
+      <td>
+        <div class="trend-cell">
+          ${sparkSvg(s.trend)}
+          <span class="trend-label ${s.trend}">${s.trend === 'up' ? '+2.3%' : '-1.1%'}</span>
+        </div>
+      </td>
+    </tr>`;
+});
+</script>
+</body>
+</html>

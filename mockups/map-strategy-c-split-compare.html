@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategy C: Split Comparison — LaborCompare Map Explorer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f7f7f8;
+    color: #1a1a1a;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  /* Strategy Banner */
+  .strategy-banner {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    color: #fff;
+    padding: 14px 24px;
+    text-align: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    border-bottom: 3px solid #dc2626;
+  }
+  .strategy-banner span {
+    color: #dc2626;
+    font-weight: 700;
+  }
+  .strategy-banner .subtitle {
+    color: #a0a0a0;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  /* Page Header */
+  .page-header {
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .page-header h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+  .page-header .breadcrumb {
+    font-size: 13px;
+    color: #888;
+  }
+  .page-header .breadcrumb a {
+    color: #dc2626;
+    text-decoration: none;
+  }
+
+  /* Controls Bar */
+  .controls-bar {
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .metric-selector {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .metric-selector.left .metric-label {
+    color: #dc2626;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .metric-selector.right .metric-label {
+    color: #2563eb;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .metric-selector select {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1.5px solid #ddd;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #1a1a1a;
+    background: #fff;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .metric-selector.left select:focus {
+    border-color: #dc2626;
+  }
+  .metric-selector.right select:focus {
+    border-color: #2563eb;
+  }
+
+  .controls-center {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  .sync-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #555;
+    cursor: pointer;
+    user-select: none;
+  }
+  .toggle-track {
+    width: 36px;
+    height: 20px;
+    background: #16a34a;
+    border-radius: 10px;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .toggle-track .toggle-thumb {
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 18px;
+    transition: left 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .swap-btn {
+    padding: 7px 14px;
+    background: #f7f7f8;
+    border: 1.5px solid #ddd;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .swap-btn:hover {
+    border-color: #999;
+    background: #eee;
+  }
+
+  /* Divider between controls sections */
+  .controls-divider {
+    width: 1px;
+    height: 32px;
+    background: #e0e0e0;
+    flex-shrink: 0;
+  }
+
+  /* Split Map Container */
+  .split-maps {
+    display: flex;
+    height: 520px;
+    position: relative;
+  }
+  .map-pane {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+  .map-pane.left {
+    border-right: 1px solid #ccc;
+  }
+  .map-pane.right {
+    border-left: 1px solid #ccc;
+  }
+  .map-placeholder {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  .map-placeholder.red-tone {
+    background: linear-gradient(180deg, #fef2f2 0%, #fee2e2 30%, #fecaca 60%, #f7f7f8 100%);
+  }
+  .map-placeholder.blue-tone {
+    background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 30%, #bfdbfe 60%, #f7f7f8 100%);
+  }
+
+  /* Fake state shapes */
+  .state-shape {
+    position: absolute;
+    border-radius: 3px;
+    opacity: 0.6;
+  }
+  /* Red-tone state shapes */
+  .red-tone .state-shape.s1 { width: 60px; height: 45px; top: 120px; left: 80px; background: #fca5a5; }
+  .red-tone .state-shape.s2 { width: 35px; height: 80px; top: 100px; left: 150px; background: #f87171; }
+  .red-tone .state-shape.s3 { width: 70px; height: 55px; top: 80px; left: 200px; background: #ef4444; }
+  .red-tone .state-shape.s4 { width: 50px; height: 40px; top: 150px; left: 280px; background: #dc2626; }
+  .red-tone .state-shape.s5 { width: 55px; height: 60px; top: 180px; left: 190px; background: #fca5a5; }
+  .red-tone .state-shape.s6 { width: 45px; height: 50px; top: 200px; left: 260px; background: #f87171; }
+  .red-tone .state-shape.s7 { width: 80px; height: 65px; top: 160px; left: 340px; background: #ef4444; }
+  .red-tone .state-shape.s8 { width: 40px; height: 35px; top: 250px; left: 150px; background: #b91c1c; }
+  .red-tone .state-shape.s9 { width: 65px; height: 45px; top: 240px; left: 320px; background: #fca5a5; }
+  .red-tone .state-shape.s10 { width: 50px; height: 55px; top: 280px; left: 420px; background: #dc2626; }
+  /* Idaho highlight - red map */
+  .red-tone .state-shape.idaho {
+    width: 40px; height: 70px; top: 110px; left: 160px;
+    background: #dc2626;
+    opacity: 1;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 2px #dc2626, 0 4px 12px rgba(220,38,38,0.4);
+    z-index: 2;
+  }
+
+  /* Blue-tone state shapes */
+  .blue-tone .state-shape.s1 { width: 60px; height: 45px; top: 120px; left: 80px; background: #93c5fd; }
+  .blue-tone .state-shape.s2 { width: 35px; height: 80px; top: 100px; left: 150px; background: #60a5fa; }
+  .blue-tone .state-shape.s3 { width: 70px; height: 55px; top: 80px; left: 200px; background: #3b82f6; }
+  .blue-tone .state-shape.s4 { width: 50px; height: 40px; top: 150px; left: 280px; background: #2563eb; }
+  .blue-tone .state-shape.s5 { width: 55px; height: 60px; top: 180px; left: 190px; background: #93c5fd; }
+  .blue-tone .state-shape.s6 { width: 45px; height: 50px; top: 200px; left: 260px; background: #60a5fa; }
+  .blue-tone .state-shape.s7 { width: 80px; height: 65px; top: 160px; left: 340px; background: #3b82f6; }
+  .blue-tone .state-shape.s8 { width: 40px; height: 35px; top: 250px; left: 150px; background: #1d4ed8; }
+  .blue-tone .state-shape.s9 { width: 65px; height: 45px; top: 240px; left: 320px; background: #93c5fd; }
+  .blue-tone .state-shape.s10 { width: 50px; height: 55px; top: 280px; left: 420px; background: #2563eb; }
+  /* Idaho highlight - blue map */
+  .blue-tone .state-shape.idaho {
+    width: 40px; height: 70px; top: 110px; left: 160px;
+    background: #2563eb;
+    opacity: 1;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 2px #2563eb, 0 4px 12px rgba(37,99,235,0.4);
+    z-index: 2;
+  }
+
+  /* Map floating label */
+  .map-metric-label {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    z-index: 5;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  }
+  .map-metric-label.red {
+    background: #dc2626;
+    color: #fff;
+  }
+  .map-metric-label.blue {
+    background: #2563eb;
+    color: #fff;
+  }
+
+  /* Map tooltip */
+  .map-tooltip {
+    position: absolute;
+    background: #fff;
+    border-radius: 8px;
+    padding: 12px 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    z-index: 10;
+    font-size: 13px;
+    line-height: 1.5;
+    pointer-events: none;
+  }
+  .map-tooltip .tt-state {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .map-tooltip .tt-value {
+    font-weight: 600;
+  }
+  .map-tooltip .tt-rank {
+    color: #888;
+    font-size: 12px;
+  }
+  .map-pane.left .map-tooltip { top: 90px; left: 130px; }
+  .map-pane.right .map-tooltip { top: 90px; left: 130px; }
+  .map-pane.left .map-tooltip .tt-value { color: #dc2626; }
+  .map-pane.right .map-tooltip .tt-value { color: #2563eb; }
+
+  /* Legend bars on maps */
+  .map-legend {
+    position: absolute;
+    bottom: 20px;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #666;
+    z-index: 5;
+    background: rgba(255,255,255,0.9);
+    padding: 8px 12px;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+  .legend-bar {
+    width: 120px;
+    height: 10px;
+    border-radius: 3px;
+  }
+  .legend-bar.red-grad {
+    background: linear-gradient(90deg, #fee2e2, #dc2626);
+  }
+  .legend-bar.blue-grad {
+    background: linear-gradient(90deg, #dbeafe, #2563eb);
+  }
+
+  /* Zoom controls mock */
+  .zoom-controls {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    z-index: 5;
+  }
+  .zoom-btn {
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #555;
+    cursor: pointer;
+  }
+  .zoom-btn:first-child { border-radius: 4px 4px 0 0; }
+  .zoom-btn:last-child { border-radius: 0 0 4px 4px; }
+
+  /* Center divider grip */
+  .split-divider {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background: #999;
+    z-index: 10;
+    cursor: col-resize;
+  }
+  .split-divider::after {
+    content: '⋮⋮';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px 3px;
+    font-size: 12px;
+    color: #999;
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+
+  /* Comparison Panel */
+  .comparison-panel {
+    margin: 24px 32px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .panel-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .panel-header h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+  .correlation-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+  }
+  .corr-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: #16a34a;
+  }
+  .corr-label {
+    color: #555;
+  }
+  .corr-bar-container {
+    width: 100px;
+    height: 8px;
+    background: #eee;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+  .corr-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #16a34a, #22c55e);
+    border-radius: 4px;
+    width: 72%;
+  }
+  .corr-strength {
+    font-weight: 600;
+    color: #16a34a;
+    font-size: 12px;
+  }
+
+  /* Table */
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .comparison-table thead th {
+    padding: 12px 20px;
+    text-align: left;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #888;
+    border-bottom: 2px solid #eee;
+    background: #fafafa;
+  }
+  .comparison-table thead th.metric-a {
+    color: #dc2626;
+  }
+  .comparison-table thead th.metric-b {
+    color: #2563eb;
+  }
+  .comparison-table tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.1s;
+  }
+  .comparison-table tbody tr:hover {
+    background: #fafafa;
+  }
+  .comparison-table tbody tr.highlighted {
+    background: #fffbeb;
+  }
+  .comparison-table tbody td {
+    padding: 14px 20px;
+    font-size: 14px;
+  }
+  .comparison-table .state-name {
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+  .comparison-table .state-name .state-flag {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+  .comparison-table .val-a { color: #dc2626; font-weight: 600; font-family: 'Space Grotesk', sans-serif; }
+  .comparison-table .val-b { color: #2563eb; font-weight: 600; font-family: 'Space Grotesk', sans-serif; }
+  .comparison-table .rank {
+    color: #999;
+    font-size: 12px;
+  }
+  .comparison-table .rank .rank-num {
+    font-weight: 600;
+    color: #555;
+  }
+  .comparison-table .corr-cell {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .mini-scatter {
+    width: 32px;
+    height: 32px;
+    background: #f7f7f8;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .mini-scatter .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #888;
+    position: absolute;
+  }
+
+  /* Footer features */
+  .features-strip {
+    margin: 0 32px 32px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .feature-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    border-left: 3px solid #dc2626;
+  }
+  .feature-card:nth-child(2) { border-left-color: #2563eb; }
+  .feature-card:nth-child(3) { border-left-color: #16a34a; }
+  .feature-card:nth-child(4) { border-left-color: #f59e0b; }
+  .feature-card h4 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #1a1a1a;
+  }
+  .feature-card p {
+    font-size: 12px;
+    color: #777;
+    line-height: 1.5;
+  }
+
+  /* Selected state indicator */
+  .selected-indicator {
+    position: absolute;
+    bottom: 20px;
+    right: 16px;
+    background: rgba(255,255,255,0.95);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #555;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .selected-indicator .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .selected-indicator .dot.red { background: #dc2626; }
+  .selected-indicator .dot.blue { background: #2563eb; }
+  .selected-indicator strong { color: #1a1a1a; }
+</style>
+</head>
+<body>
+
+<!-- Strategy Banner -->
+<div class="strategy-banner">
+  <span>Strategy C: Split Comparison</span> — Two metrics side-by-side with correlation analysis
+  <div class="subtitle">Compare any two data dimensions across all 50 states on synchronized maps</div>
+</div>
+
+<!-- Page Header -->
+<div class="page-header">
+  <h1>Map Explorer — Split Compare</h1>
+  <div class="breadcrumb"><a href="#">Home</a> / <a href="#">Map</a> / Split Compare</div>
+</div>
+
+<!-- Controls Bar -->
+<div class="controls-bar">
+  <div class="metric-selector left">
+    <span class="metric-label">Metric A</span>
+    <select>
+      <option selected>Median Household Income</option>
+      <option>Per Capita Income</option>
+      <option>Poverty Rate</option>
+      <option>Unemployment Rate</option>
+      <option>Median Wage (All Occupations)</option>
+      <option>Cost of Living Index</option>
+    </select>
+  </div>
+
+  <div class="controls-divider"></div>
+
+  <div class="controls-center">
+    <label class="sync-toggle">
+      <div class="toggle-track">
+        <div class="toggle-thumb"></div>
+      </div>
+      Sync zoom
+    </label>
+    <button class="swap-btn">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 4h12M10 1l3 3-3 3"/>
+        <path d="M13 10H1M4 7l-3 3 3 3"/>
+      </svg>
+      Swap sides
+    </button>
+  </div>
+
+  <div class="controls-divider"></div>
+
+  <div class="metric-selector right">
+    <span class="metric-label">Metric B</span>
+    <select>
+      <option>Median Household Income</option>
+      <option selected>Bachelor's Degree %</option>
+      <option>High School Graduation Rate</option>
+      <option>STEM Employment %</option>
+      <option>College Enrollment Rate</option>
+      <option>Graduate Degree %</option>
+    </select>
+  </div>
+</div>
+
+<!-- Split Maps -->
+<div class="split-maps">
+  <!-- Left Map Pane (Red — Income) -->
+  <div class="map-pane left">
+    <div class="map-placeholder red-tone">
+      <!-- Fake state outlines -->
+      <div class="state-shape s1"></div>
+      <div class="state-shape s2"></div>
+      <div class="state-shape s3"></div>
+      <div class="state-shape idaho"></div>
+      <div class="state-shape s4"></div>
+      <div class="state-shape s5"></div>
+      <div class="state-shape s6"></div>
+      <div class="state-shape s7"></div>
+      <div class="state-shape s8"></div>
+      <div class="state-shape s9"></div>
+      <div class="state-shape s10"></div>
+
+      <div class="map-metric-label red">Median HH Income</div>
+
+      <!-- Tooltip for Idaho -->
+      <div class="map-tooltip">
+        <div class="tt-state">Idaho</div>
+        <div class="tt-value">$63,680</div>
+        <div class="tt-rank">Rank #35 of 50</div>
+      </div>
+
+      <!-- Zoom controls -->
+      <div class="zoom-controls">
+        <div class="zoom-btn">+</div>
+        <div class="zoom-btn">−</div>
+      </div>
+
+      <!-- Legend -->
+      <div class="map-legend">
+        <span>$45K</span>
+        <div class="legend-bar red-grad"></div>
+        <span>$95K</span>
+      </div>
+
+      <!-- Selected state -->
+      <div class="selected-indicator">
+        <span class="dot red"></span>
+        Selected: <strong>Idaho</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="split-divider"></div>
+
+  <!-- Right Map Pane (Blue — Education) -->
+  <div class="map-pane right">
+    <div class="map-placeholder blue-tone">
+      <!-- Fake state outlines -->
+      <div class="state-shape s1"></div>
+      <div class="state-shape s2"></div>
+      <div class="state-shape s3"></div>
+      <div class="state-shape idaho"></div>
+      <div class="state-shape s4"></div>
+      <div class="state-shape s5"></div>
+      <div class="state-shape s6"></div>
+      <div class="state-shape s7"></div>
+      <div class="state-shape s8"></div>
+      <div class="state-shape s9"></div>
+      <div class="state-shape s10"></div>
+
+      <div class="map-metric-label blue">Bachelor's Degree %</div>
+
+      <!-- Tooltip for Idaho -->
+      <div class="map-tooltip">
+        <div class="tt-state">Idaho</div>
+        <div class="tt-value">29.4%</div>
+        <div class="tt-rank">Rank #40 of 50</div>
+      </div>
+
+      <!-- Zoom controls -->
+      <div class="zoom-controls">
+        <div class="zoom-btn">+</div>
+        <div class="zoom-btn">−</div>
+      </div>
+
+      <!-- Legend -->
+      <div class="map-legend">
+        <span>20%</span>
+        <div class="legend-bar blue-grad"></div>
+        <span>45%</span>
+      </div>
+
+      <!-- Selected state -->
+      <div class="selected-indicator">
+        <span class="dot blue"></span>
+        Selected: <strong>Idaho</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Comparison Panel -->
+<div class="comparison-panel">
+  <div class="panel-header">
+    <h2>State Comparison — Income vs. Education</h2>
+    <div class="correlation-badge">
+      <div>
+        <div class="corr-label">Pearson Correlation</div>
+        <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
+          <div class="corr-bar-container">
+            <div class="corr-bar-fill"></div>
+          </div>
+          <span class="corr-value">r = 0.72</span>
+          <span class="corr-strength">Strong positive</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th style="width:20%">State</th>
+        <th class="metric-a" style="width:16%">Median HH Income</th>
+        <th class="metric-a" style="width:12%">Income Rank</th>
+        <th class="metric-b" style="width:16%">Bachelor's %</th>
+        <th class="metric-b" style="width:12%">Edu. Rank</th>
+        <th style="width:24%">Scatter Position</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlighted">
+        <td class="state-name">
+          <span class="state-flag" style="background:#dc2626;"></span>
+          Idaho
+        </td>
+        <td class="val-a">$63,680</td>
+        <td class="rank"><span class="rank-num">#35</span> / 50</td>
+        <td class="val-b">29.4%</td>
+        <td class="rank"><span class="rank-num">#40</span> / 50</td>
+        <td>
+          <div class="corr-cell">
+            <div class="mini-scatter">
+              <div class="dot" style="left:10px; top:14px; background:#dc2626; width:5px; height:5px;"></div>
+              <div class="dot" style="left:5px; top:22px;"></div>
+              <div class="dot" style="left:20px; top:8px;"></div>
+              <div class="dot" style="left:15px; top:16px;"></div>
+              <div class="dot" style="left:24px; top:4px;"></div>
+            </div>
+            <span style="font-size:12px; color:#888;">Below both trendlines</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="state-name">
+          <span class="state-flag" style="background:#16a34a;"></span>
+          Massachusetts
+        </td>
+        <td class="val-a">$96,505</td>
+        <td class="rank"><span class="rank-num">#1</span> / 50</td>
+        <td class="val-b">45.8%</td>
+        <td class="rank"><span class="rank-num">#1</span> / 50</td>
+        <td>
+          <div class="corr-cell">
+            <div class="mini-scatter">
+              <div class="dot" style="left:24px; top:3px; background:#16a34a; width:5px; height:5px;"></div>
+              <div class="dot" style="left:5px; top:22px;"></div>
+              <div class="dot" style="left:20px; top:8px;"></div>
+              <div class="dot" style="left:15px; top:16px;"></div>
+              <div class="dot" style="left:10px; top:14px;"></div>
+            </div>
+            <span style="font-size:12px; color:#16a34a; font-weight:600;">Top in both metrics</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="state-name">
+          <span class="state-flag" style="background:#f59e0b;"></span>
+          California
+        </td>
+        <td class="val-a">$91,905</td>
+        <td class="rank"><span class="rank-num">#4</span> / 50</td>
+        <td class="val-b">35.9%</td>
+        <td class="rank"><span class="rank-num">#11</span> / 50</td>
+        <td>
+          <div class="corr-cell">
+            <div class="mini-scatter">
+              <div class="dot" style="left:20px; top:7px; background:#f59e0b; width:5px; height:5px;"></div>
+              <div class="dot" style="left:5px; top:22px;"></div>
+              <div class="dot" style="left:24px; top:3px;"></div>
+              <div class="dot" style="left:15px; top:16px;"></div>
+              <div class="dot" style="left:10px; top:14px;"></div>
+            </div>
+            <span style="font-size:12px; color:#888;">Above income trendline</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="state-name">
+          <span class="state-flag" style="background:#8b5cf6;"></span>
+          Texas
+        </td>
+        <td class="val-a">$73,035</td>
+        <td class="rank"><span class="rank-num">#23</span> / 50</td>
+        <td class="val-b">32.3%</td>
+        <td class="rank"><span class="rank-num">#22</span> / 50</td>
+        <td>
+          <div class="corr-cell">
+            <div class="mini-scatter">
+              <div class="dot" style="left:14px; top:13px; background:#8b5cf6; width:5px; height:5px;"></div>
+              <div class="dot" style="left:5px; top:22px;"></div>
+              <div class="dot" style="left:24px; top:3px;"></div>
+              <div class="dot" style="left:20px; top:8px;"></div>
+              <div class="dot" style="left:10px; top:18px;"></div>
+            </div>
+            <span style="font-size:12px; color:#888;">Near trendline (typical)</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="state-name">
+          <span class="state-flag" style="background:#ef4444;"></span>
+          Mississippi
+        </td>
+        <td class="val-a">$48,610</td>
+        <td class="rank"><span class="rank-num">#50</span> / 50</td>
+        <td class="val-b">22.3%</td>
+        <td class="rank"><span class="rank-num">#49</span> / 50</td>
+        <td>
+          <div class="corr-cell">
+            <div class="mini-scatter">
+              <div class="dot" style="left:3px; top:24px; background:#ef4444; width:5px; height:5px;"></div>
+              <div class="dot" style="left:20px; top:8px;"></div>
+              <div class="dot" style="left:24px; top:3px;"></div>
+              <div class="dot" style="left:15px; top:16px;"></div>
+              <div class="dot" style="left:10px; top:14px;"></div>
+            </div>
+            <span style="font-size:12px; color:#ef4444; font-weight:600;">Bottom in both metrics</span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Feature Highlights -->
+<div class="features-strip">
+  <div class="feature-card">
+    <h4>Dual Metric Comparison</h4>
+    <p>Compare any two metrics visually on synchronized maps. See how income, education, employment, and cost of living relate geographically.</p>
+  </div>
+  <div class="feature-card">
+    <h4>Geographic Patterns</h4>
+    <p>Spot regional clusters across two dimensions at once. Identify states that outperform or underperform on both metrics simultaneously.</p>
+  </div>
+  <div class="feature-card">
+    <h4>Correlation Analysis</h4>
+    <p>Automatically calculated Pearson correlation with significance testing. See whether high values in one metric predict high values in another.</p>
+  </div>
+  <div class="feature-card">
+    <h4>Time Comparisons</h4>
+    <p>Use split view for before/after analysis. Compare 2019 vs 2024 data for the same metric to visualize change over time across states.</p>
+  </div>
+</div>
+
+</body>
+</html>

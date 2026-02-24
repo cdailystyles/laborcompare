@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategy A: Dashboard Map</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f7f7f8;
+    color: #1a1a1a;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Banner ── */
+  .banner {
+    background: #18181b;
+    color: #fff;
+    text-align: center;
+    padding: 8px 16px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    flex-shrink: 0;
+  }
+  .banner span { color: #dc2626; }
+
+  /* ── Dashboard Grid ── */
+  .dashboard {
+    display: grid;
+    grid-template-columns: 240px 1fr 1fr 260px;
+    grid-template-rows: auto 1fr 1fr auto;
+    grid-template-areas:
+      "controls controls controls controls"
+      "rankings map      map      detail"
+      "rankings map      map      detail"
+      "stats    stats    stats    stats";
+    gap: 10px;
+    padding: 10px;
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+  }
+
+  /* ── Controls Bar ── */
+  .controls {
+    grid-area: controls;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+  }
+
+  .controls select {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    padding: 7px 30px 7px 12px;
+    border: 1px solid #d4d4d8;
+    border-radius: 6px;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2371717a'/%3E%3C/svg%3E") no-repeat right 10px center;
+    appearance: none;
+    cursor: pointer;
+    color: #18181b;
+  }
+  .controls select:focus { outline: 2px solid #dc2626; outline-offset: -1px; border-color: #dc2626; }
+
+  .search-input {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    padding: 7px 12px 7px 32px;
+    border: 1px solid #d4d4d8;
+    border-radius: 6px;
+    width: 220px;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%2371717a' stroke-width='2'%3E%3Ccircle cx='6' cy='6' r='5'/%3E%3Cline x1='10' y1='10' x2='13' y2='13'/%3E%3C/svg%3E") no-repeat 10px center;
+    color: #18181b;
+  }
+  .search-input:focus { outline: 2px solid #dc2626; outline-offset: -1px; border-color: #dc2626; }
+
+  .chip-group { display: flex; gap: 6px; margin-left: 8px; }
+  .chip {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 100px;
+    border: 1px solid #d4d4d8;
+    background: #fff;
+    color: #52525b;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .chip:hover { border-color: #a1a1aa; color: #18181b; }
+  .chip.active { background: #dc2626; color: #fff; border-color: #dc2626; }
+
+  .controls .spacer { flex: 1; }
+
+  .color-btns { display: flex; gap: 4px; }
+  .color-btn {
+    width: 24px; height: 24px; border-radius: 4px; border: 2px solid transparent;
+    cursor: pointer; transition: border-color 0.15s;
+  }
+  .color-btn:hover { border-color: #a1a1aa; }
+  .color-btn.active { border-color: #18181b; }
+  .color-btn.seq { background: linear-gradient(135deg, #fee2e2, #dc2626); }
+  .color-btn.div { background: linear-gradient(135deg, #2563eb, #f5f5f5, #dc2626); }
+  .color-btn.cat { background: conic-gradient(#dc2626, #2563eb, #16a34a, #f59e0b, #dc2626); }
+
+  /* ── Rankings Panel ── */
+  .rankings {
+    grid-area: rankings;
+    padding: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .rankings h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #18181b;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .rank-list { list-style: none; flex: 1; display: flex; flex-direction: column; gap: 5px; }
+  .rank-item {
+    display: grid;
+    grid-template-columns: 18px 1fr auto;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    line-height: 1;
+  }
+  .rank-num {
+    font-weight: 700;
+    color: #a1a1aa;
+    font-size: 11px;
+    text-align: right;
+  }
+  .rank-bar-wrap {
+    position: relative;
+    height: 22px;
+    background: #f4f4f5;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  .rank-bar {
+    height: 100%;
+    border-radius: 4px;
+    position: absolute;
+    left: 0; top: 0;
+    transition: width 0.3s;
+  }
+  .rank-bar-wrap .label {
+    position: relative;
+    z-index: 1;
+    padding-left: 8px;
+    font-weight: 500;
+    font-size: 11px;
+    color: #18181b;
+  }
+  .rank-val {
+    font-weight: 600;
+    font-size: 11px;
+    color: #52525b;
+    white-space: nowrap;
+  }
+
+  /* ── Map Placeholder ── */
+  .map-area {
+    grid-area: map;
+    background: #e4e4e7;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+  }
+  .map-area::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(0,0,0,0.03) 40px, rgba(0,0,0,0.03) 41px),
+      repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0,0,0,0.03) 40px, rgba(0,0,0,0.03) 41px);
+  }
+  .map-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #a1a1aa;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    z-index: 1;
+  }
+  .map-zoom {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    z-index: 2;
+  }
+  .map-zoom button {
+    width: 30px; height: 30px;
+    background: #fff;
+    border: 1px solid #d4d4d8;
+    font-size: 16px;
+    cursor: pointer;
+    color: #52525b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .map-zoom button:first-child { border-radius: 6px 6px 0 0; }
+  .map-zoom button:last-child { border-radius: 0 0 6px 6px; }
+  .map-zoom button:hover { background: #f4f4f5; }
+
+  .map-legend {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 11px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+  .legend-gradient {
+    width: 100px;
+    height: 10px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #fee2e2, #fca5a5, #ef4444, #dc2626, #991b1b);
+  }
+  .legend-label { color: #71717a; font-weight: 500; }
+
+  /* ── Detail Panel ── */
+  .detail {
+    grid-area: detail;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+  }
+  .detail-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .state-badge {
+    width: 36px; height: 36px;
+    background: #dc2626;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: #fff;
+  }
+  .detail-header h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #18181b;
+  }
+  .detail-header .rank-tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: #dc2626;
+    background: #fee2e2;
+    padding: 2px 8px;
+    border-radius: 100px;
+  }
+  .detail-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f4f4f5;
+  }
+  .detail-metric:last-child { border-bottom: none; }
+  .detail-metric .label {
+    font-size: 11px;
+    color: #71717a;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .detail-metric .value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #18181b;
+  }
+  .detail-metric .sub {
+    font-size: 11px;
+    color: #a1a1aa;
+    font-weight: 500;
+  }
+  .detail-metric .bar-track {
+    height: 5px;
+    background: #f4f4f5;
+    border-radius: 3px;
+    margin-top: 4px;
+    overflow: hidden;
+  }
+  .detail-metric .bar-fill {
+    height: 100%;
+    background: #dc2626;
+    border-radius: 3px;
+  }
+
+  /* ── Stats Row ── */
+  .stats-row {
+    grid-area: stats;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .stat-card {
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .stat-card .label {
+    font-size: 11px;
+    color: #71717a;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .stat-card .value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #18181b;
+  }
+  .stat-card .delta {
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .delta.up { color: #16a34a; }
+  .delta.down { color: #dc2626; }
+  .stat-card .note {
+    font-size: 11px;
+    color: #a1a1aa;
+  }
+</style>
+</head>
+<body>
+
+<!-- Banner -->
+<div class="banner">Strategy A: Dashboard Map <span>&mdash;</span> Data surrounds the map in a grid layout</div>
+
+<!-- Dashboard -->
+<div class="dashboard">
+
+  <!-- Controls Bar -->
+  <div class="controls card">
+    <select>
+      <option>Median Household Income</option>
+      <option>Per Capita Income</option>
+      <option>Poverty Rate</option>
+      <option>Employment Rate</option>
+    </select>
+    <input class="search-input" type="text" placeholder="Search occupations...">
+    <div class="chip-group">
+      <div class="chip active">Income</div>
+      <div class="chip">Employment</div>
+      <div class="chip">Education</div>
+      <div class="chip">Housing</div>
+    </div>
+    <div class="spacer"></div>
+    <div class="color-btns">
+      <div class="color-btn seq active" title="Sequential"></div>
+      <div class="color-btn div" title="Diverging"></div>
+      <div class="color-btn cat" title="Categorical"></div>
+    </div>
+  </div>
+
+  <!-- Rankings Panel -->
+  <div class="rankings card">
+    <h3>Top 10 States</h3>
+    <ul class="rank-list">
+      <li class="rank-item">
+        <span class="rank-num">1</span>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:100%;background:#991b1b;"></div><span class="label">Maryland</span></div>
+        <span class="rank-val">$98,461</span>
+      </li>
+      <li class="rank-item">
+        <span class="rank-num">2</span>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:96%;background:#b91c1c;"></div><span class="label">New Jersey</span></div>
+        <span class="rank-val">$97,126</span>
+      </li>
+      <li class="rank-item">
+        <span class="rank-num">3</span>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:93%;background:#dc2626;"></div><span class="label">Massachusetts</span></div>
+        <span class="rank-val">$95,572</span>
+      </li>
+      <li class="rank-item">
+        <span class="rank-num">4</span>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:90%;background:#dc2626;"></div><span class="label">Connecticut</span></div>
+        <span class="rank-val">$93,228</span>
+      </li>
+      <li class="rank-item">
+        <span class="rank-num">5</span>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:87%;background:#ef4444;"></div><span class="label">California</span></div>
+        <span class="rank-val">$91,905</span>
+      </li>
+      <li class="rank-item">
+        <span class="rank-num">6</span>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:85%;background:#ef4444;"></div><span class="label">Hawaii</span></div>
+        <span class="rank-val">$91,010</span>
+      </li>
+      <li class="rank-item">
+        <span class="rank-num">7</span>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:82%;background:#f87171;"></div><span class="label">Washington</span></div>
+        <span class="rank-val">$90,325</span>
+      </li>
+      <li class="rank-item">
+        <span class="rank-num">8</span>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:79%;background:#f87171;"></div><span class="label">New Hampshire</span></div>
+        <span class="rank-val">$88,841</span>
+      </li>
+      <li class="rank-item">
+        <span class="rank-num">9</span>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:76%;background:#fca5a5;"></div><span class="label">Colorado</span></div>
+        <span class="rank-val">$87,598</span>
+      </li>
+      <li class="rank-item">
+        <span class="rank-num">10</span>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:73%;background:#fca5a5;"></div><span class="label">Virginia</span></div>
+        <span class="rank-val">$87,249</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Map Placeholder -->
+  <div class="map-area">
+    <span class="map-label">Map</span>
+    <div class="map-zoom">
+      <button>+</button>
+      <button>&minus;</button>
+    </div>
+    <div class="map-legend">
+      <span class="legend-label">$45k</span>
+      <div class="legend-gradient"></div>
+      <span class="legend-label">$98k</span>
+    </div>
+  </div>
+
+  <!-- Detail Panel -->
+  <div class="detail card">
+    <div class="detail-header">
+      <div class="state-badge">ID</div>
+      <div>
+        <h3>Idaho</h3>
+        <span class="rank-tag">#30 of 51</span>
+      </div>
+    </div>
+
+    <div class="detail-metric">
+      <span class="label">Median Household Income</span>
+      <span class="value">$74,989</span>
+      <div class="bar-track"><div class="bar-fill" style="width:56%;"></div></div>
+      <span class="sub">56th percentile nationally</span>
+    </div>
+
+    <div class="detail-metric">
+      <span class="label">Population</span>
+      <span class="value">1,964,726</span>
+      <span class="sub">+2.1% from 2022</span>
+    </div>
+
+    <div class="detail-metric">
+      <span class="label">Per Capita Income</span>
+      <span class="value">$34,079</span>
+      <div class="bar-track"><div class="bar-fill" style="width:42%;"></div></div>
+      <span class="sub">42nd percentile</span>
+    </div>
+
+    <div class="detail-metric">
+      <span class="label">Poverty Rate</span>
+      <span class="value">11.2%</span>
+      <span class="sub">U.S. average: 12.4%</span>
+    </div>
+
+    <div class="detail-metric">
+      <span class="label">Unemployment Rate</span>
+      <span class="value">3.1%</span>
+      <span class="sub">U.S. average: 3.7%</span>
+    </div>
+  </div>
+
+  <!-- Stats Row -->
+  <div class="stats-row">
+    <div class="stat-card card">
+      <span class="label">U.S. Total Population</span>
+      <span class="value">334.9M</span>
+      <span class="delta up">+0.5% YoY</span>
+      <span class="note">2024 Census estimate</span>
+    </div>
+    <div class="stat-card card">
+      <span class="label">National Median Income</span>
+      <span class="value">$80,610</span>
+      <span class="delta up">+3.2% YoY</span>
+      <span class="note">ACS 2023 1-year</span>
+    </div>
+    <div class="stat-card card">
+      <span class="label">Per Capita Income</span>
+      <span class="value">$41,261</span>
+      <span class="delta up">+4.1% YoY</span>
+      <span class="note">BEA 2023</span>
+    </div>
+    <div class="stat-card card">
+      <span class="label">National Poverty Rate</span>
+      <span class="value">12.4%</span>
+      <span class="delta down">+0.4pp YoY</span>
+      <span class="note">Census ACS 2023</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategy B: Full-Screen Immersive Map</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f7f7f8;
+    color: #1a1a1a;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* Strategy Banner */
+  .strategy-banner {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 9999;
+    background: #dc2626;
+    color: #fff;
+    text-align: center;
+    padding: 8px 16px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  /* Full Viewport Map Placeholder */
+  .map-viewport {
+    position: fixed;
+    top: 36px; left: 0; right: 0; bottom: 0;
+    background:
+      linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px),
+      linear-gradient(135deg, #e8eaed 0%, #f0f1f3 50%, #e5e7eb 100%);
+    background-size: 60px 60px, 60px 60px, 100% 100%;
+  }
+
+  /* Fake map shapes */
+  .map-viewport::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-55%, -50%);
+    width: 680px; height: 420px;
+    background:
+      radial-gradient(ellipse 120px 80px at 20% 40%, rgba(220,38,38,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 100px 60px at 45% 35%, rgba(220,38,38,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 80px 90px at 70% 50%, rgba(220,38,38,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 140px 70px at 35% 60%, rgba(220,38,38,0.15) 0%, transparent 70%),
+      radial-gradient(ellipse 60px 50px at 80% 30%, rgba(220,38,38,0.1) 0%, transparent 70%),
+      radial-gradient(ellipse 90px 100px at 55% 55%, rgba(220,38,38,0.09) 0%, transparent 70%);
+    opacity: 0.9;
+  }
+
+  /* State outlines hint */
+  .map-viewport::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-55%, -50%);
+    width: 680px; height: 420px;
+    border: 2px dashed rgba(0,0,0,0.06);
+    border-radius: 8px;
+  }
+
+  .map-label {
+    position: absolute;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(0,0,0,0.25);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+  .map-label.l1 { top: 38%; left: 28%; }
+  .map-label.l2 { top: 30%; left: 52%; }
+  .map-label.l3 { top: 55%; left: 40%; }
+  .map-label.l4 { top: 42%; left: 68%; }
+  .map-label.l5 { top: 60%; left: 58%; }
+  .map-label.l6 { top: 35%; left: 38%; }
+  .map-label.l7 { top: 48%; left: 48%; }
+
+  /* Idaho highlighted */
+  .idaho-highlight {
+    position: absolute;
+    top: 32%; left: 33%;
+    width: 48px; height: 72px;
+    background: rgba(220, 38, 38, 0.18);
+    border: 2px solid #dc2626;
+    border-radius: 4px;
+    cursor: pointer;
+    animation: pulse-border 2s ease-in-out infinite;
+  }
+  @keyframes pulse-border {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.3); }
+    50% { box-shadow: 0 0 0 6px rgba(220,38,38,0); }
+  }
+
+  /* Floating overlay base */
+  .floating {
+    position: fixed;
+    z-index: 100;
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    top: 48px; left: 16px;
+    font-size: 12px;
+    color: rgba(0,0,0,0.5);
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(8px);
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  .breadcrumb a {
+    color: rgba(0,0,0,0.5);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover { color: #dc2626; }
+  .breadcrumb span { color: rgba(0,0,0,0.35); margin: 0 4px; }
+
+  /* Top-Left Control Pill */
+  .control-pill {
+    top: 76px; left: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 6px 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.04);
+  }
+
+  .control-pill select {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a1a;
+    border: none;
+    background: transparent;
+    padding: 6px 28px 6px 12px;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+  }
+
+  .pill-divider {
+    width: 1px;
+    height: 24px;
+    background: #e5e7eb;
+  }
+
+  .metric-chips {
+    display: flex;
+    gap: 4px;
+  }
+  .chip {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+  .chip:hover { border-color: #d1d5db; background: #f9fafb; }
+  .chip.active {
+    background: #dc2626;
+    color: #fff;
+    border-color: #dc2626;
+  }
+
+  /* Top-Right Search */
+  .search-overlay {
+    top: 76px; right: 312px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.04);
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    transition: all 0.2s ease;
+    width: 260px;
+  }
+  .search-overlay:focus-within {
+    box-shadow: 0 2px 16px rgba(0,0,0,0.14), 0 0 0 2px #dc2626;
+    width: 300px;
+  }
+  .search-icon {
+    color: #9ca3af;
+    flex-shrink: 0;
+  }
+  .search-overlay input {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    border: none;
+    outline: none;
+    padding: 10px 8px;
+    width: 100%;
+    background: transparent;
+    color: #1a1a1a;
+  }
+  .search-overlay input::placeholder { color: #9ca3af; }
+  .search-kbd {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: #9ca3af;
+    background: #f3f4f6;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #e5e7eb;
+    flex-shrink: 0;
+  }
+
+  /* Bottom-Left Legend */
+  .legend-card {
+    bottom: 72px; left: 16px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
+    min-width: 200px;
+  }
+  .legend-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .legend-bar {
+    height: 10px;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #fecaca, #fca5a5, #f87171, #ef4444, #dc2626, #b91c1c, #991b1b);
+    margin-bottom: 6px;
+  }
+  .legend-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    font-weight: 500;
+    color: #9ca3af;
+  }
+
+  /* Bottom-Center Toolbar */
+  .toolbar {
+    bottom: 16px; left: 50%; transform: translateX(-50%);
+    background: #fff;
+    border-radius: 12px;
+    padding: 4px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.04);
+    display: flex;
+    gap: 2px;
+  }
+  .toolbar-btn {
+    width: 38px; height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .toolbar-btn:hover { background: #f3f4f6; color: #1a1a1a; }
+  .toolbar-btn:active { background: #e5e7eb; }
+  .toolbar-divider {
+    width: 1px;
+    margin: 6px 2px;
+    background: #e5e7eb;
+  }
+
+  /* Right Drawer */
+  .drawer {
+    position: fixed;
+    top: 36px; right: 0; bottom: 0;
+    width: 296px;
+    background: #fff;
+    box-shadow: -4px 0 24px rgba(0,0,0,0.1);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    animation: slide-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes slide-in {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+
+  .drawer-header {
+    padding: 20px 20px 0;
+    position: relative;
+  }
+  .drawer-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    width: 32px; height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: #f3f4f6;
+    border-radius: 8px;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-size: 16px;
+  }
+  .drawer-close:hover { background: #e5e7eb; color: #1a1a1a; }
+
+  .drawer-state-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+  .drawer-subtitle {
+    font-size: 12px;
+    color: #9ca3af;
+    font-weight: 500;
+  }
+
+  .drawer-hero {
+    padding: 20px;
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+  }
+  .drawer-big-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #dc2626;
+    line-height: 1;
+  }
+  .drawer-rank {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #fef2f2;
+    color: #dc2626;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+  }
+  .drawer-change {
+    font-size: 12px;
+    font-weight: 600;
+    color: #16a34a;
+    margin-bottom: 4px;
+  }
+
+  .drawer-divider {
+    height: 1px;
+    background: #f3f4f6;
+    margin: 0 20px;
+  }
+
+  /* Sparkline placeholder */
+  .sparkline-section {
+    padding: 16px 20px;
+  }
+  .sparkline-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .sparkline-placeholder {
+    height: 48px;
+    background: linear-gradient(180deg, rgba(220,38,38,0.04) 0%, rgba(220,38,38,0) 100%);
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+  }
+  .sparkline-line {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 48px;
+  }
+  .sparkline-line svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Stats Grid */
+  .drawer-stats {
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .stat-item {
+    background: #f9fafb;
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .stat-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #9ca3af;
+    margin-bottom: 4px;
+  }
+  .stat-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+  .stat-meta {
+    font-size: 10px;
+    color: #9ca3af;
+    margin-top: 2px;
+  }
+
+  /* Drawer footer */
+  .drawer-footer {
+    margin-top: auto;
+    padding: 16px 20px 20px;
+  }
+  .drawer-btn {
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .drawer-btn-primary {
+    background: #dc2626;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .drawer-btn-primary:hover { background: #b91c1c; }
+  .drawer-btn-secondary {
+    background: #f3f4f6;
+    color: #6b7280;
+  }
+  .drawer-btn-secondary:hover { background: #e5e7eb; color: #1a1a1a; }
+
+  /* Top occupations list */
+  .top-occs {
+    padding: 0 20px 8px;
+  }
+  .top-occs-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .occ-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 12px;
+  }
+  .occ-row:last-child { border-bottom: none; }
+  .occ-name {
+    color: #374151;
+    font-weight: 500;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 8px;
+  }
+  .occ-val {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    color: #1a1a1a;
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- Strategy Banner -->
+<div class="strategy-banner">
+  Strategy B: Full-Screen Immersive &mdash; Map fills viewport, floating overlays for controls
+</div>
+
+<!-- Full Viewport Map Placeholder -->
+<div class="map-viewport">
+  <div class="map-label l1">WA</div>
+  <div class="map-label l2">MT</div>
+  <div class="map-label l3">CA</div>
+  <div class="map-label l4">MN</div>
+  <div class="map-label l5">TX</div>
+  <div class="map-label l6">OR</div>
+  <div class="map-label l7">CO</div>
+  <div class="idaho-highlight" title="Idaho (selected)"></div>
+</div>
+
+<!-- Breadcrumb -->
+<div class="floating breadcrumb">
+  <a href="#">Home</a>
+  <span>&rsaquo;</span>
+  <a href="#">Map Explorer</a>
+</div>
+
+<!-- Top-Left Control Pill -->
+<div class="floating control-pill">
+  <select>
+    <option>All Occupations</option>
+    <option>Management</option>
+    <option>Computer &amp; Math</option>
+    <option>Healthcare</option>
+    <option>Education</option>
+    <option>Construction</option>
+  </select>
+  <div class="pill-divider"></div>
+  <div class="metric-chips">
+    <div class="chip active">Median Wage</div>
+    <div class="chip">Employment</div>
+    <div class="chip">Cost of Living</div>
+    <div class="chip">Growth</div>
+  </div>
+</div>
+
+<!-- Top-Right Search -->
+<div class="floating search-overlay">
+  <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+  <input type="text" placeholder="Search occupations..." />
+  <span class="search-kbd">/</span>
+</div>
+
+<!-- Bottom-Left Legend -->
+<div class="floating legend-card">
+  <div class="legend-title">Median Annual Wage</div>
+  <div class="legend-bar"></div>
+  <div class="legend-labels">
+    <span>$32,000</span>
+    <span>$56,000</span>
+    <span>$85,000+</span>
+  </div>
+</div>
+
+<!-- Bottom-Center Toolbar -->
+<div class="floating toolbar">
+  <button class="toolbar-btn" title="Zoom In">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  </button>
+  <button class="toolbar-btn" title="Zoom Out">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  </button>
+  <div class="toolbar-divider"></div>
+  <button class="toolbar-btn" title="Reset View">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+  </button>
+  <button class="toolbar-btn" title="Fullscreen">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+  </button>
+  <div class="toolbar-divider"></div>
+  <button class="toolbar-btn" title="Download">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+  </button>
+</div>
+
+<!-- Right Drawer (State Detail for Idaho) -->
+<div class="drawer">
+  <div class="drawer-header">
+    <button class="drawer-close">&times;</button>
+    <div class="drawer-state-name">Idaho</div>
+    <div class="drawer-subtitle">All Occupations &middot; 2024 OEWS Data</div>
+  </div>
+
+  <div class="drawer-hero">
+    <div>
+      <div class="drawer-big-value">$42,960</div>
+      <div style="margin-top: 4px;">
+        <span class="drawer-change">+3.2% YoY</span>
+      </div>
+    </div>
+    <div class="drawer-rank">#38 nationally</div>
+  </div>
+
+  <div class="drawer-divider"></div>
+
+  <div class="sparkline-section">
+    <div class="sparkline-label">5-Year Wage Trend</div>
+    <div class="sparkline-placeholder">
+      <div class="sparkline-line">
+        <svg viewBox="0 0 256 48" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#dc2626" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="#dc2626" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M0,38 L32,35 L64,32 L96,28 L128,24 L160,20 L192,16 L224,13 L256,10 L256,48 L0,48 Z" fill="url(#sg)"/>
+          <polyline points="0,38 32,35 64,32 96,28 128,24 160,20 192,16 224,13 256,10" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="256" cy="10" r="3" fill="#dc2626"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="drawer-divider"></div>
+
+  <div class="drawer-stats">
+    <div class="stat-item">
+      <div class="stat-label">Hourly Wage</div>
+      <div class="stat-value">$20.65</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Employment</div>
+      <div class="stat-value">812K</div>
+      <div class="stat-meta">+2.1% growth</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Cost of Living</div>
+      <div class="stat-value">96.3</div>
+      <div class="stat-meta">Below avg</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Mean Wage</div>
+      <div class="stat-value">$49,220</div>
+    </div>
+  </div>
+
+  <div class="drawer-divider"></div>
+
+  <div class="top-occs">
+    <div class="top-occs-label">Top Paying Occupations</div>
+    <div class="occ-row">
+      <span class="occ-name">Surgeons</span>
+      <span class="occ-val">$248,070</span>
+    </div>
+    <div class="occ-row">
+      <span class="occ-name">Psychiatrists</span>
+      <span class="occ-val">$232,410</span>
+    </div>
+    <div class="occ-row">
+      <span class="occ-name">Orthodontists</span>
+      <span class="occ-val">$218,960</span>
+    </div>
+    <div class="occ-row">
+      <span class="occ-name">Family Medicine Physicians</span>
+      <span class="occ-val">$201,540</span>
+    </div>
+  </div>
+
+  <div class="drawer-footer">
+    <button class="drawer-btn drawer-btn-primary">View Full Profile &rarr;</button>
+    <button class="drawer-btn drawer-btn-secondary">Compare States</button>
+  </div>
+</div>
+
+</body>
+</html>
