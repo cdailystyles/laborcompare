@@ -293,6 +293,59 @@
     }
 
     // ================================================================
+    // Dynamic meta tags per route
+    // ================================================================
+    const META_DEFAULTS = {
+        title: 'LaborCompare — BLS Data, Built for Humans',
+        description: 'Search 830+ occupations across every state and metro area. Wages, jobs, prices, and projections from the Bureau of Labor Statistics, redesigned for humans.'
+    };
+
+    const ROUTE_META = {
+        '/': META_DEFAULTS,
+        '/wages': { title: 'Wages — LaborCompare', description: 'Browse salaries for 830+ occupations. National medians, state breakdowns, and metro-level wage data from BLS OEWS.' },
+        '/jobs': { title: 'Jobs & Employment — LaborCompare', description: 'Employment situation, payrolls, unemployment, and JOLTS data. Job openings, hires, and quits trends.' },
+        '/prices': { title: 'Prices & Inflation — LaborCompare', description: 'Consumer Price Index (CPI) trends, category breakdowns, and an inflation calculator.' },
+        '/states': { title: 'States — LaborCompare', description: 'Compare economic indicators across all 50 states. Unemployment, income, and top occupations by state.' },
+        '/outlook': { title: 'Job Outlook — LaborCompare', description: 'Fastest growing, most new jobs, and declining occupations. BLS employment projections 2023-2033.' },
+        '/map': { title: 'Map Explorer — LaborCompare', description: 'Interactive choropleth map of wages, unemployment, and economic indicators across US states.' },
+        '/compare': { title: 'Compare — LaborCompare', description: 'Side-by-side comparison of occupations or states. Wages, employment, and economic data.' }
+    };
+
+    function updateMeta() {
+        const hash = window.location.hash || '#/';
+        const path = hash.replace('#', '').split('?')[0];
+        const basePath = '/' + (path.split('/').filter(Boolean)[0] || '');
+        const meta = ROUTE_META[basePath] || META_DEFAULTS;
+
+        document.title = meta.title;
+        const descEl = document.querySelector('meta[name="description"]');
+        if (descEl) descEl.setAttribute('content', meta.description);
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        if (ogTitle) ogTitle.setAttribute('content', meta.title.split(' — ')[0]);
+        const ogDesc = document.querySelector('meta[property="og:description"]');
+        if (ogDesc) ogDesc.setAttribute('content', meta.description);
+    }
+
+    // ================================================================
+    // Lazy-load Leaflet
+    // ================================================================
+    window.loadLeaflet = (() => {
+        let promise = null;
+        return function () {
+            if (window.L) return Promise.resolve();
+            if (promise) return promise;
+            promise = new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+                script.onload = resolve;
+                script.onerror = () => reject(new Error('Failed to load Leaflet'));
+                document.head.appendChild(script);
+            });
+            return promise;
+        };
+    })();
+
+    // ================================================================
     // Boot
     // ================================================================
     function init() {
@@ -302,6 +355,10 @@
 
         // Pre-fetch ticker data
         initTicker();
+
+        // Dynamic meta tags on route change
+        window.addEventListener('hashchange', updateMeta);
+        updateMeta();
     }
 
     if (document.readyState === 'loading') {

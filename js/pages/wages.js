@@ -381,6 +381,8 @@ const WagesPage = (() => {
         const mapEl = document.getElementById('occ-map');
         if (!mapEl || !states || Object.keys(states).length === 0) return;
 
+        await loadLeaflet();
+
         if (map) { map.remove(); map = null; }
 
         map = L.map('occ-map', {

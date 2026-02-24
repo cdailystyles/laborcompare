@@ -16,6 +16,8 @@ const MapExplorerPage = (() => {
     }
 
     async function mount(params, container) {
+        await loadLeaflet();
+
         container.innerHTML = `
             <div class="map-page">
                 <div class="map-controls-bar">
