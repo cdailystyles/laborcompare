@@ -213,7 +213,30 @@ function main() {
   }
 
   // ================================================================
-  // 5. Save index
+  // 5. Enrich occupations with projections data
+  // ================================================================
+  const projectionsPath = path.join(DATA_DIR, 'projections', 'national.json');
+  if (existsSync(projectionsPath)) {
+    console.log('Enriching with projections data...');
+    const projections = JSON.parse(readFileSync(projectionsPath, 'utf-8'));
+    const projMap = new Map();
+    for (const occ of (projections.occupations || [])) {
+      projMap.set(occ.code, occ);
+    }
+
+    let enriched = 0;
+    for (const occ of index.occupations) {
+      const proj = projMap.get(occ.c);
+      if (proj) {
+        occ.growth = proj.changePct;
+        enriched++;
+      }
+    }
+    console.log(`  Enriched ${enriched} occupations with growth projections`);
+  }
+
+  // ================================================================
+  // 6. Save index
   // ================================================================
   const outputPath = path.join(DATA_DIR, 'search-index.json');
   const json = JSON.stringify(index);

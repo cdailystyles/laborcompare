@@ -40,6 +40,9 @@ jobs:
           mkdir -p data/oews/occupations/by-metro
           mkdir -p data/oews/areas/states
           mkdir -p data/oews/areas/metros
+          mkdir -p data/cpi
+          mkdir -p data/projections
+          mkdir -p data/jolts
 
       - name: Fetch BLS LAUS data
         working-directory: scripts
@@ -85,6 +88,38 @@ jobs:
       - name: Generate national files
         working-directory: scripts
         run: node generate-national-counties.js
+
+      - name: Fetch BLS CPI data
+        working-directory: scripts
+        env:
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+        run: node fetch-bls-cpi.js
+
+      - name: Fetch BLS JOLTS data
+        working-directory: scripts
+        env:
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+        run: node fetch-bls-jolts.js
+
+      - name: Fetch BLS Employment Projections
+        working-directory: scripts
+        run: node fetch-bls-projections.js
+
+      - name: Process CPI data
+        working-directory: scripts
+        run: node process-cpi.js
+
+      - name: Process JOLTS data
+        working-directory: scripts
+        run: node process-jolts.js
+
+      - name: Process employment projections
+        working-directory: scripts
+        run: node process-projections.js
+
+      - name: Build ticker data
+        working-directory: scripts
+        run: node process-ticker.js
 
       - name: Build search index
         working-directory: scripts

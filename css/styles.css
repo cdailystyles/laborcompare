@@ -333,9 +333,20 @@ main {
     border-radius: 3px;
 }
 
-/* Search dropdown (used inside overlay and inline) */
+/* Search dropdown (inline use: compare, map, home search) */
 .search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0 0 var(--radius) var(--radius);
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: var(--z-dropdown);
     display: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
 }
 .search-dropdown.visible { display: block; }
 
@@ -416,6 +427,7 @@ main {
 .hero-search-sm {
     position: relative;
     width: 380px;
+    z-index: 10;
 }
 .hero-search-sm input {
     width: 100%;
@@ -1107,6 +1119,7 @@ main {
 .compare-search {
     position: relative;
     margin-bottom: 4px;
+    z-index: 10;
 }
 
 .compare-selected {
