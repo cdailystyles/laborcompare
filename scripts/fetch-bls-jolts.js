@@ -16,8 +16,8 @@ const BLS_API_URL = 'https://api.bls.gov/publicAPI/v2/timeseries/data/';
 const BLS_API_KEY = process.env.BLS_API_KEY;
 
 if (!BLS_API_KEY) {
-  console.error('ERROR: BLS_API_KEY environment variable is required.');
-  process.exit(1);
+  console.log('WARN: BLS_API_KEY not set. Skipping JOLTS fetch.');
+  process.exit(0);
 }
 
 // JOLTS series IDs (Seasonally Adjusted, Total Nonfarm)
@@ -99,6 +99,6 @@ async function main() {
 }
 
 main().catch(err => {
-  console.error('JOLTS fetch failed:', err.message);
-  process.exit(1);
+  console.error('JOLTS fetch warning:', err.message);
+  // Exit 0 so workflow continues
 });

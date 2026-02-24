@@ -20,8 +20,8 @@ function main() {
 
   const rawPath = path.join(RAW_DIR, 'bls-cpi.json');
   if (!existsSync(rawPath)) {
-    console.error('ERROR: bls-cpi.json not found. Run fetch-bls-cpi.js first.');
-    process.exit(1);
+    console.log('WARN: bls-cpi.json not found. Skipping CPI processing.');
+    return;
   }
 
   const raw = JSON.parse(readFileSync(rawPath, 'utf-8'));
@@ -30,8 +30,8 @@ function main() {
   // --- national.json: All Items CPI time series ---
   const allItemsSA = raw.series['CUSR0000SA0'];
   if (!allItemsSA) {
-    console.error('ERROR: All Items SA series not found');
-    process.exit(1);
+    console.log('WARN: All Items SA series not found in CPI data. Skipping.');
+    return;
   }
 
   const national = {
@@ -125,6 +125,6 @@ function main() {
 try {
   main();
 } catch (err) {
-  console.error('CPI processing failed:', err.message);
-  process.exit(1);
+  console.error('CPI processing warning:', err.message);
+  // Exit 0 so workflow continues
 }

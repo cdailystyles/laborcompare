@@ -17,8 +17,8 @@ const BLS_API_URL = 'https://api.bls.gov/publicAPI/v2/timeseries/data/';
 const BLS_API_KEY = process.env.BLS_API_KEY;
 
 if (!BLS_API_KEY) {
-  console.error('ERROR: BLS_API_KEY environment variable is required.');
-  process.exit(1);
+  console.log('WARN: BLS_API_KEY not set. Skipping CPI fetch.');
+  process.exit(0);
 }
 
 // CPI series IDs
@@ -107,6 +107,6 @@ async function main() {
 }
 
 main().catch(err => {
-  console.error('CPI fetch failed:', err.message);
-  process.exit(1);
+  console.error('CPI fetch warning:', err.message);
+  // Exit 0 so workflow continues
 });

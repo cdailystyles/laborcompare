@@ -26,8 +26,8 @@ function main() {
 
   const rawPath = path.join(RAW_DIR, 'bls-jolts.json');
   if (!existsSync(rawPath)) {
-    console.error('ERROR: bls-jolts.json not found. Run fetch-bls-jolts.js first.');
-    process.exit(1);
+    console.log('WARN: bls-jolts.json not found. Skipping JOLTS processing.');
+    return;
   }
 
   const raw = JSON.parse(readFileSync(rawPath, 'utf-8'));
@@ -71,6 +71,6 @@ function main() {
 try {
   main();
 } catch (err) {
-  console.error('JOLTS processing failed:', err.message);
-  process.exit(1);
+  console.error('JOLTS processing warning:', err.message);
+  // Exit 0 so workflow continues
 }

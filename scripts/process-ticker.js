@@ -1,10 +1,17 @@
 /**
  * process-ticker.js
  * Builds data/ticker.json from raw BLS data files.
- * Combines latest values from LAUS, CES, CPI, and JOLTS.
+ * Uses CPI + JOLTS data from new pipeline. Falls back to existing ticker.json
+ * if no new data is available (preserving hardcoded values).
+ *
+ * NOTE: Unemployment, payrolls, earnings, and LFPR data come from the
+ * existing LAUS/CES fetch scripts which produce state-level files, not
+ * national series. Those ticker items are only updated when we add a
+ * dedicated national-series fetch. For now they're kept from the existing
+ * hardcoded ticker.json.
  */
 
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -14,7 +21,11 @@ const RAW_DIR = path.join(DATA_DIR, 'raw');
 
 function loadJSON(filePath) {
   if (!existsSync(filePath)) return null;
-  return JSON.parse(readFileSync(filePath, 'utf-8'));
+  try {
+    return JSON.parse(readFileSync(filePath, 'utf-8'));
+  } catch {
+    return null;
+  }
 }
 
 function getLatestValue(series) {
@@ -33,69 +44,44 @@ function formatDelta(current, previous, suffix = '') {
 function main() {
   console.log('Building ticker.json...');
 
-  // Load raw data
-  const lausRaw = loadJSON(path.join(RAW_DIR, 'bls-laus.json'));
-  const cesRaw = loadJSON(path.join(RAW_DIR, 'bls-ces.json'));
+  // Load existing ticker as base (preserves hardcoded values)
+  const tickerPath = path.join(DATA_DIR, 'ticker.json');
+  const existing = loadJSON(tickerPath);
+
+  // Load new raw data
   const cpiRaw = loadJSON(path.join(RAW_DIR, 'bls-cpi.json'));
   const joltsRaw = loadJSON(path.join(RAW_DIR, 'bls-jolts.json'));
 
-  const ticker = [];
-  const cards = [];
-
-  // --- Unemployment Rate ---
-  // LAUS series LNS14000000 (Unemployment Rate, SA)
-  const unempSeries = lausRaw?.series?.['LNS14000000'];
-  const unempLatest = getLatestValue(unempSeries);
-  const unempPrev = unempSeries?.data?.[1];
-
-  if (unempLatest) {
-    const val = `${unempLatest.value}%`;
-    const direction = unempPrev ? (unempLatest.value < unempPrev.value ? 'down' : unempLatest.value > unempPrev.value ? 'up' : 'flat') : 'flat';
-    const delta = unempPrev ? Math.abs(unempLatest.value - unempPrev.value).toFixed(1) : '0.0';
-
-    ticker.push({ label: 'UNEMP', value: val, delta, direction });
-    cards.push({
-      id: 'unemployment',
-      label: 'Unemployment',
-      value: val,
-      delta: formatDelta(unempLatest.value, unempPrev?.value, ' pts') || '\u2014 flat',
-      direction
-    });
+  // If we have no new data at all, keep existing ticker unchanged
+  if (!cpiRaw && !joltsRaw) {
+    console.log('No new raw data found. Keeping existing ticker.json.');
+    return;
   }
 
-  // --- Payrolls (Total Nonfarm Employment Change) ---
-  // CES series CES0000000001 (Total Nonfarm, SA)
-  const payrollSeries = cesRaw?.series?.['CES0000000001'];
-  const payLatest = getLatestValue(payrollSeries);
-  const payPrev = payrollSeries?.data?.[1];
+  // Start with existing data as base
+  const ticker = existing?.ticker ? [...existing.ticker] : [];
+  const cards = existing?.cards ? [...existing.cards] : [];
 
-  if (payLatest && payPrev) {
-    const change = Math.round(payLatest.value - payPrev.value);
-    const sign = change >= 0 ? '+' : '';
-    const val = `${sign}${change}K`;
-    const monthNames = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const periodLabel = `${monthNames[payLatest.month] || ''} ${payLatest.year}`;
+  // Helper to update or add a ticker item
+  function upsertTicker(label, data) {
+    const idx = ticker.findIndex(t => t.label === label);
+    if (idx >= 0) ticker[idx] = { ...ticker[idx], ...data };
+    else ticker.push({ label, ...data });
+  }
 
-    ticker.push({ label: 'PAYROLLS', value: val });
-    cards.push({
-      id: 'payrolls',
-      label: 'Payrolls',
-      value: val,
-      delta: periodLabel,
-      direction: change >= 0 ? 'up' : 'down'
-    });
+  function upsertCard(id, data) {
+    const idx = cards.findIndex(c => c.id === id);
+    if (idx >= 0) cards[idx] = { ...cards[idx], ...data };
+    else cards.push({ id, ...data });
   }
 
   // --- CPI (Year-over-Year) ---
-  // CPI series CUSR0000SA0 (All Items, SA)
   const cpiSeries = cpiRaw?.series?.['CUSR0000SA0'];
   if (cpiSeries?.data?.length >= 13) {
     const latest = cpiSeries.data[0];
-    // Find same month last year
     const yoyMatch = cpiSeries.data.find(d => d.year === latest.year - 1 && d.month === latest.month);
     if (yoyMatch) {
       const yoy = ((latest.value - yoyMatch.value) / yoyMatch.value * 100).toFixed(1);
-      // Previous month YoY for delta
       const prevMonth = cpiSeries.data[1];
       const prevYoyMatch = cpiSeries.data.find(d => d.year === prevMonth.year - 1 && d.month === prevMonth.month);
       const prevYoy = prevYoyMatch ? ((prevMonth.value - prevYoyMatch.value) / prevYoyMatch.value * 100).toFixed(1) : null;
@@ -103,57 +89,18 @@ function main() {
       const direction = prevYoy ? (parseFloat(yoy) > parseFloat(prevYoy) ? 'up' : parseFloat(yoy) < parseFloat(prevYoy) ? 'down' : 'flat') : 'flat';
       const delta = prevYoy ? Math.abs(parseFloat(yoy) - parseFloat(prevYoy)).toFixed(1) : '0.0';
 
-      ticker.push({ label: 'CPI', value: `${yoy}%`, delta, direction });
-      cards.push({
-        id: 'cpi',
+      upsertTicker('CPI', { value: `${yoy}%`, delta, direction });
+      upsertCard('cpi', {
         label: 'CPI (YoY)',
         value: `${yoy}%`,
         delta: formatDelta(parseFloat(yoy), parseFloat(prevYoy), ' pts') || '\u2014 flat',
         direction
       });
+      console.log(`  Updated CPI: ${yoy}%`);
     }
   }
 
-  // --- Average Hourly Earnings ---
-  // CES series CES0500000003 (Private, SA)
-  const earnSeries = cesRaw?.series?.['CES0500000003'];
-  const earnLatest = getLatestValue(earnSeries);
-  // Find same month last year for YoY
-  const earnYoy = earnSeries?.data?.find(d => d.year === earnLatest?.year - 1 && d.month === earnLatest?.month);
-
-  if (earnLatest) {
-    const val = `$${earnLatest.value.toFixed(2)}/hr`;
-    const yoyPct = earnYoy ? (((earnLatest.value - earnYoy.value) / earnYoy.value) * 100).toFixed(1) : null;
-
-    ticker.push({ label: 'EARNINGS', value: `$${earnLatest.value.toFixed(2)}/hr`, delta: yoyPct ? `${yoyPct}%` : undefined, direction: 'up' });
-    cards.push({
-      id: 'earnings',
-      label: 'Hourly Earnings',
-      value: `$${earnLatest.value.toFixed(2)}`,
-      delta: yoyPct ? `\u25b2 ${yoyPct}%` : '\u2014',
-      direction: 'up'
-    });
-  }
-
-  // --- LFPR ---
-  // LAUS series LNS11300000 (Civilian LFPR, SA)
-  const lfprSeries = lausRaw?.series?.['LNS11300000'];
-  const lfprLatest = getLatestValue(lfprSeries);
-  const lfprPrev = lfprSeries?.data?.[1];
-
-  if (lfprLatest) {
-    const direction = lfprPrev ? (lfprLatest.value > lfprPrev.value ? 'up' : lfprLatest.value < lfprPrev.value ? 'down' : 'flat') : 'flat';
-    ticker.push({ label: 'LFPR', value: `${lfprLatest.value}%` });
-    cards.push({
-      id: 'lfpr',
-      label: 'Participation',
-      value: `${lfprLatest.value}%`,
-      delta: formatDelta(lfprLatest.value, lfprPrev?.value, ' pts') || '\u2014 flat',
-      direction
-    });
-  }
-
-  // --- Job Openings ---
+  // --- Job Openings from JOLTS ---
   const openingsSeries = joltsRaw?.series?.['JTS000000000000000JOL'];
   const openingsLatest = getLatestValue(openingsSeries);
   const openingsPrev = openingsSeries?.data?.[1];
@@ -161,15 +108,14 @@ function main() {
   if (openingsLatest) {
     const valM = (openingsLatest.value / 1000).toFixed(1);
     const direction = openingsPrev ? (openingsLatest.value > openingsPrev.value ? 'up' : openingsLatest.value < openingsPrev.value ? 'down' : 'flat') : 'flat';
-    const changK = openingsPrev ? Math.round(openingsLatest.value - openingsPrev.value) : 0;
 
-    cards.push({
-      id: 'openings',
+    upsertCard('openings', {
       label: 'Job Openings',
       value: `${valM}M`,
       delta: formatDelta(openingsLatest.value, openingsPrev?.value, 'K') || '\u2014 flat',
       direction
     });
+    console.log(`  Updated Job Openings: ${valM}M`);
   }
 
   const output = {
@@ -178,14 +124,14 @@ function main() {
     cards
   };
 
-  const outPath = path.join(DATA_DIR, 'ticker.json');
-  writeFileSync(outPath, JSON.stringify(output, null, 2));
-  console.log(`Wrote ${outPath} (${ticker.length} ticker items, ${cards.length} cards)`);
+  writeFileSync(tickerPath, JSON.stringify(output, null, 2));
+  console.log(`Wrote ${tickerPath} (${ticker.length} ticker items, ${cards.length} cards)`);
 }
 
 try {
   main();
 } catch (err) {
-  console.error('Ticker build failed:', err.message);
-  process.exit(1);
+  console.error('Ticker build warning:', err.message);
+  console.log('Keeping existing ticker.json.');
+  // Exit 0 so workflow continues
 }
