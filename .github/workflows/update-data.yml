@@ -45,24 +45,28 @@ jobs:
           mkdir -p data/jolts
 
       - name: Fetch BLS LAUS data
+        continue-on-error: true
         working-directory: scripts
         env:
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
         run: node fetch-bls-laus.js
 
       - name: Fetch BLS CES data
+        continue-on-error: true
         working-directory: scripts
         env:
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
         run: node fetch-bls-ces.js
 
       - name: Fetch Census ACS data
+        continue-on-error: true
         working-directory: scripts
         env:
           CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
         run: node fetch-census.js
 
       - name: Fetch BEA data
+        continue-on-error: true
         working-directory: scripts
         env:
           BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
@@ -70,6 +74,7 @@ jobs:
 
       - name: Fetch OEWS data (if requested)
         if: inputs.update_oews != ''
+        continue-on-error: true
         working-directory: scripts
         env:
           OEWS_YEAR: ${{ inputs.update_oews }}
@@ -78,50 +83,61 @@ jobs:
           node process-oews.js
 
       - name: Generate state files
+        continue-on-error: true
         working-directory: scripts
         run: node generate-state-files.js
 
       - name: Generate metro data
+        continue-on-error: true
         working-directory: scripts
         run: node generate-metro-data.js
 
       - name: Generate national files
+        continue-on-error: true
         working-directory: scripts
         run: node generate-national-counties.js
 
       - name: Fetch BLS CPI data
+        continue-on-error: true
         working-directory: scripts
         env:
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
         run: node fetch-bls-cpi.js
 
       - name: Fetch BLS JOLTS data
+        continue-on-error: true
         working-directory: scripts
         env:
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
         run: node fetch-bls-jolts.js
 
       - name: Fetch BLS Employment Projections
+        continue-on-error: true
         working-directory: scripts
         run: node fetch-bls-projections.js
 
       - name: Process CPI data
+        continue-on-error: true
         working-directory: scripts
         run: node process-cpi.js
 
       - name: Process JOLTS data
+        continue-on-error: true
         working-directory: scripts
         run: node process-jolts.js
 
       - name: Process employment projections
+        continue-on-error: true
         working-directory: scripts
         run: node process-projections.js
 
       - name: Build ticker data
+        continue-on-error: true
         working-directory: scripts
         run: node process-ticker.js
 
       - name: Build search index
+        continue-on-error: true
         working-directory: scripts
         run: node build-search-index.js
 
