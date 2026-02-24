@@ -3,27 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LaborCompare — Search Jobs, Wages & Employment Across America</title>
-    <meta name="description" content="Search any occupation to see wages, employment, and job outlook across all 50 states and 400+ metro areas. A plain-language alternative to BLS.gov.">
+    <title>LaborCompare — BLS Data, Built for Humans</title>
+    <meta name="description" content="Search 830+ occupations across every state and metro area. Wages, jobs, prices, and projections from the Bureau of Labor Statistics, redesigned for humans.">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
     <!-- Open Graph -->
     <meta property="og:title" content="LaborCompare">
-    <meta property="og:description" content="Search any job to see wages and employment across America. Free, plain-language labor market data.">
+    <meta property="og:description" content="BLS data, built for humans. Wages, jobs, prices, and projections across 830+ occupations.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://laborcompare.com">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="LaborCompare">
-    <meta name="twitter:description" content="Search any job to see wages and employment across America.">
+    <meta name="twitter:description" content="BLS data, built for humans. Wages, jobs, prices, and projections.">
 
-    <!-- Leaflet CSS -->
+    <!-- Leaflet CSS (lazy-loaded by map pages, but CSS needed up front) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-    <!-- Fonts (Newsroom Dark theme) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -31,58 +27,44 @@
     <a href="#page-container" class="skip-link">Skip to content</a>
 
     <!-- ============================================================ -->
-    <!-- SITE HEADER — persistent across all pages                     -->
+    <!-- TOPBAR TICKER                                                 -->
     <!-- ============================================================ -->
-    <header class="site-header">
-        <div class="header-inner">
-            <a href="#/" class="site-logo" aria-label="LaborCompare home">
-                <svg class="logo-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M18 20V10M12 20V4M6 20v-6"/>
-                </svg>
-                <span class="logo-text">LaborCompare</span>
-            </a>
+    <div class="topbar" id="topbar">
+        <div class="tb-i"><span class="l">UNEMP</span><span class="v">--</span></div>
+        <div class="tb-s"></div>
+        <div class="tb-i"><span class="l">PAYROLLS</span><span class="v">--</span></div>
+        <div class="tb-s"></div>
+        <div class="tb-i"><span class="l">CPI</span><span class="v">--</span></div>
+        <div class="tb-s"></div>
+        <div class="tb-i"><span class="l">EARNINGS</span><span class="v">--</span></div>
+        <div class="tb-s"></div>
+        <div class="tb-i"><span class="l">LFPR</span><span class="v">--</span></div>
+    </div>
 
-            <div class="header-search-wrapper">
-                <div class="header-search">
-                    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"/>
-                        <path d="M21 21l-4.35-4.35"/>
-                    </svg>
-                    <input type="text"
-                           id="header-search-input"
-                           class="search-input"
-                           placeholder="Search jobs, places..."
-                           autocomplete="off"
-                           spellcheck="false"
-                           aria-label="Search occupations, industries, or areas">
-                    <div class="search-dropdown" id="header-search-dropdown"></div>
+    <!-- ============================================================ -->
+    <!-- SITE HEADER                                                   -->
+    <!-- ============================================================ -->
+    <header>
+        <div class="hdr">
+            <a class="logo" href="#/">
+                <span class="lm"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 4-6"/></svg></span>
+                LaborCompare
+            </a>
+            <nav id="main-nav">
+                <a href="#/" data-route="home" class="active">Home</a>
+                <a href="#/wages" data-route="wages">Wages</a>
+                <a href="#/jobs" data-route="jobs">Jobs</a>
+                <a href="#/prices" data-route="prices">Prices</a>
+                <a href="#/states" data-route="states">States</a>
+                <a href="#/outlook" data-route="outlook">Outlook</a>
+            </nav>
+            <div class="hdr-r">
+                <div class="hdr-search" id="search-trigger">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    Search...
+                    <kbd>/</kbd>
                 </div>
             </div>
-
-            <nav class="header-nav">
-                <a href="#/map" class="nav-link" data-route="map">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
-                        <line x1="8" y1="2" x2="8" y2="18"/>
-                        <line x1="16" y1="6" x2="16" y2="22"/>
-                    </svg>
-                    <span>Map</span>
-                </a>
-                <a href="#/compare" class="nav-link" data-route="compare">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M16 3h5v5M8 3H3v5M3 16v5h5M21 16v5h-5"/>
-                        <circle cx="12" cy="12" r="3"/>
-                    </svg>
-                    <span>Compare</span>
-                </a>
-                <button class="nav-link" id="sources-btn" aria-label="View data sources">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                        <polyline points="14 2 14 8 20 8"/>
-                    </svg>
-                    <span>Sources</span>
-                </button>
-            </nav>
 
             <!-- Mobile hamburger -->
             <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">
@@ -96,20 +78,12 @@
 
         <!-- Mobile nav drawer -->
         <nav class="mobile-nav" id="mobile-nav">
-            <div class="mobile-nav-search">
-                <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"/>
-                    <path d="M21 21l-4.35-4.35"/>
-                </svg>
-                <input type="text"
-                       id="mobile-search-input"
-                       class="search-input"
-                       placeholder="Search jobs, places..."
-                       autocomplete="off"
-                       spellcheck="false">
-                <div class="search-dropdown" id="mobile-search-dropdown"></div>
-            </div>
             <a href="#/" class="mobile-nav-link" data-route="home">Home</a>
+            <a href="#/wages" class="mobile-nav-link" data-route="wages">Wages</a>
+            <a href="#/jobs" class="mobile-nav-link" data-route="jobs">Jobs</a>
+            <a href="#/prices" class="mobile-nav-link" data-route="prices">Prices</a>
+            <a href="#/states" class="mobile-nav-link" data-route="states">States</a>
+            <a href="#/outlook" class="mobile-nav-link" data-route="outlook">Outlook</a>
             <a href="#/map" class="mobile-nav-link" data-route="map">Map Explorer</a>
             <a href="#/compare" class="mobile-nav-link" data-route="compare">Compare</a>
             <button class="mobile-nav-link" id="mobile-sources-btn">Sources</button>
@@ -117,15 +91,68 @@
     </header>
 
     <!-- ============================================================ -->
-    <!-- PAGE CONTAINER — each route renders into this element         -->
+    <!-- SEARCH OVERLAY (command palette)                              -->
     <!-- ============================================================ -->
-    <main id="page-container" class="page-container">
-        <!-- Loading state (shown before first route mounts) -->
+    <div class="search-overlay" id="search-overlay">
+        <div class="search-overlay-box">
+            <div class="search-overlay-input-wrap">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                <input type="text"
+                       id="search-overlay-input"
+                       class="search-overlay-input"
+                       placeholder="Search any job, state, or metro..."
+                       autocomplete="off"
+                       spellcheck="false">
+            </div>
+            <div class="search-overlay-results" id="search-overlay-results"></div>
+            <div class="search-overlay-hint">
+                <span><kbd>&#8593;</kbd><kbd>&#8595;</kbd> Navigate</span>
+                <span><kbd>&#8629;</kbd> Select</span>
+                <span><kbd>Esc</kbd> Close</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PAGE CONTAINER                                                -->
+    <!-- ============================================================ -->
+    <main id="page-container">
         <div class="page-loading">
             <div class="loader"></div>
             <span>Loading...</span>
         </div>
     </main>
+
+    <!-- ============================================================ -->
+    <!-- FOOTER                                                        -->
+    <!-- ============================================================ -->
+    <footer>
+        <div class="ftr">
+            <div>
+                <div class="ftr-brand">LaborCompare</div>
+                <p class="ftr-desc">BLS, Census &amp; BEA data, redesigned.</p>
+                <p class="ftr-version">Version 2026.02.23.1</p>
+            </div>
+            <div>
+                <h4>Data</h4>
+                <a href="#/wages">Wages</a>
+                <a href="#/jobs">Jobs</a>
+                <a href="#/prices">Prices</a>
+                <a href="#/outlook">Outlook</a>
+            </div>
+            <div>
+                <h4>Tools</h4>
+                <a href="#/map">Map Explorer</a>
+                <a href="#/compare">Compare</a>
+                <a href="#/prices">Inflation Calc</a>
+            </div>
+            <div>
+                <h4>About</h4>
+                <a href="#" id="footer-sources-btn">Sources</a>
+                <a href="https://github.com/cdailystyles/welfarecompare" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+        </div>
+    </footer>
 
     <!-- ============================================================ -->
     <!-- SOURCES MODAL                                                 -->
@@ -148,9 +175,14 @@
                     <a href="https://www.bls.gov/ces/" target="_blank" rel="noopener noreferrer">bls.gov/ces</a>
                 </div>
                 <div class="source-card">
-                    <h4>Wages &amp; Earnings</h4>
-                    <p>Bureau of Labor Statistics — Current Employment Statistics (CES)</p>
-                    <a href="https://www.bls.gov/ces/data/" target="_blank" rel="noopener noreferrer">bls.gov/ces/data</a>
+                    <h4>Consumer Prices (CPI)</h4>
+                    <p>Bureau of Labor Statistics — Consumer Price Index</p>
+                    <a href="https://www.bls.gov/cpi/" target="_blank" rel="noopener noreferrer">bls.gov/cpi</a>
+                </div>
+                <div class="source-card">
+                    <h4>Employment Projections</h4>
+                    <p>Bureau of Labor Statistics — Employment Projections program</p>
+                    <a href="https://www.bls.gov/emp/" target="_blank" rel="noopener noreferrer">bls.gov/emp</a>
                 </div>
                 <div class="source-card">
                     <h4>Income, Housing &amp; Demographics</h4>
@@ -160,21 +192,16 @@
                 <div class="source-card">
                     <h4>Per Capita Income &amp; GDP</h4>
                     <p>Bureau of Economic Analysis (BEA)</p>
-                    <a href="https://www.bea.gov/data/income-saving/personal-income-county-metro-and-other-areas" target="_blank" rel="noopener noreferrer">bea.gov</a>
-                </div>
-                <div class="source-card">
-                    <h4>Minimum Wage</h4>
-                    <p>U.S. Department of Labor — Wage and Hour Division</p>
-                    <a href="https://www.dol.gov/agencies/whd/minimum-wage/state" target="_blank" rel="noopener noreferrer">dol.gov</a>
+                    <a href="https://www.bea.gov/" target="_blank" rel="noopener noreferrer">bea.gov</a>
                 </div>
 
                 <div class="source-note">
                     <h4>Data Timing</h4>
-                    <p>OEWS data is published annually (May reference period). Employment and wage data from BLS CES is updated monthly. Census ACS data is released approximately 18 months after collection.</p>
+                    <p>OEWS data is published annually (May reference period). Employment and wage data from BLS CES is updated monthly. CPI is released monthly. Employment projections cover 10-year periods.</p>
                 </div>
 
                 <p class="source-disclaimer">Data is updated monthly via automated pipeline. OEWS occupation data is updated annually.</p>
-                <p class="source-disclaimer" style="margin-top: 8px;">Version 2026.02.22.5</p>
+                <p class="source-disclaimer" style="margin-top: 8px;">Version 2026.02.23.1</p>
             </div>
         </div>
     </div>
@@ -193,20 +220,15 @@
     <script src="js/router.js"></script>
     <script src="js/search.js"></script>
     <script src="js/loaders/oews-loader.js"></script>
-
-    <!-- Legacy modules (for map explorer) -->
-    <script src="js/dom-elements.js"></script>
-    <script src="js/ui-updater.js"></script>
-    <script src="js/data.js"></script>
-    <script src="js/color-scales.js"></script>
-    <script src="js/ratios.js"></script>
-    <script src="js/county-loader.js"></script>
-    <script src="js/metro-data.js"></script>
+    <script src="js/loaders/bls-loader.js"></script>
 
     <!-- Page modules -->
     <script src="js/pages/home.js"></script>
-    <script src="js/pages/occupation.js"></script>
-    <script src="js/pages/area-profile.js"></script>
+    <script src="js/pages/wages.js"></script>
+    <script src="js/pages/states.js"></script>
+    <script src="js/pages/jobs.js"></script>
+    <script src="js/pages/prices.js"></script>
+    <script src="js/pages/outlook.js"></script>
     <script src="js/pages/map-explorer.js"></script>
     <script src="js/pages/compare.js"></script>
 

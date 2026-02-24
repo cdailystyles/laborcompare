@@ -116,7 +116,25 @@ const Formatters = (() => {
         return number(value);
     }
 
-    return { salary, hourly, count, number, percent, quotient, salaryRange, change, auto };
+    /**
+     * Format signed delta: +0.1 pts, -556K
+     */
+    function delta(value, suffix = '') {
+        if (value == null || isNaN(value)) return 'N/A';
+        const n = Number(value);
+        const sign = n >= 0 ? '+' : '';
+        return sign + n.toFixed(1) + (suffix ? ' ' + suffix : '');
+    }
+
+    /**
+     * Format CPI index value: 315.2
+     */
+    function cpi(value) {
+        if (value == null || isNaN(value)) return 'N/A';
+        return Number(value).toFixed(1);
+    }
+
+    return { salary, hourly, count, number, percent, quotient, salaryRange, change, delta, cpi, auto };
 })();
 
 window.Formatters = Formatters;

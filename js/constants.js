@@ -137,9 +137,33 @@ const STATE_NAME_TO_FIPS = Object.fromEntries(
     Object.entries(STATE_FIPS_TO_NAME).map(([k, v]) => [v, k])
 );
 
+// BLS API series IDs for ticker data
+const TICKER_SERIES = {
+    UNEMPLOYMENT: 'LNS14000000',      // Unemployment rate
+    PAYROLLS: 'CES0000000001',        // Total nonfarm payrolls
+    CPI_ALL: 'CUUR0000SA0',           // CPI-U All Items SA
+    HOURLY_EARNINGS: 'CES0500000003', // Avg hourly earnings
+    LFPR: 'LNS11300000',             // Labor force participation rate
+    JOB_OPENINGS: 'JTS000000000000000JOL' // JOLTS openings
+};
+
+// CPI category codes and labels
+const CPI_ITEMS = {
+    'CUUR0000SA0': 'All Items',
+    'CUUR0000SAF1': 'Food',
+    'CUUR0000SAH1': 'Shelter',
+    'CUUR0000SEHF01': 'Energy',
+    'CUUR0000SAM': 'Medical Care',
+    'CUUR0000SAT1': 'Transportation',
+    'CUUR0000SAA': 'Apparel',
+    'CUUR0000SAE': 'Education',
+    'CUUR0000SAR': 'Recreation'
+};
+
 window.Constants = {
     FIELD_MAP, CT_FIPS_MAP, LABOR_INDICATORS,
     STATES_GEOJSON_URL, MAP_CONFIG, MOBILE_BREAKPOINT,
     SOC_MAJOR_GROUPS, AREA_TYPES, STATE_FIPS_TO_NAME, STATE_NAME_TO_FIPS,
+    TICKER_SERIES, CPI_ITEMS,
     normalizeCtFips, getDataField, isLaborIndicator, isMobile
 };

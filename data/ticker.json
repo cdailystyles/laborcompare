@@ -1,0 +1,18 @@
+{
+  "updated": "2026-02-23",
+  "ticker": [
+    { "label": "UNEMP", "value": "4.0%", "delta": "0.1", "direction": "down" },
+    { "label": "PAYROLLS", "value": "+143K" },
+    { "label": "CPI", "value": "3.0%", "delta": "0.1", "direction": "up" },
+    { "label": "EARNINGS", "value": "$35.87/hr", "delta": "3.8%", "direction": "up" },
+    { "label": "LFPR", "value": "62.6%" }
+  ],
+  "cards": [
+    { "id": "unemployment", "label": "Unemployment", "value": "4.0%", "delta": "\u25bc 0.1 pts", "direction": "down" },
+    { "id": "payrolls", "label": "Payrolls", "value": "+143K", "delta": "Jan 2026", "direction": "up" },
+    { "id": "cpi", "label": "CPI (YoY)", "value": "3.0%", "delta": "\u25b2 0.1 pts", "direction": "up" },
+    { "id": "earnings", "label": "Hourly Earnings", "value": "$35.87", "delta": "\u25b2 3.8%", "direction": "up" },
+    { "id": "lfpr", "label": "Participation", "value": "62.6%", "delta": "\u2014 flat", "direction": "flat" },
+    { "id": "openings", "label": "Job Openings", "value": "7.6M", "delta": "\u25bc 556K", "direction": "down" }
+  ]
+}

@@ -1,6 +1,6 @@
 /**
- * LaborCompare - Main Application Init
- * Registers routes and initializes the SPA.
+ * LaborCompare - Main Application Init (F3 Dense Data-First)
+ * Registers routes, initializes topbar ticker, search overlay, and nav.
  */
 
 (function () {
@@ -10,35 +10,228 @@
     // Register routes
     // ================================================================
     Router.register('/', HomePage);
-    Router.register('/occupation/:soc', OccupationPage);
-    Router.register('/area/:fips', AreaProfilePage);
+    Router.register('/wages', WagesPage);
+    Router.register('/wages/:soc', WagesPage);
+    Router.register('/jobs', JobsPage);
+    Router.register('/prices', PricesPage);
+    Router.register('/states', StatesPage);
+    Router.register('/states/:fips', StatesPage);
+    Router.register('/outlook', OutlookPage);
     Router.register('/map', MapExplorerPage);
     Router.register('/compare', ComparePage);
 
+    // Legacy redirects
+    Router.register('/occupation/:soc', {
+        getTitle: () => 'Redirecting...',
+        mount: (params) => { Router.navigate(`/wages/${params.soc}`); },
+        unmount: () => {}
+    });
+    Router.register('/area/:fips', {
+        getTitle: () => 'Redirecting...',
+        mount: (params) => { Router.navigate(`/states/${params.fips}`); },
+        unmount: () => {}
+    });
+
     // ================================================================
-    // Global UI: header search, modals, mobile menu
+    // Topbar ticker
+    // ================================================================
+    async function initTicker() {
+        try {
+            const data = await BLSLoader.loadTicker();
+            if (!data?.ticker) return;
+
+            const topbar = document.getElementById('topbar');
+            if (!topbar) return;
+
+            topbar.innerHTML = data.ticker.map((item, i) => {
+                let html = `<div class="tb-i"><span class="l">${item.label}</span><span class="v">${item.value}</span>`;
+                if (item.delta) {
+                    const cls = item.direction === 'up' ? 'u' : 'dn';
+                    const arrow = item.direction === 'up' ? '&#9650;' : '&#9660;';
+                    html += `<span class="d ${cls}">${arrow}${item.delta}</span>`;
+                }
+                html += '</div>';
+                if (i < data.ticker.length - 1) html += '<div class="tb-s"></div>';
+                return html;
+            }).join('');
+        } catch {
+            // Ticker stays at placeholder values
+        }
+    }
+
+    // ================================================================
+    // Search overlay (command palette)
+    // ================================================================
+    function initSearchOverlay() {
+        const overlay = document.getElementById('search-overlay');
+        const input = document.getElementById('search-overlay-input');
+        const resultsEl = document.getElementById('search-overlay-results');
+        const trigger = document.getElementById('search-trigger');
+
+        if (!overlay || !input || !resultsEl) return;
+
+        let results = [];
+        let selectedIdx = -1;
+        let debounceTimer = null;
+
+        function open() {
+            overlay.classList.add('active');
+            input.value = '';
+            resultsEl.innerHTML = '';
+            selectedIdx = -1;
+            results = [];
+            Search.loadIndex();
+            setTimeout(() => input.focus(), 50);
+        }
+
+        function close() {
+            overlay.classList.remove('active');
+            input.blur();
+        }
+
+        function selectResult(result) {
+            if (!result) return;
+            close();
+            switch (result.type) {
+                case 'occupation':
+                    Router.navigate(`/wages/${result.id}`);
+                    break;
+                case 'area':
+                    Router.navigate(`/states/${result.id}`);
+                    break;
+                case 'group':
+                    Router.navigate(`/wages?sector=${result.id}`);
+                    break;
+                default:
+                    Router.navigate('/');
+            }
+        }
+
+        function renderResults(searchResults) {
+            results = searchResults;
+            selectedIdx = -1;
+
+            if (results.length === 0) {
+                if (input.value.length >= 2) {
+                    resultsEl.innerHTML = '<div class="search-no-results">No results found</div>';
+                } else {
+                    resultsEl.innerHTML = '';
+                }
+                return;
+            }
+
+            resultsEl.innerHTML = results.map((r, i) => `
+                <div class="search-result ${i === selectedIdx ? 'selected' : ''}" data-idx="${i}">
+                    <span class="search-result-icon">${getIcon(r.type)}</span>
+                    <div class="search-result-text">
+                        <span class="search-result-title">${r.title}</span>
+                        <span class="search-result-subtitle">${r.subtitle}</span>
+                    </div>
+                    <span class="search-result-type">${r.type}</span>
+                </div>
+            `).join('');
+
+            resultsEl.querySelectorAll('.search-result').forEach(el => {
+                el.addEventListener('click', () => {
+                    selectResult(results[parseInt(el.dataset.idx)]);
+                });
+            });
+        }
+
+        function getIcon(type) {
+            switch (type) {
+                case 'occupation': return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>';
+                case 'area': return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/><circle cx="12" cy="9" r="2.5"/></svg>';
+                case 'group': return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>';
+                default: return '';
+            }
+        }
+
+        function updateSelection() {
+            const items = resultsEl.querySelectorAll('.search-result');
+            items.forEach((el, i) => el.classList.toggle('selected', i === selectedIdx));
+            if (selectedIdx >= 0 && items[selectedIdx]) {
+                items[selectedIdx].scrollIntoView({ block: 'nearest' });
+            }
+        }
+
+        // Trigger open
+        trigger?.addEventListener('click', open);
+
+        // Keyboard shortcut: / to open
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
+                const active = document.activeElement;
+                if (active?.tagName === 'INPUT' || active?.tagName === 'TEXTAREA' || active?.tagName === 'SELECT') return;
+                e.preventDefault();
+                open();
+            }
+        });
+
+        // Close on backdrop click
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) close();
+        });
+
+        // Input handling
+        input.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                const q = input.value.trim();
+                if (q.length < 2) {
+                    resultsEl.innerHTML = '';
+                    results = [];
+                    return;
+                }
+                renderResults(Search.search(q));
+            }, 150);
+        });
+
+        input.addEventListener('keydown', (e) => {
+            switch (e.key) {
+                case 'Escape':
+                    e.preventDefault();
+                    close();
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    if (results.length) {
+                        selectedIdx = Math.min(selectedIdx + 1, results.length - 1);
+                        updateSelection();
+                    }
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    if (results.length) {
+                        selectedIdx = Math.max(selectedIdx - 1, -1);
+                        updateSelection();
+                    }
+                    break;
+                case 'Enter':
+                    e.preventDefault();
+                    if (selectedIdx >= 0) {
+                        selectResult(results[selectedIdx]);
+                    } else if (results.length > 0) {
+                        selectResult(results[0]);
+                    }
+                    break;
+            }
+        });
+    }
+
+    // ================================================================
+    // Global UI: modals, mobile menu, nav active state
     // ================================================================
     function initGlobalUI() {
-        // Header search (desktop)
-        const headerInput = document.getElementById('header-search-input');
-        const headerDropdown = document.getElementById('header-search-dropdown');
-        if (headerInput && headerDropdown) {
-            Search.attach(headerInput, headerDropdown);
-        }
-
-        // Mobile search
-        const mobileInput = document.getElementById('mobile-search-input');
-        const mobileDropdown = document.getElementById('mobile-search-dropdown');
-        if (mobileInput && mobileDropdown) {
-            Search.attach(mobileInput, mobileDropdown);
-        }
-
         // Sources modal
         const sourcesModal = document.getElementById('sources-modal');
         const openSources = () => sourcesModal?.classList.add('active');
         const closeSources = () => sourcesModal?.classList.remove('active');
 
-        document.getElementById('sources-btn')?.addEventListener('click', openSources);
+        document.getElementById('footer-sources-btn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            openSources();
+        });
         document.getElementById('mobile-sources-btn')?.addEventListener('click', () => {
             closeMobileNav();
             openSources();
@@ -60,35 +253,41 @@
             mobileNav?.classList.toggle('open');
         });
 
-        // Close mobile nav on navigation
         mobileNav?.querySelectorAll('.mobile-nav-link').forEach(link => {
             link.addEventListener('click', closeMobileNav);
         });
 
-        // Close mobile nav on route change
         window.addEventListener('hashchange', closeMobileNav);
 
         // Update active nav link
         window.addEventListener('hashchange', updateActiveNav);
         updateActiveNav();
-
-        // Keyboard shortcut: / to focus search
-        document.addEventListener('keydown', (e) => {
-            if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
-                const active = document.activeElement;
-                if (active?.tagName === 'INPUT' || active?.tagName === 'TEXTAREA' || active?.tagName === 'SELECT') return;
-                e.preventDefault();
-                headerInput?.focus();
-            }
-        });
     }
 
     function updateActiveNav() {
         const hash = window.location.hash || '#/';
-        document.querySelectorAll('.nav-link[data-route], .mobile-nav-link[data-route]').forEach(link => {
+
+        // Desktop nav
+        document.querySelectorAll('#main-nav a[data-route]').forEach(link => {
             const route = link.dataset.route;
-            const isActive = (route === 'home' && (hash === '#/' || hash === '#'))
-                || (route && hash.startsWith('#/' + route));
+            let isActive = false;
+            if (route === 'home') {
+                isActive = hash === '#/' || hash === '#' || hash === '';
+            } else if (route) {
+                isActive = hash === `#/${route}` || hash.startsWith(`#/${route}/`);
+            }
+            link.classList.toggle('active', isActive);
+        });
+
+        // Mobile nav
+        document.querySelectorAll('.mobile-nav-link[data-route]').forEach(link => {
+            const route = link.dataset.route;
+            let isActive = false;
+            if (route === 'home') {
+                isActive = hash === '#/' || hash === '#' || hash === '';
+            } else if (route) {
+                isActive = hash === `#/${route}` || hash.startsWith(`#/${route}/`);
+            }
             link.classList.toggle('active', isActive);
         });
     }
@@ -98,10 +297,13 @@
     // ================================================================
     function init() {
         initGlobalUI();
+        initSearchOverlay();
         Router.init();
+
+        // Pre-fetch ticker data
+        initTicker();
     }
 
-    // Start when DOM is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {

@@ -91,7 +91,7 @@ const MapExplorerPage = (() => {
             attributionControl: false
         });
 
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
             maxZoom: 10
         }).addTo(map);
 
@@ -132,18 +132,18 @@ const MapExplorerPage = (() => {
                 const stateData = data[stateName];
                 const val = stateData?.[field];
 
-                let fillColor = '#1a1a2e';
+                let fillColor = '#e5e7eb';
                 if (val != null && max > min) {
                     let t = (val - min) / (max - min);
                     if (invertScale) t = 1 - t;
-                    fillColor = interpolateBlueGold(t);
+                    fillColor = interpolateBlueRed(t);
                 }
 
                 return {
                     fillColor,
                     weight: 1,
-                    opacity: 0.7,
-                    color: '#374151',
+                    opacity: 0.8,
+                    color: '#d1d5db',
                     fillOpacity: 0.85
                 };
             },
@@ -159,7 +159,7 @@ const MapExplorerPage = (() => {
 
                 layer.on({
                     mouseover: (e) => {
-                        e.target.setStyle({ weight: 2, color: '#f59e0b' });
+                        e.target.setStyle({ weight: 2, color: '#dc2626' });
                         e.target.bringToFront();
                         updateInfoBar(stateName, stateData, field);
                     },
@@ -168,7 +168,7 @@ const MapExplorerPage = (() => {
                     },
                     click: () => {
                         const fips = Constants.STATE_NAME_TO_FIPS[stateName];
-                        if (fips) Router.navigate(`/area/${fips}`);
+                        if (fips) Router.navigate(`/states/${fips}`);
                     }
                 });
             }
@@ -197,17 +197,17 @@ const MapExplorerPage = (() => {
                 const data = fips ? states[fips] : null;
                 const val = data?.med;
 
-                let fillColor = '#1a1a2e';
+                let fillColor = '#e5e7eb';
                 if (val != null && max > min) {
                     const t = (val - min) / (max - min);
-                    fillColor = interpolateBlueGold(t);
+                    fillColor = interpolateBlueRed(t);
                 }
 
                 return {
                     fillColor,
                     weight: 1,
-                    opacity: 0.7,
-                    color: '#374151',
+                    opacity: 0.8,
+                    color: '#d1d5db',
                     fillOpacity: 0.85
                 };
             },
@@ -223,12 +223,12 @@ const MapExplorerPage = (() => {
 
                 layer.on({
                     mouseover: (e) => {
-                        e.target.setStyle({ weight: 2, color: '#f59e0b' });
+                        e.target.setStyle({ weight: 2, color: '#dc2626' });
                         e.target.bringToFront();
                     },
                     mouseout: (e) => geoLayer.resetStyle(e.target),
                     click: () => {
-                        if (fips) Router.navigate(`/area/${fips}`);
+                        if (fips) Router.navigate(`/states/${fips}`);
                     }
                 });
             }
@@ -237,10 +237,11 @@ const MapExplorerPage = (() => {
         renderLegend('med', min, max, false, occData.title);
     }
 
-    function interpolateBlueGold(t) {
-        const r = Math.round(30 + t * (245 - 30));
-        const g = Math.round(58 + t * (158 - 58));
-        const b = Math.round(95 + t * (11 - 95));
+    function interpolateBlueRed(t) {
+        // Light blue (#dbeafe) to red (#dc2626)
+        const r = Math.round(219 + t * (220 - 219));
+        const g = Math.round(234 + t * (38 - 234));
+        const b = Math.round(254 + t * (38 - 254));
         return `rgb(${r},${g},${b})`;
     }
 
@@ -249,7 +250,7 @@ const MapExplorerPage = (() => {
         if (!legend) return;
 
         const label = overlayTitle
-            ? `${overlayTitle} — Median Salary`
+            ? `${overlayTitle} - Median Salary`
             : getFieldLabel(field);
 
         const steps = 5;
@@ -257,7 +258,7 @@ const MapExplorerPage = (() => {
         for (let i = 0; i <= steps; i++) {
             const t = i / steps;
             const val = min + t * (max - min);
-            const color = interpolateBlueGold(invert ? 1 - t : t);
+            const color = interpolateBlueRed(invert ? 1 - t : t);
             swatches.push(`
                 <div class="legend-step">
                     <span class="legend-swatch" style="background: ${color}"></span>

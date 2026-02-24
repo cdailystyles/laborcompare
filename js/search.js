@@ -149,14 +149,13 @@ const Search = (() => {
 
         switch (result.type) {
             case 'occupation':
-                Router.navigate(`/occupation/${result.id}`);
+                Router.navigate(`/wages/${result.id}`);
                 break;
             case 'area':
-                Router.navigate(`/area/${result.id}`);
+                Router.navigate(`/states/${result.id}`);
                 break;
             case 'group':
-                // Navigate to home with group filter (future)
-                Router.navigate(`/`);
+                Router.navigate(`/wages?sector=${result.id}`);
                 break;
         }
 
