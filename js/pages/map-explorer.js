@@ -12,6 +12,17 @@ const MapExplorerPage = (() => {
     let currentField = 'median_household_income';
     let selectedOccupation = null;
     let selectedState = null;
+    let geoCache = null;
+
+    async function fetchGeoJSON() {
+        if (geoCache) return geoCache;
+        try {
+            const resp = await fetch(Constants.STATES_GEOJSON_URL);
+            if (!resp.ok) return null;
+            geoCache = await resp.json();
+            return geoCache;
+        } catch { return null; }
+    }
 
     function getTitle() {
         return 'Map Explorer';
@@ -126,7 +137,7 @@ const MapExplorerPage = (() => {
 
         const [stateEcon, geo] = await Promise.all([
             OEWSLoader.loadStateEconomic(),
-            OEWSLoader.loadStatesGeoJSON()
+            fetchGeoJSON()
         ]);
 
         const loading = document.getElementById('map-loading');
@@ -539,7 +550,7 @@ const MapExplorerPage = (() => {
 
                             const [occData, geo] = await Promise.all([
                                 OEWSLoader.loadOccupationByState(soc),
-                                OEWSLoader.loadStatesGeoJSON()
+                                fetchGeoJSON()
                             ]);
                             if (occData && geo) {
                                 selectedOccupation = soc;
@@ -587,6 +598,7 @@ const MapExplorerPage = (() => {
             map = null;
             geoLayer = null;
             geoData = null;
+            geoCache = null;
         }
         selectedOccupation = null;
         selectedState = null;
