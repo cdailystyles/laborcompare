@@ -87,7 +87,17 @@ const OEWSLoader = (() => {
      * Load states GeoJSON for maps
      */
     async function loadStatesGeoJSON() {
-        return fetchJSON(Constants.STATES_GEOJSON_URL);
+        const url = Constants.STATES_GEOJSON_URL;
+        if (cache.has(url)) return cache.get(url);
+        try {
+            const resp = await fetch(url);
+            if (!resp.ok) return null;
+            const data = await resp.json();
+            cache.set(url, data);
+            return data;
+        } catch {
+            return null;
+        }
     }
 
     /**
