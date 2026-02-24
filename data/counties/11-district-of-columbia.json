@@ -1,0 +1,25 @@
+{
+  "state_fips": "11",
+  "state_name": "District of Columbia",
+  "counties": {
+    "11001": {
+      "name": "District of Columbia, District of Columbia",
+      "unemployment_rate": 6.5,
+      "labor_force": 397158,
+      "employment": null,
+      "median_household_income": 106287,
+      "median_earnings": 371410,
+      "per_capita_income": 111185,
+      "median_home_value": 724600,
+      "median_rent": 1900,
+      "population": 672079,
+      "poverty_rate": 14.5,
+      "median_age": 34.9,
+      "bachelors_or_higher_pct": 63.6,
+      "hs_diploma_or_higher_pct": 92.8,
+      "gini_index": 0.514,
+      "homeownership_rate": 41.1,
+      "vacancy_rate": 9.7
+    }
+  }
+}

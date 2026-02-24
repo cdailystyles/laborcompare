@@ -1,5 +1,308 @@
-{
-  "states": [],
-  "total_counties": 0,
-  "generated": "2026-02-22"
-}
+[
+  {
+    "fips": "10",
+    "name": "Delaware",
+    "filename": "10-delaware.json",
+    "county_count": 3
+  },
+  {
+    "fips": "11",
+    "name": "District of Columbia",
+    "filename": "11-district-of-columbia.json",
+    "county_count": 1
+  },
+  {
+    "fips": "12",
+    "name": "Florida",
+    "filename": "12-florida.json",
+    "county_count": 67
+  },
+  {
+    "fips": "13",
+    "name": "Georgia",
+    "filename": "13-georgia.json",
+    "county_count": 159
+  },
+  {
+    "fips": "15",
+    "name": "Hawaii",
+    "filename": "15-hawaii.json",
+    "county_count": 5
+  },
+  {
+    "fips": "16",
+    "name": "Idaho",
+    "filename": "16-idaho.json",
+    "county_count": 44
+  },
+  {
+    "fips": "17",
+    "name": "Illinois",
+    "filename": "17-illinois.json",
+    "county_count": 102
+  },
+  {
+    "fips": "18",
+    "name": "Indiana",
+    "filename": "18-indiana.json",
+    "county_count": 92
+  },
+  {
+    "fips": "19",
+    "name": "Iowa",
+    "filename": "19-iowa.json",
+    "county_count": 99
+  },
+  {
+    "fips": "20",
+    "name": "Kansas",
+    "filename": "20-kansas.json",
+    "county_count": 105
+  },
+  {
+    "fips": "21",
+    "name": "Kentucky",
+    "filename": "21-kentucky.json",
+    "county_count": 120
+  },
+  {
+    "fips": "22",
+    "name": "Louisiana",
+    "filename": "22-louisiana.json",
+    "county_count": 64
+  },
+  {
+    "fips": "23",
+    "name": "Maine",
+    "filename": "23-maine.json",
+    "county_count": 16
+  },
+  {
+    "fips": "24",
+    "name": "Maryland",
+    "filename": "24-maryland.json",
+    "county_count": 24
+  },
+  {
+    "fips": "25",
+    "name": "Massachusetts",
+    "filename": "25-massachusetts.json",
+    "county_count": 14
+  },
+  {
+    "fips": "26",
+    "name": "Michigan",
+    "filename": "26-michigan.json",
+    "county_count": 83
+  },
+  {
+    "fips": "27",
+    "name": "Minnesota",
+    "filename": "27-minnesota.json",
+    "county_count": 87
+  },
+  {
+    "fips": "28",
+    "name": "Mississippi",
+    "filename": "28-mississippi.json",
+    "county_count": 82
+  },
+  {
+    "fips": "29",
+    "name": "Missouri",
+    "filename": "29-missouri.json",
+    "county_count": 115
+  },
+  {
+    "fips": "30",
+    "name": "Montana",
+    "filename": "30-montana.json",
+    "county_count": 56
+  },
+  {
+    "fips": "31",
+    "name": "Nebraska",
+    "filename": "31-nebraska.json",
+    "county_count": 93
+  },
+  {
+    "fips": "32",
+    "name": "Nevada",
+    "filename": "32-nevada.json",
+    "county_count": 17
+  },
+  {
+    "fips": "33",
+    "name": "New Hampshire",
+    "filename": "33-new-hampshire.json",
+    "county_count": 10
+  },
+  {
+    "fips": "34",
+    "name": "New Jersey",
+    "filename": "34-new-jersey.json",
+    "county_count": 21
+  },
+  {
+    "fips": "35",
+    "name": "New Mexico",
+    "filename": "35-new-mexico.json",
+    "county_count": 33
+  },
+  {
+    "fips": "36",
+    "name": "New York",
+    "filename": "36-new-york.json",
+    "county_count": 62
+  },
+  {
+    "fips": "37",
+    "name": "North Carolina",
+    "filename": "37-north-carolina.json",
+    "county_count": 100
+  },
+  {
+    "fips": "38",
+    "name": "North Dakota",
+    "filename": "38-north-dakota.json",
+    "county_count": 53
+  },
+  {
+    "fips": "39",
+    "name": "Ohio",
+    "filename": "39-ohio.json",
+    "county_count": 88
+  },
+  {
+    "fips": "40",
+    "name": "Oklahoma",
+    "filename": "40-oklahoma.json",
+    "county_count": 77
+  },
+  {
+    "fips": "41",
+    "name": "Oregon",
+    "filename": "41-oregon.json",
+    "county_count": 36
+  },
+  {
+    "fips": "42",
+    "name": "Pennsylvania",
+    "filename": "42-pennsylvania.json",
+    "county_count": 67
+  },
+  {
+    "fips": "44",
+    "name": "Rhode Island",
+    "filename": "44-rhode-island.json",
+    "county_count": 5
+  },
+  {
+    "fips": "45",
+    "name": "South Carolina",
+    "filename": "45-south-carolina.json",
+    "county_count": 46
+  },
+  {
+    "fips": "46",
+    "name": "South Dakota",
+    "filename": "46-south-dakota.json",
+    "county_count": 66
+  },
+  {
+    "fips": "47",
+    "name": "Tennessee",
+    "filename": "47-tennessee.json",
+    "county_count": 95
+  },
+  {
+    "fips": "48",
+    "name": "Texas",
+    "filename": "48-texas.json",
+    "county_count": 254
+  },
+  {
+    "fips": "49",
+    "name": "Utah",
+    "filename": "49-utah.json",
+    "county_count": 29
+  },
+  {
+    "fips": "50",
+    "name": "Vermont",
+    "filename": "50-vermont.json",
+    "county_count": 14
+  },
+  {
+    "fips": "51",
+    "name": "Virginia",
+    "filename": "51-virginia.json",
+    "county_count": 133
+  },
+  {
+    "fips": "53",
+    "name": "Washington",
+    "filename": "53-washington.json",
+    "county_count": 39
+  },
+  {
+    "fips": "54",
+    "name": "West Virginia",
+    "filename": "54-west-virginia.json",
+    "county_count": 55
+  },
+  {
+    "fips": "55",
+    "name": "Wisconsin",
+    "filename": "55-wisconsin.json",
+    "county_count": 72
+  },
+  {
+    "fips": "56",
+    "name": "Wyoming",
+    "filename": "56-wyoming.json",
+    "county_count": 23
+  },
+  {
+    "fips": "01",
+    "name": "Alabama",
+    "filename": "01-alabama.json",
+    "county_count": 67
+  },
+  {
+    "fips": "02",
+    "name": "Alaska",
+    "filename": "02-alaska.json",
+    "county_count": 30
+  },
+  {
+    "fips": "04",
+    "name": "Arizona",
+    "filename": "04-arizona.json",
+    "county_count": 15
+  },
+  {
+    "fips": "05",
+    "name": "Arkansas",
+    "filename": "05-arkansas.json",
+    "county_count": 75
+  },
+  {
+    "fips": "06",
+    "name": "California",
+    "filename": "06-california.json",
+    "county_count": 58
+  },
+  {
+    "fips": "08",
+    "name": "Colorado",
+    "filename": "08-colorado.json",
+    "county_count": 64
+  },
+  {
+    "fips": "09",
+    "name": "Connecticut",
+    "filename": "09-connecticut.json",
+    "county_count": 9
+  }
+]

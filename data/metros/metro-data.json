@@ -1,4 +1,893 @@
 {
-  "data": {},
-  "generated": "2026-02-22"
+  "0000071650": {
+    "name": "Los Angeles-Long Beach, CA",
+    "cbsa": "71650",
+    "area_code": "0000071650",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000071950": {
+    "name": "New York City, NY",
+    "cbsa": "71950",
+    "area_code": "0000071950",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000672000": {
+    "name": "Chicago, IL",
+    "cbsa": "672000",
+    "area_code": "0000672000",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000673450": {
+    "name": "Dallas, TX",
+    "cbsa": "673450",
+    "area_code": "0000673450",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000674950": {
+    "name": "Houston, TX",
+    "cbsa": "674950",
+    "area_code": "0000674950",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000610420": {
+    "name": "Akron, OH",
+    "cbsa": "610420",
+    "area_code": "0000610420",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000611100": {
+    "name": "Amarillo, TX",
+    "cbsa": "611100",
+    "area_code": "0000611100",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000612060": {
+    "name": "Atlanta, GA",
+    "cbsa": "612060",
+    "area_code": "0000612060",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000612420": {
+    "name": "Austin, TX",
+    "cbsa": "612420",
+    "area_code": "0000612420",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000612540": {
+    "name": "Bakersfield, CA",
+    "cbsa": "612540",
+    "area_code": "0000612540",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000612580": {
+    "name": "Baltimore, MD",
+    "cbsa": "612580",
+    "area_code": "0000612580",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000612940": {
+    "name": "Baton Rouge, LA",
+    "cbsa": "612940",
+    "area_code": "0000612940",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000613820": {
+    "name": "Birmingham, AL",
+    "cbsa": "613820",
+    "area_code": "0000613820",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000614260": {
+    "name": "Boise City, ID",
+    "cbsa": "614260",
+    "area_code": "0000614260",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000614460": {
+    "name": "Boston, MA",
+    "cbsa": "614460",
+    "area_code": "0000614460",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000615380": {
+    "name": "Buffalo, NY",
+    "cbsa": "615380",
+    "area_code": "0000615380",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000615980": {
+    "name": "Cape Coral-Fort Myers, FL",
+    "cbsa": "615980",
+    "area_code": "0000615980",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000616740": {
+    "name": "Charlotte, NC",
+    "cbsa": "616740",
+    "area_code": "0000616740",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000616980": {
+    "name": "Chicago, IL",
+    "cbsa": "616980",
+    "area_code": "0000616980",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000617140": {
+    "name": "Cincinnati, OH",
+    "cbsa": "617140",
+    "area_code": "0000617140",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000617460": {
+    "name": "Cleveland, OH",
+    "cbsa": "617460",
+    "area_code": "0000617460",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000617820": {
+    "name": "Colorado Springs, CO",
+    "cbsa": "617820",
+    "area_code": "0000617820",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000617900": {
+    "name": "Columbia, SC",
+    "cbsa": "617900",
+    "area_code": "0000617900",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000618140": {
+    "name": "Columbus, OH",
+    "cbsa": "618140",
+    "area_code": "0000618140",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000619100": {
+    "name": "Dallas-Fort Worth, TX",
+    "cbsa": "619100",
+    "area_code": "0000619100",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000619380": {
+    "name": "Dayton, OH",
+    "cbsa": "619380",
+    "area_code": "0000619380",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000619740": {
+    "name": "Denver, CO",
+    "cbsa": "619740",
+    "area_code": "0000619740",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000619780": {
+    "name": "Des Moines, IA",
+    "cbsa": "619780",
+    "area_code": "0000619780",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000619820": {
+    "name": "Detroit, MI",
+    "cbsa": "619820",
+    "area_code": "0000619820",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000620500": {
+    "name": "Durham, NC",
+    "cbsa": "620500",
+    "area_code": "0000620500",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000621340": {
+    "name": "El Paso, TX",
+    "cbsa": "621340",
+    "area_code": "0000621340",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000622180": {
+    "name": "Fayetteville, AR",
+    "cbsa": "622180",
+    "area_code": "0000622180",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000623060": {
+    "name": "Fort Wayne, IN",
+    "cbsa": "623060",
+    "area_code": "0000623060",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000623420": {
+    "name": "Fresno, CA",
+    "cbsa": "623420",
+    "area_code": "0000623420",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000623540": {
+    "name": "Gainesville, FL",
+    "cbsa": "623540",
+    "area_code": "0000623540",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000624340": {
+    "name": "Grand Rapids, MI",
+    "cbsa": "624340",
+    "area_code": "0000624340",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000624660": {
+    "name": "Greensboro, NC",
+    "cbsa": "624660",
+    "area_code": "0000624660",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000624860": {
+    "name": "Greenville, SC",
+    "cbsa": "624860",
+    "area_code": "0000624860",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000625420": {
+    "name": "Harrisburg, PA",
+    "cbsa": "625420",
+    "area_code": "0000625420",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000625540": {
+    "name": "Hartford, CT",
+    "cbsa": "625540",
+    "area_code": "0000625540",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000626420": {
+    "name": "Houston, TX",
+    "cbsa": "626420",
+    "area_code": "0000626420",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000626900": {
+    "name": "Indianapolis, IN",
+    "cbsa": "626900",
+    "area_code": "0000626900",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000627140": {
+    "name": "Jackson, MS",
+    "cbsa": "627140",
+    "area_code": "0000627140",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000627260": {
+    "name": "Jacksonville, FL",
+    "cbsa": "627260",
+    "area_code": "0000627260",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000628140": {
+    "name": "Kansas City, MO",
+    "cbsa": "628140",
+    "area_code": "0000628140",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000628940": {
+    "name": "Knoxville, TN",
+    "cbsa": "628940",
+    "area_code": "0000628940",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000629460": {
+    "name": "Lakeland, FL",
+    "cbsa": "629460",
+    "area_code": "0000629460",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000629820": {
+    "name": "Las Vegas, NV",
+    "cbsa": "629820",
+    "area_code": "0000629820",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000630460": {
+    "name": "Lexington, KY",
+    "cbsa": "630460",
+    "area_code": "0000630460",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000630780": {
+    "name": "Little Rock, AR",
+    "cbsa": "630780",
+    "area_code": "0000630780",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000631080": {
+    "name": "Los Angeles, CA",
+    "cbsa": "631080",
+    "area_code": "0000631080",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000631140": {
+    "name": "Louisville, KY",
+    "cbsa": "631140",
+    "area_code": "0000631140",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000632580": {
+    "name": "McAllen, TX",
+    "cbsa": "632580",
+    "area_code": "0000632580",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000633100": {
+    "name": "Miami, FL",
+    "cbsa": "633100",
+    "area_code": "0000633100",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000633340": {
+    "name": "Milwaukee, WI",
+    "cbsa": "633340",
+    "area_code": "0000633340",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000633460": {
+    "name": "Minneapolis, MN",
+    "cbsa": "633460",
+    "area_code": "0000633460",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000634980": {
+    "name": "Nashville, TN",
+    "cbsa": "634980",
+    "area_code": "0000634980",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000635380": {
+    "name": "New Orleans, LA",
+    "cbsa": "635380",
+    "area_code": "0000635380",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000635620": {
+    "name": "New York, NY",
+    "cbsa": "635620",
+    "area_code": "0000635620",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000635840": {
+    "name": "North Port-Sarasota, FL",
+    "cbsa": "635840",
+    "area_code": "0000635840",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000636260": {
+    "name": "Ogden, UT",
+    "cbsa": "636260",
+    "area_code": "0000636260",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000636420": {
+    "name": "Oklahoma City, OK",
+    "cbsa": "636420",
+    "area_code": "0000636420",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000636540": {
+    "name": "Omaha, NE",
+    "cbsa": "636540",
+    "area_code": "0000636540",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000636740": {
+    "name": "Orlando, FL",
+    "cbsa": "636740",
+    "area_code": "0000636740",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000637100": {
+    "name": "Oxnard, CA",
+    "cbsa": "637100",
+    "area_code": "0000637100",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000637340": {
+    "name": "Palm Bay, FL",
+    "cbsa": "637340",
+    "area_code": "0000637340",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000637980": {
+    "name": "Philadelphia, PA",
+    "cbsa": "637980",
+    "area_code": "0000637980",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000638060": {
+    "name": "Phoenix, AZ",
+    "cbsa": "638060",
+    "area_code": "0000638060",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000638300": {
+    "name": "Pittsburgh, PA",
+    "cbsa": "638300",
+    "area_code": "0000638300",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000638900": {
+    "name": "Portland, OR",
+    "cbsa": "638900",
+    "area_code": "0000638900",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000639300": {
+    "name": "Providence, RI",
+    "cbsa": "639300",
+    "area_code": "0000639300",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000639580": {
+    "name": "Raleigh, NC",
+    "cbsa": "639580",
+    "area_code": "0000639580",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000640060": {
+    "name": "Richmond, VA",
+    "cbsa": "640060",
+    "area_code": "0000640060",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000640140": {
+    "name": "Riverside, CA",
+    "cbsa": "640140",
+    "area_code": "0000640140",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000640380": {
+    "name": "Rochester, NY",
+    "cbsa": "640380",
+    "area_code": "0000640380",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000640900": {
+    "name": "Sacramento, CA",
+    "cbsa": "640900",
+    "area_code": "0000640900",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000641180": {
+    "name": "St. Louis, MO",
+    "cbsa": "641180",
+    "area_code": "0000641180",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000641420": {
+    "name": "Salem, OR",
+    "cbsa": "641420",
+    "area_code": "0000641420",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000641620": {
+    "name": "Salt Lake City, UT",
+    "cbsa": "641620",
+    "area_code": "0000641620",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000641700": {
+    "name": "San Antonio, TX",
+    "cbsa": "641700",
+    "area_code": "0000641700",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000641740": {
+    "name": "San Diego, CA",
+    "cbsa": "641740",
+    "area_code": "0000641740",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000641860": {
+    "name": "San Francisco, CA",
+    "cbsa": "641860",
+    "area_code": "0000641860",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000641940": {
+    "name": "San Jose, CA",
+    "cbsa": "641940",
+    "area_code": "0000641940",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000642220": {
+    "name": "Santa Rosa, CA",
+    "cbsa": "642220",
+    "area_code": "0000642220",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000642340": {
+    "name": "Savannah, GA",
+    "cbsa": "642340",
+    "area_code": "0000642340",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000642540": {
+    "name": "Scranton, PA",
+    "cbsa": "642540",
+    "area_code": "0000642540",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000642660": {
+    "name": "Seattle, WA",
+    "cbsa": "642660",
+    "area_code": "0000642660",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000643780": {
+    "name": "South Bend, IN",
+    "cbsa": "643780",
+    "area_code": "0000643780",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000644060": {
+    "name": "Spokane, WA",
+    "cbsa": "644060",
+    "area_code": "0000644060",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000644140": {
+    "name": "Springfield, MA",
+    "cbsa": "644140",
+    "area_code": "0000644140",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000645060": {
+    "name": "Syracuse, NY",
+    "cbsa": "645060",
+    "area_code": "0000645060",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000645300": {
+    "name": "Tampa, FL",
+    "cbsa": "645300",
+    "area_code": "0000645300",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000645780": {
+    "name": "Toledo, OH",
+    "cbsa": "645780",
+    "area_code": "0000645780",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000646060": {
+    "name": "Tucson, AZ",
+    "cbsa": "646060",
+    "area_code": "0000646060",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000646140": {
+    "name": "Tulsa, OK",
+    "cbsa": "646140",
+    "area_code": "0000646140",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000647260": {
+    "name": "Virginia Beach, VA",
+    "cbsa": "647260",
+    "area_code": "0000647260",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000647900": {
+    "name": "Washington, DC",
+    "cbsa": "647900",
+    "area_code": "0000647900",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000648620": {
+    "name": "Wichita, KS",
+    "cbsa": "648620",
+    "area_code": "0000648620",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  },
+  "0000649340": {
+    "name": "Worcester, MA",
+    "cbsa": "649340",
+    "area_code": "0000649340",
+    "total_nonfarm_employment": null,
+    "avg_hourly_earnings": null,
+    "avg_weekly_earnings": null,
+    "avg_weekly_hours": null
+  }
 }

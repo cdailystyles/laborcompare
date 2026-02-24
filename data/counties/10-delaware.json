@@ -1,0 +1,63 @@
+{
+  "state_fips": "10",
+  "state_name": "Delaware",
+  "counties": {
+    "10001": {
+      "name": "Kent County, Delaware",
+      "unemployment_rate": 5.5,
+      "labor_force": 89005,
+      "employment": null,
+      "median_household_income": 72872,
+      "median_earnings": 84137,
+      "per_capita_income": 55474,
+      "median_home_value": 290600,
+      "median_rent": 1285,
+      "population": 185043,
+      "poverty_rate": 11.3,
+      "median_age": 38.5,
+      "bachelors_or_higher_pct": 26.7,
+      "hs_diploma_or_higher_pct": 90.2,
+      "gini_index": 0.405,
+      "homeownership_rate": 71,
+      "vacancy_rate": 6.6
+    },
+    "10003": {
+      "name": "New Castle County, Delaware",
+      "unemployment_rate": 4.9,
+      "labor_force": 306242,
+      "employment": null,
+      "median_household_income": 89901,
+      "median_earnings": 291213,
+      "per_capita_income": 69609,
+      "median_home_value": 329800,
+      "median_rent": 1379,
+      "population": 573030,
+      "poverty_rate": 10.2,
+      "median_age": 39.2,
+      "bachelors_or_higher_pct": 39.2,
+      "hs_diploma_or_higher_pct": 92.6,
+      "gini_index": 0.453,
+      "homeownership_rate": 68.5,
+      "vacancy_rate": 5.2
+    },
+    "10005": {
+      "name": "Sussex County, Delaware",
+      "unemployment_rate": 5.1,
+      "labor_force": 112121,
+      "employment": null,
+      "median_household_income": 78162,
+      "median_earnings": 106378,
+      "per_capita_income": 73647,
+      "median_home_value": 353300,
+      "median_rent": 1221,
+      "population": 247799,
+      "poverty_rate": 11.5,
+      "median_age": 51.4,
+      "bachelors_or_higher_pct": 32.6,
+      "hs_diploma_or_higher_pct": 89.6,
+      "gini_index": 0.456,
+      "homeownership_rate": 81.3,
+      "vacancy_rate": 30.2
+    }
+  }
+}
