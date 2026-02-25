@@ -5,11 +5,16 @@ on:
     - cron: '0 6 1 * *'  # Monthly, 1st at 6 AM UTC
   workflow_dispatch:
     inputs:
-      update_oews:
-        description: 'Also update OEWS data (annual, set year)'
+      oews_year:
+        description: 'Force specific OEWS year (leave blank for auto-detect)'
         required: false
         default: ''
         type: string
+      oews_force:
+        description: 'Force re-fetch OEWS even if same year exists'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -47,6 +52,29 @@ jobs:
           mkdir -p data/projections
           mkdir -p data/jolts
 
+      - name: Fetch OEWS data (auto-detect latest year)
+        continue-on-error: true
+        working-directory: scripts
+        env:
+          OEWS_YEAR: ${{ inputs.oews_year }}
+          OEWS_FORCE: ${{ inputs.oews_force == true && '1' || '' }}
+        run: node fetch-oews.js
+
+      - name: Process OEWS data
+        continue-on-error: true
+        working-directory: scripts
+        run: |
+          if [ -f ../data/raw/oews-raw.json ]; then
+            node process-oews.js
+          else
+            echo "No raw OEWS data to process (fetch may have been skipped)"
+          fi
+
+      - name: Build search index
+        continue-on-error: true
+        working-directory: scripts
+        run: node build-search-index.js
+
       - name: Fetch BLS LAUS data
         continue-on-error: true
         working-directory: scripts
@@ -74,16 +102,6 @@ jobs:
         env:
           BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
         run: node fetch-bea.js
-
-      - name: Fetch OEWS data (if requested)
-        if: inputs.update_oews != ''
-        continue-on-error: true
-        working-directory: scripts
-        env:
-          OEWS_YEAR: ${{ inputs.update_oews }}
-        run: |
-          node fetch-oews.js
-          node process-oews.js
 
       - name: Generate state files
         continue-on-error: true
@@ -139,10 +157,10 @@ jobs:
         working-directory: scripts
         run: node process-ticker.js
 
-      - name: Build search index
+      - name: Generate metro coordinates
         continue-on-error: true
         working-directory: scripts
-        run: node build-search-index.js
+        run: node generate-metro-coords.js
 
       - name: Commit and push
         run: |

@@ -17,6 +17,7 @@ const MapExplorerPage = (() => {
     let nationalData = null;
     let sortCol = 'med';
     let sortAsc = false;
+    let metroCoordsCache = null;
 
     // ================================================================
     // GeoJSON fetch (bypasses content-type check)
@@ -29,6 +30,27 @@ const MapExplorerPage = (() => {
             geoCache = await resp.json();
             return geoCache;
         } catch { return null; }
+    }
+
+    /**
+     * Load metro coordinates — tries data/metro-coords.json first,
+     * falls back to Constants.METRO_COORDS
+     */
+    async function getMetroCoords() {
+        if (metroCoordsCache) return metroCoordsCache;
+        try {
+            const resp = await fetch('data/metro-coords.json');
+            if (resp.ok) {
+                const ct = resp.headers.get('content-type') || '';
+                if (ct.includes('json')) {
+                    metroCoordsCache = await resp.json();
+                    return metroCoordsCache;
+                }
+            }
+        } catch { /* fall through */ }
+        // Fallback to hardcoded top-20
+        metroCoordsCache = Constants.METRO_COORDS || {};
+        return metroCoordsCache;
     }
 
     function getTitle(params) {
@@ -605,7 +627,7 @@ const MapExplorerPage = (() => {
     // ================================================================
     // Metro markers rendering
     // ================================================================
-    function renderMetroMarkers() {
+    async function renderMetroMarkers() {
         clearMapLayers();
         if (!metroData?.metros) return;
 
@@ -619,10 +641,11 @@ const MapExplorerPage = (() => {
         const empValues = Object.values(metros).map(d => d.emp).filter(v => v != null);
         const maxEmp = Math.max(...empValues, 1);
 
+        const allCoords = await getMetroCoords();
         markerLayer = L.layerGroup();
 
         for (const [cbsa, d] of Object.entries(metros)) {
-            const coords = Constants.METRO_COORDS?.[cbsa];
+            const coords = allCoords[cbsa];
             if (!coords) continue;
 
             const val = d[metric];
@@ -701,9 +724,10 @@ const MapExplorerPage = (() => {
         }
     }
 
-    function highlightMetro(cbsa) {
+    async function highlightMetro(cbsa) {
         if (!cbsa) return;
-        const coords = Constants.METRO_COORDS?.[cbsa];
+        const allCoords = await getMetroCoords();
+        const coords = allCoords[cbsa];
         if (coords) {
             map.setView([coords.lat, coords.lng], 7, { animate: true });
         }
@@ -826,6 +850,7 @@ const MapExplorerPage = (() => {
             markerLayer = null;
         }
         geoCache = null;
+        metroCoordsCache = null;
         currentSOC = null;
         stateData = null;
         metroData = null;
