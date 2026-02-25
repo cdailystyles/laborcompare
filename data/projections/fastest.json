@@ -1,4 +1,305 @@
 {
-  "updated": "2026-02-25T12:41:46.348Z",
-  "occupations": []
+  "updated": "2026-02-25T12:46:55.431Z",
+  "occupations": [
+    {
+      "code": "49-9081",
+      "title": "Wind turbine service technicians",
+      "empBase": 13.6,
+      "empProjected": 20.5,
+      "changePct": 49.9,
+      "changeNum": 6.8,
+      "openings": 2.3,
+      "median": 62580
+    },
+    {
+      "code": "47-2231",
+      "title": "Solar photovoltaic installers",
+      "empBase": 28.6,
+      "empProjected": 40.6,
+      "changePct": 42.1,
+      "changeNum": 12,
+      "openings": 4.1,
+      "median": 51860
+    },
+    {
+      "code": "29-1171",
+      "title": "Nurse practitioners",
+      "empBase": 320.4,
+      "empProjected": 448.8,
+      "changePct": 40.1,
+      "changeNum": 128.4,
+      "openings": 29.5,
+      "median": 129210
+    },
+    {
+      "code": "15-2051",
+      "title": "Data scientists",
+      "empBase": 245.9,
+      "empProjected": 328.3,
+      "changePct": 33.5,
+      "changeNum": 82.5,
+      "openings": 23.4,
+      "median": 112590
+    },
+    {
+      "code": "15-1212",
+      "title": "Information security analysts",
+      "empBase": 182.8,
+      "empProjected": 234.9,
+      "changePct": 28.5,
+      "changeNum": 52.1,
+      "openings": 16,
+      "median": 124910
+    },
+    {
+      "code": "11-9111",
+      "title": "Medical and health services managers",
+      "empBase": 616.2,
+      "empProjected": 759.1,
+      "changePct": 23.2,
+      "changeNum": 142.9,
+      "openings": 62.1,
+      "median": 117960
+    },
+    {
+      "code": "31-2021",
+      "title": "Physical therapist assistants",
+      "empBase": 111.5,
+      "empProjected": 136,
+      "changePct": 22,
+      "changeNum": 24.5,
+      "openings": 19.8,
+      "median": 65510
+    },
+    {
+      "code": "15-2011",
+      "title": "Actuaries",
+      "empBase": 33.6,
+      "empProjected": 40.9,
+      "changePct": 21.8,
+      "changeNum": 7.3,
+      "openings": 2.4,
+      "median": 125770
+    },
+    {
+      "code": "15-2031",
+      "title": "Operations research analysts",
+      "empBase": 112.1,
+      "empProjected": 136.2,
+      "changePct": 21.5,
+      "changeNum": 24.1,
+      "openings": 9.6,
+      "median": 91290
+    },
+    {
+      "code": "29-1071",
+      "title": "Physician assistants",
+      "empBase": 162.7,
+      "empProjected": 195.8,
+      "changePct": 20.4,
+      "changeNum": 33.2,
+      "openings": 12,
+      "median": 133260
+    },
+    {
+      "code": "29-2053",
+      "title": "Psychiatric technicians",
+      "empBase": 144.5,
+      "empProjected": 173.3,
+      "changePct": 20,
+      "changeNum": 28.9,
+      "openings": 15.9,
+      "median": 42590
+    },
+    {
+      "code": "29-2057",
+      "title": "Ophthalmic medical technicians",
+      "empBase": 78.8,
+      "empProjected": 94.4,
+      "changePct": 19.8,
+      "changeNum": 15.6,
+      "openings": 12.5,
+      "median": 44080
+    },
+    {
+      "code": "15-1221",
+      "title": "Computer and information research scientists",
+      "empBase": 40.3,
+      "empProjected": 48.3,
+      "changePct": 19.7,
+      "changeNum": 7.9,
+      "openings": 3.2,
+      "median": 140910
+    },
+    {
+      "code": "31-2011",
+      "title": "Occupational therapy assistants",
+      "empBase": 49.2,
+      "empProjected": 58.7,
+      "changePct": 19.2,
+      "changeNum": 9.5,
+      "openings": 7.2,
+      "median": 68340
+    },
+    {
+      "code": "13-2061",
+      "title": "Financial examiners",
+      "empBase": 65.1,
+      "empProjected": 77.2,
+      "changePct": 18.5,
+      "changeNum": 12.1,
+      "openings": 5.7,
+      "median": 90400
+    },
+    {
+      "code": "29-2092",
+      "title": "Hearing aid specialists",
+      "empBase": 10.7,
+      "empProjected": 12.6,
+      "changePct": 18.4,
+      "changeNum": 2,
+      "openings": 1,
+      "median": 61560
+    },
+    {
+      "code": "25-1071",
+      "title": "Health specialties teachers, postsecondary",
+      "empBase": 289.6,
+      "empProjected": 339.7,
+      "changePct": 17.3,
+      "changeNum": 50.1,
+      "openings": 27.4,
+      "median": 105620
+    },
+    {
+      "code": "31-1120",
+      "title": "Home health and personal care aides",
+      "empBase": 4347.7,
+      "empProjected": 5087.5,
+      "changePct": 17,
+      "changeNum": 739.8,
+      "openings": 765.8,
+      "median": 34900
+    },
+    {
+      "code": "25-1072",
+      "title": "Nursing instructors and teachers, postsecondary",
+      "empBase": 91.6,
+      "empProjected": 106.9,
+      "changePct": 16.8,
+      "changeNum": 15.3,
+      "openings": 8.6,
+      "median": 79940
+    },
+    {
+      "code": "21-1018",
+      "title": "Substance abuse, behavioral disorder, and mental health counselors",
+      "empBase": 483.5,
+      "empProjected": 564.6,
+      "changePct": 16.8,
+      "changeNum": 81,
+      "openings": 48.3,
+      "median": 59190
+    },
+    {
+      "code": "13-1081",
+      "title": "Logisticians",
+      "empBase": 241,
+      "empProjected": 281.3,
+      "changePct": 16.7,
+      "changeNum": 40.3,
+      "openings": 26.4,
+      "median": 80880
+    },
+    {
+      "code": "19-1041",
+      "title": "Epidemiologists",
+      "empBase": 12.3,
+      "empProjected": 14.3,
+      "changePct": 16.2,
+      "changeNum": 2,
+      "openings": 0.8,
+      "median": 83980
+    },
+    {
+      "code": "49-9041",
+      "title": "Industrial machinery mechanics",
+      "empBase": 439.6,
+      "empProjected": 510.3,
+      "changePct": 16.1,
+      "changeNum": 70.7,
+      "openings": 45.7,
+      "median": 63760
+    },
+    {
+      "code": "15-1252",
+      "title": "Software developers",
+      "empBase": 1693.8,
+      "empProjected": 1961.4,
+      "changePct": 15.8,
+      "changeNum": 267.7,
+      "openings": 115.2,
+      "median": 133080
+    },
+    {
+      "code": "31-9011",
+      "title": "Massage therapists",
+      "empBase": 168,
+      "empProjected": 193.9,
+      "changePct": 15.4,
+      "changeNum": 25.9,
+      "openings": 24.7,
+      "median": 57950
+    },
+    {
+      "code": "11-3021",
+      "title": "Computer and information systems managers",
+      "empBase": 667.1,
+      "empProjected": 768.7,
+      "changePct": 15.2,
+      "changeNum": 101.6,
+      "openings": 55.6,
+      "median": 171200
+    },
+    {
+      "code": "29-1127",
+      "title": "Speech-language pathologists",
+      "empBase": 187.4,
+      "empProjected": 215.5,
+      "changePct": 15,
+      "changeNum": 28.2,
+      "openings": 13.3,
+      "median": 95410
+    },
+    {
+      "code": "35-2014",
+      "title": "Cooks, restaurant",
+      "empBase": 1460.2,
+      "empProjected": 1677.2,
+      "changePct": 14.9,
+      "changeNum": 217,
+      "openings": 250.7,
+      "median": 36830
+    },
+    {
+      "code": "11-3031",
+      "title": "Financial managers",
+      "empBase": 868.6,
+      "empProjected": 997.4,
+      "changePct": 14.8,
+      "changeNum": 128.8,
+      "openings": 74.6,
+      "median": 161700
+    },
+    {
+      "code": "29-9021",
+      "title": "Health information technologists and medical registrars",
+      "empBase": 41.9,
+      "empProjected": 48.1,
+      "changePct": 14.7,
+      "changeNum": 6.2,
+      "openings": 3.2,
+      "median": 67310
+    }
+  ]
 }

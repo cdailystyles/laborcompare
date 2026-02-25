@@ -1,4 +1,305 @@
 {
-  "updated": "2026-02-25T12:41:46.348Z",
-  "occupations": []
+  "updated": "2026-02-25T12:46:55.431Z",
+  "occupations": [
+    {
+      "code": "43-9022",
+      "title": "Word processors and typists",
+      "empBase": 40,
+      "empProjected": 25.6,
+      "changePct": -36.1,
+      "changeNum": -14.4,
+      "openings": 2.2,
+      "median": 47850
+    },
+    {
+      "code": "47-5043",
+      "title": "Roof bolters, mining",
+      "empBase": 2.3,
+      "empProjected": 1.5,
+      "changePct": -34.2,
+      "changeNum": -0.8,
+      "openings": 0.1,
+      "median": 76640
+    },
+    {
+      "code": "43-2021",
+      "title": "Telephone operators",
+      "empBase": 4,
+      "empProjected": 2.9,
+      "changePct": -27.5,
+      "changeNum": -1.1,
+      "openings": 0.3,
+      "median": 39130
+    },
+    {
+      "code": "43-2011",
+      "title": "Switchboard operators, including answering service",
+      "empBase": 36.6,
+      "empProjected": 27,
+      "changePct": -26.3,
+      "changeNum": -9.6,
+      "openings": 2.8,
+      "median": 38370
+    },
+    {
+      "code": "43-9021",
+      "title": "Data entry keyers",
+      "empBase": 141.6,
+      "empProjected": 104.9,
+      "changePct": -25.9,
+      "changeNum": -36.7,
+      "openings": 9.5,
+      "median": 39850
+    },
+    {
+      "code": "51-4071",
+      "title": "Foundry mold and coremakers",
+      "empBase": 12.7,
+      "empProjected": 9.4,
+      "changePct": -25.9,
+      "changeNum": -3.3,
+      "openings": 0.9,
+      "median": 45700
+    },
+    {
+      "code": "51-4062",
+      "title": "Patternmakers, metal and plastic",
+      "empBase": 1.6,
+      "empProjected": 1.2,
+      "changePct": -24.4,
+      "changeNum": -0.4,
+      "openings": 0.1,
+      "median": 54540
+    },
+    {
+      "code": "47-5044",
+      "title": "Loading and moving machine operators, underground mining",
+      "empBase": 6.4,
+      "empProjected": 5,
+      "changePct": -22.3,
+      "changeNum": -1.4,
+      "openings": 0.5,
+      "median": 68860
+    },
+    {
+      "code": "41-9041",
+      "title": "Telemarketers",
+      "empBase": 67.4,
+      "empProjected": 52.5,
+      "changePct": -22.1,
+      "changeNum": -14.9,
+      "openings": 6.5,
+      "median": 34410
+    },
+    {
+      "code": "51-9022",
+      "title": "Grinding and polishing workers, hand",
+      "empBase": 11.8,
+      "empProjected": 9.3,
+      "changePct": -21.2,
+      "changeNum": -2.5,
+      "openings": 0.8,
+      "median": 41690
+    },
+    {
+      "code": "51-2031",
+      "title": "Engine and other machine assemblers",
+      "empBase": 38.4,
+      "empProjected": 30.3,
+      "changePct": -21.1,
+      "changeNum": -8.1,
+      "openings": 2.8,
+      "median": 52540
+    },
+    {
+      "code": "51-4032",
+      "title": "Drilling and boring machine tool setters, operators, and tenders, metal and plastic",
+      "empBase": 5.3,
+      "empProjected": 4.3,
+      "changePct": -19.6,
+      "changeNum": -1,
+      "openings": 0.4,
+      "median": 46630
+    },
+    {
+      "code": "51-4022",
+      "title": "Forging machine setters, operators, and tenders, metal and plastic",
+      "empBase": 8.8,
+      "empProjected": 7.2,
+      "changePct": -18.9,
+      "changeNum": -1.7,
+      "openings": 0.6,
+      "median": 49240
+    },
+    {
+      "code": "51-4061",
+      "title": "Model makers, metal and plastic",
+      "empBase": 3.2,
+      "empProjected": 2.6,
+      "changePct": -18.2,
+      "changeNum": -0.6,
+      "openings": 0.3,
+      "median": 62700
+    },
+    {
+      "code": "51-9031",
+      "title": "Cutters and trimmers, hand",
+      "empBase": 7,
+      "empProjected": 5.7,
+      "changePct": -18.1,
+      "changeNum": -1.3,
+      "openings": 0.6,
+      "median": 38800
+    },
+    {
+      "code": "51-2061",
+      "title": "Timing device assemblers and adjusters",
+      "empBase": 0.2,
+      "empProjected": 0.2,
+      "changePct": -17.5,
+      "changeNum": 0,
+      "openings": null,
+      "median": 40790
+    },
+    {
+      "code": "43-4151",
+      "title": "Order clerks",
+      "empBase": 89.5,
+      "empProjected": 74.1,
+      "changePct": -17.2,
+      "changeNum": -15.4,
+      "openings": 8,
+      "median": 44660
+    },
+    {
+      "code": "49-9045",
+      "title": "Refractory materials repairers, except brickmasons",
+      "empBase": 1.1,
+      "empProjected": 0.9,
+      "changePct": -16.9,
+      "changeNum": -0.2,
+      "openings": 0.1,
+      "median": 58540
+    },
+    {
+      "code": "43-3051",
+      "title": "Payroll and timekeeping clerks",
+      "empBase": 161.1,
+      "empProjected": 134.2,
+      "changePct": -16.7,
+      "changeNum": -27,
+      "openings": 13,
+      "median": 55290
+    },
+    {
+      "code": "51-2041",
+      "title": "Structural metal fabricators and fitters",
+      "empBase": 53.8,
+      "empProjected": 45,
+      "changePct": -16.3,
+      "changeNum": -8.8,
+      "openings": 4.1,
+      "median": 49900
+    },
+    {
+      "code": "51-5113",
+      "title": "Print binding and finishing workers",
+      "empBase": 35.8,
+      "empProjected": 30,
+      "changePct": -16.1,
+      "changeNum": -5.8,
+      "openings": 2.8,
+      "median": 39820
+    },
+    {
+      "code": "43-4071",
+      "title": "File clerks",
+      "empBase": 84.3,
+      "empProjected": 70.9,
+      "changePct": -15.9,
+      "changeNum": -13.4,
+      "openings": 7.3,
+      "median": 41270
+    },
+    {
+      "code": "51-8011",
+      "title": "Nuclear power reactor operators",
+      "empBase": 5.7,
+      "empProjected": 4.9,
+      "changePct": -15.3,
+      "changeNum": -0.9,
+      "openings": 0.4,
+      "median": 122610
+    },
+    {
+      "code": "43-9071",
+      "title": "Office machine operators, except computer",
+      "empBase": 25.5,
+      "empProjected": 21.6,
+      "changePct": -15.2,
+      "changeNum": -3.9,
+      "openings": 2.8,
+      "median": 39020
+    },
+    {
+      "code": "49-9061",
+      "title": "Camera and photographic equipment repairers",
+      "empBase": 2.3,
+      "empProjected": 1.9,
+      "changePct": -15.1,
+      "changeNum": -0.3,
+      "openings": 0.2,
+      "median": 49300
+    },
+    {
+      "code": "51-5111",
+      "title": "Prepress technicians and workers",
+      "empBase": 26.2,
+      "empProjected": 22.3,
+      "changePct": -14.6,
+      "changeNum": -3.8,
+      "openings": 2.8,
+      "median": 47300
+    },
+    {
+      "code": "51-2011",
+      "title": "Aircraft structure, surfaces, rigging, and systems assemblers",
+      "empBase": 33.6,
+      "empProjected": 28.7,
+      "changePct": -14.5,
+      "changeNum": -4.9,
+      "openings": 2.8,
+      "median": 61680
+    },
+    {
+      "code": "51-4035",
+      "title": "Milling and planing machine setters, operators, and tenders, metal and plastic",
+      "empBase": 13.8,
+      "empProjected": 11.8,
+      "changePct": -14.4,
+      "changeNum": -2,
+      "openings": 1.1,
+      "median": 48310
+    },
+    {
+      "code": "25-3011",
+      "title": "Adult basic education, adult secondary education, and english as a second language instructors",
+      "empBase": 40.9,
+      "empProjected": 35.3,
+      "changePct": -13.7,
+      "changeNum": -5.6,
+      "openings": 3.9,
+      "median": 59950
+    },
+    {
+      "code": "49-2096",
+      "title": "Electronic equipment installers and repairers, motor vehicles",
+      "empBase": 10.3,
+      "empProjected": 8.9,
+      "changePct": -13.6,
+      "changeNum": -1.4,
+      "openings": 0.6,
+      "median": 47940
+    }
+  ]
 }

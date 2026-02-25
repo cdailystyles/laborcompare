@@ -1,4 +1,305 @@
 {
-  "updated": "2026-02-25T12:41:46.348Z",
-  "occupations": []
+  "updated": "2026-02-25T12:46:55.431Z",
+  "occupations": [
+    {
+      "code": "31-1120",
+      "title": "Home health and personal care aides",
+      "empBase": 4347.7,
+      "empProjected": 5087.5,
+      "changePct": 17,
+      "changeNum": 739.8,
+      "openings": 765.8,
+      "median": 34900
+    },
+    {
+      "code": "15-1252",
+      "title": "Software developers",
+      "empBase": 1693.8,
+      "empProjected": 1961.4,
+      "changePct": 15.8,
+      "changeNum": 267.7,
+      "openings": 115.2,
+      "median": 133080
+    },
+    {
+      "code": "53-7065",
+      "title": "Stockers and order fillers",
+      "empBase": 2764.8,
+      "empProjected": 2999.8,
+      "changePct": 8.5,
+      "changeNum": 235,
+      "openings": 472.3,
+      "median": 37090
+    },
+    {
+      "code": "35-3023",
+      "title": "Fast food and counter workers",
+      "empBase": 3796,
+      "empProjected": 4029.2,
+      "changePct": 6.1,
+      "changeNum": 233.2,
+      "openings": 904.3,
+      "median": 30480
+    },
+    {
+      "code": "35-2014",
+      "title": "Cooks, restaurant",
+      "empBase": 1460.2,
+      "empProjected": 1677.2,
+      "changePct": 14.9,
+      "changeNum": 217,
+      "openings": 250.7,
+      "median": 36830
+    },
+    {
+      "code": "29-1141",
+      "title": "Registered nurses",
+      "empBase": 3391,
+      "empProjected": 3557.1,
+      "changePct": 4.9,
+      "changeNum": 166.1,
+      "openings": 189.1,
+      "median": 93600
+    },
+    {
+      "code": "11-1021",
+      "title": "General and operations managers",
+      "empBase": 3712.9,
+      "empProjected": 3876.8,
+      "changePct": 4.4,
+      "changeNum": 164,
+      "openings": 308.7,
+      "median": 102950
+    },
+    {
+      "code": "11-9111",
+      "title": "Medical and health services managers",
+      "empBase": 616.2,
+      "empProjected": 759.1,
+      "changePct": 23.2,
+      "changeNum": 142.9,
+      "openings": 62.1,
+      "median": 117960
+    },
+    {
+      "code": "11-3031",
+      "title": "Financial managers",
+      "empBase": 868.6,
+      "empProjected": 997.4,
+      "changePct": 14.8,
+      "changeNum": 128.8,
+      "openings": 74.6,
+      "median": 161700
+    },
+    {
+      "code": "29-1171",
+      "title": "Nurse practitioners",
+      "empBase": 320.4,
+      "empProjected": 448.8,
+      "changePct": 40.1,
+      "changeNum": 128.4,
+      "openings": 29.5,
+      "median": 129210
+    },
+    {
+      "code": "47-2061",
+      "title": "Construction laborers",
+      "empBase": 1457,
+      "empProjected": 1563.4,
+      "changePct": 7.3,
+      "changeNum": 106.5,
+      "openings": 129.4,
+      "median": 46730
+    },
+    {
+      "code": "11-3021",
+      "title": "Computer and information systems managers",
+      "empBase": 667.1,
+      "empProjected": 768.7,
+      "changePct": 15.2,
+      "changeNum": 101.6,
+      "openings": 55.6,
+      "median": 171200
+    },
+    {
+      "code": "31-9092",
+      "title": "Medical assistants",
+      "empBase": 811,
+      "empProjected": 912.2,
+      "changePct": 12.5,
+      "changeNum": 101.2,
+      "openings": 112.3,
+      "median": 44200
+    },
+    {
+      "code": "13-1111",
+      "title": "Management analysts",
+      "empBase": 1075.1,
+      "empProjected": 1169.7,
+      "changePct": 8.8,
+      "changeNum": 94.5,
+      "openings": 98.1,
+      "median": 101190
+    },
+    {
+      "code": "53-3032",
+      "title": "Heavy and tractor-trailer truck drivers",
+      "empBase": 2235.1,
+      "empProjected": 2324.4,
+      "changePct": 4,
+      "changeNum": 89.3,
+      "openings": 237.6,
+      "median": 57440
+    },
+    {
+      "code": "15-2051",
+      "title": "Data scientists",
+      "empBase": 245.9,
+      "empProjected": 328.3,
+      "changePct": 33.5,
+      "changeNum": 82.5,
+      "openings": 23.4,
+      "median": 112590
+    },
+    {
+      "code": "21-1018",
+      "title": "Substance abuse, behavioral disorder, and mental health counselors",
+      "empBase": 483.5,
+      "empProjected": 564.6,
+      "changePct": 16.8,
+      "changeNum": 81,
+      "openings": 48.3,
+      "median": 59190
+    },
+    {
+      "code": "53-3033",
+      "title": "Light truck drivers",
+      "empBase": 1079.8,
+      "empProjected": 1158.6,
+      "changePct": 7.3,
+      "changeNum": 78.9,
+      "openings": 120.2,
+      "median": 44140
+    },
+    {
+      "code": "47-2111",
+      "title": "Electricians",
+      "empBase": 818.7,
+      "empProjected": 896.1,
+      "changePct": 9.5,
+      "changeNum": 77.4,
+      "openings": 81,
+      "median": 62350
+    },
+    {
+      "code": "35-1012",
+      "title": "First-line supervisors of food preparation and serving workers",
+      "empBase": 1215,
+      "empProjected": 1288,
+      "changePct": 6,
+      "changeNum": 73,
+      "openings": 183.9,
+      "median": 42010
+    },
+    {
+      "code": "13-2011",
+      "title": "Accountants and auditors",
+      "empBase": 1579.8,
+      "empProjected": 1652.6,
+      "changePct": 4.6,
+      "changeNum": 72.8,
+      "openings": 124.2,
+      "median": 81680
+    },
+    {
+      "code": "49-9041",
+      "title": "Industrial machinery mechanics",
+      "empBase": 439.6,
+      "empProjected": 510.3,
+      "changePct": 16.1,
+      "changeNum": 70.7,
+      "openings": 45.7,
+      "median": 63760
+    },
+    {
+      "code": "13-1161",
+      "title": "Market research analysts and marketing specialists",
+      "empBase": 941.7,
+      "empProjected": 1004.7,
+      "changePct": 6.7,
+      "changeNum": 63,
+      "openings": 87.2,
+      "median": 76950
+    },
+    {
+      "code": "49-9071",
+      "title": "Maintenance and repair workers, general",
+      "empBase": 1629.7,
+      "empProjected": 1692.1,
+      "changePct": 3.8,
+      "changeNum": 62.4,
+      "openings": 159.8,
+      "median": 48620
+    },
+    {
+      "code": "11-9199",
+      "title": "Managers, all other",
+      "empBase": 1333.7,
+      "empProjected": 1393.5,
+      "changePct": 4.5,
+      "changeNum": 59.8,
+      "openings": 106.7,
+      "median": 136550
+    },
+    {
+      "code": "13-1082",
+      "title": "Project management specialists",
+      "empBase": 1046.3,
+      "empProjected": 1105,
+      "changePct": 5.6,
+      "changeNum": 58.7,
+      "openings": 78.2,
+      "median": 100750
+    },
+    {
+      "code": "13-1071",
+      "title": "Human resources specialists",
+      "empBase": 944.3,
+      "empProjected": 1002.7,
+      "changePct": 6.2,
+      "changeNum": 58.4,
+      "openings": 81.8,
+      "median": 72910
+    },
+    {
+      "code": "15-1212",
+      "title": "Information security analysts",
+      "empBase": 182.8,
+      "empProjected": 234.9,
+      "changePct": 28.5,
+      "changeNum": 52.1,
+      "openings": 16,
+      "median": 124910
+    },
+    {
+      "code": "25-1071",
+      "title": "Health specialties teachers, postsecondary",
+      "empBase": 289.6,
+      "empProjected": 339.7,
+      "changePct": 17.3,
+      "changeNum": 50.1,
+      "openings": 27.4,
+      "median": 105620
+    },
+    {
+      "code": "47-1011",
+      "title": "First-line supervisors of construction trades and extraction workers",
+      "empBase": 921.6,
+      "empProjected": 970.6,
+      "changePct": 5.3,
+      "changeNum": 49,
+      "openings": 74.4,
+      "median": 78690
+    }
+  ]
 }
