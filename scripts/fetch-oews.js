@@ -2,13 +2,18 @@
  * fetch-oews.js
  * Downloads the annual OEWS (Occupational Employment and Wage Statistics) data from BLS.
  *
- * BLS publishes OEWS data as Excel files at:
- *   https://www.bls.gov/oes/special-requests/oesm{YY}all.zip
+ * BLS publishes OEWS data as separate Excel files:
+ *   National: https://www.bls.gov/oes/special-requests/oesm{YY}nat.zip (~1MB)
+ *   State:    https://www.bls.gov/oes/special-requests/oesm{YY}st.zip  (~3MB)
+ *   Metro:    https://www.bls.gov/oes/special-requests/oesm{YY}ma.zip  (~8MB)
+ *
+ * These are MUCH smaller than the all-data file (76MB) and contain only
+ * cross-industry data — exactly what we need.
  *
  * This script:
  * 1. Auto-detects the latest available OEWS year (or uses OEWS_YEAR env var)
- * 2. Downloads and extracts the Excel file
- * 3. Parses all national, state, and metro data (~830 detailed occupations)
+ * 2. Downloads national, state, and metro Excel files
+ * 3. Parses all ~830 detailed occupations across all areas
  * 4. Saves raw parsed data to data/raw/oews-raw.json
  *
  * No API key required — uses BLS bulk download files.
@@ -26,41 +31,42 @@ const OEWS_DIR = path.join(__dirname, '..', 'data', 'oews');
 const MAX_RETRIES = 3;
 const RETRY_DELAY_MS = 10000;
 
+// The three file types we download (cross-industry, much smaller than "all")
+const FILE_TYPES = [
+  { suffix: 'nat', label: 'National', areaType: 1 },
+  { suffix: 'st',  label: 'State',    areaType: 2 },
+  { suffix: 'ma',  label: 'Metro',    areaType: 3 },
+];
+
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 /**
  * Determine the OEWS year to fetch.
- * Priority: OEWS_YEAR env var > auto-detect latest available
  * BLS publishes May {YEAR} data around March/April of the following year.
- * So in 2025, May 2024 data is available. In 2026, May 2025 data should be available.
  */
 function getTargetYears() {
   if (process.env.OEWS_YEAR) {
     return [process.env.OEWS_YEAR];
   }
-  // Try most recent first: current year - 1, then current year - 2
   const currentYear = new Date().getFullYear();
-  return [
-    String(currentYear - 1),
-    String(currentYear - 2)
-  ];
+  return [String(currentYear - 1), String(currentYear - 2)];
 }
 
 /**
- * Build the OEWS download URL for a given year
+ * Build download URL for a specific file type and year
  */
-function getOEWSUrl(year) {
+function getOEWSUrl(year, suffix) {
   const yy = year.slice(-2);
-  return `https://www.bls.gov/oes/special-requests/oesm${yy}all.zip`;
+  return `https://www.bls.gov/oes/special-requests/oesm${yy}${suffix}.zip`;
 }
 
 /**
  * Download a file with retries
  */
 async function downloadFile(url, destPath, attempt = 1) {
-  console.log(`  Downloading ${url} (attempt ${attempt})...`);
+  console.log(`    Downloading ${url} (attempt ${attempt})...`);
   try {
     const response = await fetch(url, {
       headers: {
@@ -74,11 +80,11 @@ async function downloadFile(url, destPath, attempt = 1) {
 
     const buffer = Buffer.from(await response.arrayBuffer());
     writeFileSync(destPath, buffer);
-    console.log(`  Downloaded ${(buffer.length / 1024 / 1024).toFixed(1)} MB`);
+    console.log(`    Downloaded ${(buffer.length / 1024 / 1024).toFixed(1)} MB`);
     return destPath;
   } catch (err) {
     if (attempt < MAX_RETRIES) {
-      console.warn(`  Retry ${attempt}/${MAX_RETRIES}: ${err.message}`);
+      console.warn(`    Retry ${attempt}/${MAX_RETRIES}: ${err.message}`);
       await sleep(RETRY_DELAY_MS);
       return downloadFile(url, destPath, attempt + 1);
     }
@@ -126,18 +132,19 @@ async function parseOEWSExcel(xlsxPath) {
     XLSX = require('xlsx');
   }
 
-  console.log('  Parsing Excel file...');
+  console.log(`    Parsing ${path.basename(xlsxPath)}...`);
   const workbook = XLSX.readFile(xlsxPath, { type: 'file' });
 
   // The main data sheet — try common names
   const sheetName = workbook.SheetNames.find(n => {
     const lower = n.toLowerCase();
-    return lower.includes('all') || lower.includes('data') || lower.includes('national');
+    return lower.includes('all') || lower.includes('data') || lower.includes('national') ||
+           lower.includes('state') || lower.includes('metro');
   }) || workbook.SheetNames[0];
 
-  console.log(`  Using sheet: "${sheetName}" (${workbook.SheetNames.length} sheets total)`);
+  console.log(`    Using sheet: "${sheetName}" (${workbook.SheetNames.length} sheets total)`);
   const rows = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
-  console.log(`  Parsed ${rows.length} rows`);
+  console.log(`    Parsed ${rows.length} rows`);
   return rows;
 }
 
@@ -152,7 +159,6 @@ function normalizeRow(row) {
     return isNaN(n) ? null : n;
   };
 
-  // Handle both uppercase and lowercase column names
   const get = (key) => row[key] || row[key.toLowerCase()] || row[key.toUpperCase()];
 
   return {
@@ -185,25 +191,12 @@ function normalizeRow(row) {
 }
 
 /**
- * Filter to cross-industry, all-ownerships relevant rows
- * AREA_TYPE: 1=nation, 2=state, 3=metro, 4=nonmetro, 6=county
- * OWN_CODE: 1235=cross-ownership (or null for older formats)
- * I_GROUP: "cross_industry" or NAICS="000000"
- * O_GROUP: "detailed" for specific occupations, "major"/"broad" for groups
+ * Filter rows to keep only detailed/major/broad occupations
+ * The nat/st/ma files are already cross-industry, so we only need to filter by o_group
  */
 function filterRelevantRows(rows) {
   return rows.filter(r => {
-    // Cross-industry totals only
-    const isCrossIndustry = r.naics === '000000' || r.i_group === 'cross_industry' ||
-      r.naics === '000000.0' || r.naics_title.toLowerCase().includes('cross-industry');
-    // All ownerships (1235) or if not specified
-    const isAllOwnership = r.own_code === 1235 || r.own_code === null;
-    // Nation, state, or metro
-    const isRelevantArea = [1, 2, 3].includes(r.area_type);
-    // Keep detailed and major/broad occupations
-    const isOccupation = ['detailed', 'major', 'broad'].includes(r.o_group);
-
-    return isCrossIndustry && isAllOwnership && isRelevantArea && isOccupation;
+    return ['detailed', 'major', 'broad'].includes(r.o_group);
   });
 }
 
@@ -221,6 +214,64 @@ function getCurrentDataYear() {
   return null;
 }
 
+/**
+ * Download, extract, and parse a single OEWS file type
+ */
+async function fetchFileType(year, fileType) {
+  const yy = year.slice(-2);
+  const url = getOEWSUrl(year, fileType.suffix);
+  const zipPath = path.join(TEMP_DIR, `oesm${yy}${fileType.suffix}.zip`);
+  const extractDir = path.join(TEMP_DIR, `oews-${fileType.suffix}`);
+
+  try {
+    await downloadFile(url, zipPath);
+
+    // Validate download size
+    const zipSize = statSync(zipPath).size;
+    if (zipSize < 10_000) {
+      console.warn(`    Download too small (${(zipSize / 1024).toFixed(0)} KB) — likely an error page`);
+      return null;
+    }
+
+    console.log(`    Extracting ZIP...`);
+    await unzipFile(zipPath, extractDir);
+
+    const xlsxPath = findExcelFile(extractDir);
+    if (!xlsxPath) {
+      const contents = readdirSync(extractDir);
+      console.warn(`    No Excel file found. Contents: ${contents.join(', ')}`);
+      return null;
+    }
+    console.log(`    Found: ${path.basename(xlsxPath)}`);
+
+    const rawRows = await parseOEWSExcel(xlsxPath);
+    const normalized = rawRows.map(normalizeRow);
+    const filtered = filterRelevantRows(normalized);
+
+    console.log(`    ${filtered.length} relevant rows (from ${normalized.length} total)`);
+
+    // Cleanup
+    try {
+      unlinkSync(zipPath);
+      const { rmSync } = await import('fs');
+      rmSync(extractDir, { recursive: true });
+    } catch { /* ignore */ }
+
+    return filtered;
+  } catch (err) {
+    console.warn(`    Failed ${fileType.label}: ${err.message}`);
+    // Cleanup on failure
+    try {
+      if (existsSync(zipPath)) unlinkSync(zipPath);
+      if (existsSync(extractDir)) {
+        const { rmSync } = await import('fs');
+        rmSync(extractDir, { recursive: true });
+      }
+    } catch { /* ignore */ }
+    return null;
+  }
+}
+
 async function main() {
   const targetYears = getTargetYears();
   console.log(`\n=== Fetching OEWS Data ===`);
@@ -233,140 +284,64 @@ async function main() {
   mkdirSync(TEMP_DIR, { recursive: true });
 
   let successYear = null;
-  let filtered = null;
+  let allRows = null;
 
   for (const year of targetYears) {
-    // Skip if we already have this year's data (unless forced via env)
     if (currentYear === year && !process.env.OEWS_FORCE) {
       console.log(`\n  Already have ${year} data. Set OEWS_FORCE=1 to re-fetch.`);
       console.log('  Skipping OEWS fetch.');
       return;
     }
 
-    const yy = year.slice(-2);
-    const url = getOEWSUrl(year);
-    const zipPath = path.join(TEMP_DIR, `oesm${yy}all.zip`);
-    const extractDir = path.join(TEMP_DIR, 'oews');
+    console.log(`\nTrying OEWS ${year} data...`);
+    const collected = [];
+    let anySuccess = false;
 
-    try {
-      // Step 1: Download
-      console.log(`\nTrying OEWS ${year} data...`);
-      await downloadFile(url, zipPath);
-
-      // Validate download size (error pages are typically < 1MB, real data is 50-100MB)
-      const zipSize = statSync(zipPath).size;
-      if (zipSize < 1_000_000) {
-        console.warn(`  Download too small (${(zipSize / 1024).toFixed(0)} KB) — likely an error page, not real data`);
-        continue;
+    for (const ft of FILE_TYPES) {
+      console.log(`\n  [${ft.label}]`);
+      const rows = await fetchFileType(year, ft);
+      if (rows && rows.length > 0) {
+        collected.push(...rows);
+        anySuccess = true;
       }
+    }
 
-      // Step 2: Extract
-      console.log('  Extracting ZIP...');
-      await unzipFile(zipPath, extractDir);
-
-      // Find Excel file (search recursively — ZIP may extract to a subdirectory)
-      const xlsxPath = findExcelFile(extractDir);
-      if (!xlsxPath) {
-        const contents = readdirSync(extractDir);
-        console.warn(`  No Excel file found. Top-level contents: ${contents.join(', ')}`);
-        continue;
-      }
-      const xlsxFile = path.basename(xlsxPath);
-      console.log(`  Found: ${xlsxFile}`);
-
-      // Step 3: Parse
-      console.log('  Parsing Excel data...');
-      const rawRows = await parseOEWSExcel(xlsxPath);
-
-      // Step 4: Normalize
-      console.log('  Normalizing...');
-      const normalized = rawRows.map(normalizeRow);
-      console.log(`  ${normalized.length} rows normalized`);
-
-      // Debug: show unique o_group values
-      const oGroups = [...new Set(normalized.map(r => r.o_group))];
-      console.log(`  o_group values: ${oGroups.join(', ')}`);
-      const areaTypes = [...new Set(normalized.map(r => r.area_type))];
-      console.log(`  area_type values: ${areaTypes.join(', ')}`);
-
-      // Step 5: Filter
-      filtered = filterRelevantRows(normalized);
-      console.log(`  ${filtered.length} rows after filtering`);
-
-      // Verify we got a reasonable number
-      const detailedNational = filtered.filter(r => r.area_type === 1 && r.o_group === 'detailed');
-      console.log(`  National detailed occupations: ${detailedNational.length}`);
-
-      if (detailedNational.length < 100) {
-        console.warn(`  WARNING: Only ${detailedNational.length} national detailed occupations found.`);
-        console.warn('  This is fewer than expected (~830). Checking filter criteria...');
-
-        // Try relaxed filtering for diagnosis
-        const allNational = normalized.filter(r => r.area_type === 1);
-        const allDetailed = normalized.filter(r => r.o_group === 'detailed');
-        const allCross = normalized.filter(r => r.naics === '000000' || r.i_group === 'cross_industry');
-        console.warn(`  Total national rows: ${allNational.length}`);
-        console.warn(`  Total detailed rows: ${allDetailed.length}`);
-        console.warn(`  Total cross-industry rows: ${allCross.length}`);
-
-        // If the filter is too strict, try a relaxed version
-        if (allDetailed.length > 100 && filtered.length < 100) {
-          console.log('  Trying relaxed cross-industry filter...');
-          filtered = normalized.filter(r => {
-            const isRelevantArea = [1, 2, 3].includes(r.area_type);
-            const isOccupation = ['detailed', 'major', 'broad'].includes(r.o_group);
-            // More lenient: accept rows where NAICS starts with 0 or i_group contains cross
-            const isCrossish = r.naics === '000000' || r.naics === '000000.0' ||
-              r.naics.startsWith('0000') || r.i_group.includes('cross') ||
-              r.naics_title.toLowerCase().includes('cross') || r.naics_title === '';
-            const isAllOwn = r.own_code === 1235 || r.own_code === null;
-            return isRelevantArea && isOccupation && isCrossish && isAllOwn;
-          });
-          const relaxedNational = filtered.filter(r => r.area_type === 1 && r.o_group === 'detailed');
-          console.log(`  Relaxed filter: ${filtered.length} total, ${relaxedNational.length} national detailed`);
-        }
-      }
-
-      successYear = year;
-
-      // Cleanup temp
-      try {
-        unlinkSync(zipPath);
-        const { rmSync } = await import('fs');
-        rmSync(extractDir, { recursive: true });
-      } catch { /* ignore */ }
-
-      break; // Success — stop trying older years
-
-    } catch (err) {
-      console.warn(`  Failed for ${year}: ${err.message}`);
-      // Cleanup on failure
-      try {
-        if (existsSync(zipPath)) unlinkSync(zipPath);
-        const { rmSync } = await import('fs');
-        const extractDir = path.join(TEMP_DIR, 'oews');
-        if (existsSync(extractDir)) rmSync(extractDir, { recursive: true });
-      } catch { /* ignore */ }
+    if (!anySuccess) {
+      console.warn(`  No data fetched for ${year}, trying next year...`);
       continue;
     }
+
+    // Verify we got a reasonable number of national detailed occupations
+    const detailedNational = collected.filter(r => r.area_type === 1 && r.o_group === 'detailed');
+    console.log(`\n  Total rows collected: ${collected.length}`);
+    console.log(`  National detailed occupations: ${detailedNational.length}`);
+
+    if (detailedNational.length < 100) {
+      console.warn(`  WARNING: Only ${detailedNational.length} national detailed occupations found.`);
+      console.warn('  Expected ~830. Data may be incomplete but proceeding anyway.');
+    }
+
+    allRows = collected;
+    successYear = year;
+    break;
   }
 
-  if (!successYear || !filtered) {
+  if (!successYear || !allRows) {
     throw new Error(`Failed to fetch OEWS data for any target year: ${targetYears.join(', ')}`);
   }
 
-  // Step 6: Save
+  // Save
   const outputPath = path.join(RAW_DIR, 'oews-raw.json');
   console.log(`\nSaving to ${outputPath}...`);
   writeFileSync(outputPath, JSON.stringify({
     year: successYear,
     source: 'BLS Occupational Employment and Wage Statistics',
-    url: getOEWSUrl(successYear),
+    urls: FILE_TYPES.map(ft => getOEWSUrl(successYear, ft.suffix)),
     fetched: new Date().toISOString(),
-    count: filtered.length,
-    data: filtered
+    count: allRows.length,
+    data: allRows
   }, null, 2));
-  console.log(`  Saved ${filtered.length} records`);
+  console.log(`  Saved ${allRows.length} records`);
 
   // Cleanup temp dir
   try {
@@ -375,12 +350,12 @@ async function main() {
   } catch { /* ignore */ }
 
   // Summary
-  const areas = new Set(filtered.map(r => r.area));
-  const occs = new Set(filtered.filter(r => r.o_group === 'detailed').map(r => r.occ_code));
+  const areas = new Set(allRows.map(r => r.area));
+  const occs = new Set(allRows.filter(r => r.o_group === 'detailed').map(r => r.occ_code));
   console.log(`\n=== OEWS Fetch Complete (${successYear}) ===`);
   console.log(`  ${occs.size} unique detailed occupations`);
   console.log(`  ${areas.size} unique areas`);
-  console.log(`  ${filtered.length} total records`);
+  console.log(`  ${allRows.length} total records`);
 }
 
 main().catch(err => {
