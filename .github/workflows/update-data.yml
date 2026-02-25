@@ -52,6 +52,7 @@ jobs:
           mkdir -p data/projections
           mkdir -p data/jolts
 
+      # === OEWS (direct download, no API) ===
       - name: Fetch OEWS data (auto-detect latest year)
         continue-on-error: true
         working-directory: scripts
@@ -75,49 +76,9 @@ jobs:
         working-directory: scripts
         run: node build-search-index.js
 
-      - name: Fetch BLS LAUS data
-        continue-on-error: true
-        working-directory: scripts
-        env:
-          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
-        run: node fetch-bls-laus.js
-
-      - name: Fetch BLS CES data
-        continue-on-error: true
-        working-directory: scripts
-        env:
-          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
-        run: node fetch-bls-ces.js
-
-      - name: Fetch Census ACS data
-        continue-on-error: true
-        working-directory: scripts
-        env:
-          CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
-        run: node fetch-census.js
-
-      - name: Fetch BEA data
-        continue-on-error: true
-        working-directory: scripts
-        env:
-          BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
-        run: node fetch-bea.js
-
-      - name: Generate state files
-        continue-on-error: true
-        working-directory: scripts
-        run: node generate-state-files.js
-
-      - name: Generate metro data
-        continue-on-error: true
-        working-directory: scripts
-        run: node generate-metro-data.js
-
-      - name: Generate national files
-        continue-on-error: true
-        working-directory: scripts
-        run: node generate-national-counties.js
-
+      # === BLS API: Small fetches first (CPI, JOLTS, projections) ===
+      # These use few API calls and provide high-value data for the website.
+      # Must run BEFORE the expensive LAUS/CES fetches that consume rate limit.
       - name: Fetch BLS CPI data
         continue-on-error: true
         working-directory: scripts
@@ -137,6 +98,37 @@ jobs:
         working-directory: scripts
         run: node fetch-bls-projections.js
 
+      # === BLS API: Large fetches (LAUS, CES — many API calls, may hit rate limit) ===
+      - name: Fetch BLS LAUS data
+        continue-on-error: true
+        working-directory: scripts
+        env:
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+        run: node fetch-bls-laus.js
+
+      - name: Fetch BLS CES data
+        continue-on-error: true
+        working-directory: scripts
+        env:
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+        run: node fetch-bls-ces.js
+
+      # === Non-BLS APIs ===
+      - name: Fetch Census ACS data
+        continue-on-error: true
+        working-directory: scripts
+        env:
+          CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
+        run: node fetch-census.js
+
+      - name: Fetch BEA data
+        continue-on-error: true
+        working-directory: scripts
+        env:
+          BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
+        run: node fetch-bea.js
+
+      # === Process & Generate ===
       - name: Process CPI data
         continue-on-error: true
         working-directory: scripts
@@ -151,6 +143,21 @@ jobs:
         continue-on-error: true
         working-directory: scripts
         run: node process-projections.js
+
+      - name: Generate state files
+        continue-on-error: true
+        working-directory: scripts
+        run: node generate-state-files.js
+
+      - name: Generate metro data
+        continue-on-error: true
+        working-directory: scripts
+        run: node generate-metro-data.js
+
+      - name: Generate national files
+        continue-on-error: true
+        working-directory: scripts
+        run: node generate-national-counties.js
 
       - name: Build ticker data
         continue-on-error: true

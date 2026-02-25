@@ -1,7 +1,7 @@
 /**
  * LaborCompare - BLS Data Loader
  * Lazy-loads BLS data files (ticker, CPI, projections, JOLTS) with in-memory caching.
- * Same pattern as oews-loader.
+ * Transforms raw process-script output into frontend-friendly formats.
  */
 
 const BLSLoader = (() => {
@@ -33,23 +33,41 @@ const BLSLoader = (() => {
 
     /**
      * Load CPI national data
-     * Returns { current, yoy_change, series: [...] }
+     * Process script outputs: { data: [{ year, month, value, yoyChange, momChange }] }
+     * Returns: { current, yoy_change, mom_change, series }
      */
     async function loadCPI() {
-        return fetchJSON('data/cpi/national.json');
+        const raw = await fetchJSON('data/cpi/national.json');
+        if (!raw?.data?.length) return null;
+
+        const latest = raw.data[0];
+        return {
+            current: latest.value,
+            yoy_change: latest.yoyChange ?? null,
+            mom_change: latest.momChange ?? null,
+            series: raw.data
+        };
     }
 
     /**
      * Load CPI categories (food, shelter, energy, etc.)
-     * Returns [ { code, name, index, yoy_change } ]
+     * Process script outputs: { categories: [{ name, latestValue, yoyChange }] }
+     * Returns: [{ name, index, yoy_change }]
      */
     async function loadCPICategories() {
-        return fetchJSON('data/cpi/categories.json');
+        const raw = await fetchJSON('data/cpi/categories.json');
+        if (!raw?.categories?.length) return null;
+
+        return raw.categories.map(c => ({
+            name: c.name,
+            index: c.latestValue,
+            yoy_change: c.yoyChange ?? 0
+        }));
     }
 
     /**
-     * Load employment projections
-     * Returns { period, occupations: [...] }
+     * Load employment projections (all)
+     * Returns { count, occupations: [...] }
      */
     async function loadProjections() {
         return fetchJSON('data/projections/national.json');
@@ -57,37 +75,77 @@ const BLSLoader = (() => {
 
     /**
      * Load fastest growing occupations
-     * Returns [ { soc, title, change, ... } ]
+     * Process outputs: { occupations: [{ code, title, changePct, empBase, openings }] }
+     * Returns: [{ soc, title, change, median }]
      */
     async function loadFastest() {
         const data = await fetchJSON('data/projections/fastest.json');
-        return data?.occupations || data || null;
+        return normalizeProjections(data);
     }
 
     /**
      * Load declining occupations
-     * Returns [ { soc, title, change, ... } ]
+     * Returns: [{ soc, title, change, median }]
      */
     async function loadDeclining() {
         const data = await fetchJSON('data/projections/declining.json');
-        return data?.occupations || data || null;
+        return normalizeProjections(data);
     }
 
     /**
      * Load occupations with most new jobs
-     * Returns [ { soc, title, new_jobs, ... } ]
+     * Process outputs: { occupations: [{ code, title, changeNum }] }
+     * Returns: [{ soc, title, new_jobs, median }]
      */
     async function loadMostGrowth() {
         const data = await fetchJSON('data/projections/most-growth.json');
-        return data?.occupations || data || null;
+        if (!data?.occupations) return null;
+        return data.occupations.map(o => ({
+            soc: o.code || o.soc,
+            title: o.title,
+            new_jobs: o.changeNum ?? o.new_jobs ?? 0,
+            change: o.changePct ?? o.change ?? 0,
+            median: o.median ?? null
+        }));
+    }
+
+    /** Normalize projection items to frontend format */
+    function normalizeProjections(data) {
+        if (!data?.occupations) return null;
+        return data.occupations.map(o => ({
+            soc: o.code || o.soc,
+            title: o.title,
+            change: o.changePct ?? o.change ?? 0,
+            new_jobs: o.changeNum ?? o.new_jobs ?? 0,
+            median: o.median ?? null
+        }));
     }
 
     /**
      * Load JOLTS national data
-     * Returns { openings, hires, quits, separations, series: [...] }
+     * Process script outputs: { latest: { openings: { value }, hires: { value }, ... }, series }
+     * Returns: { openings, hires, quits, separations, latest, series }
      */
     async function loadJOLTS() {
-        return fetchJSON('data/jolts/national.json');
+        const raw = await fetchJSON('data/jolts/national.json');
+        if (!raw) return null;
+
+        // If already in flat format, return as-is
+        if (typeof raw.openings === 'number') return raw;
+
+        // Transform from process-jolts.js format
+        if (raw.latest) {
+            return {
+                openings: raw.latest.openings?.value ?? null,
+                hires: raw.latest.hires?.value ?? null,
+                quits: raw.latest.quits?.value ?? null,
+                separations: raw.latest.separations?.value ?? null,
+                latest: raw.latest,
+                series: raw.series
+            };
+        }
+
+        return raw;
     }
 
     function clearCache() {
