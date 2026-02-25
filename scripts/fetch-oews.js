@@ -14,10 +14,9 @@
  * No API key required — uses BLS bulk download files.
  */
 
-import { writeFileSync, mkdirSync, existsSync, unlinkSync, readdirSync, readFileSync } from 'fs';
+import { writeFileSync, mkdirSync, existsSync, unlinkSync, readdirSync, readFileSync, statSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { execSync } from 'child_process';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const RAW_DIR = path.join(__dirname, '..', 'data', 'raw');
@@ -88,23 +87,29 @@ async function downloadFile(url, destPath, attempt = 1) {
 }
 
 /**
- * Unzip a file using system tools
+ * Unzip a file using adm-zip (pure Node.js, no system dependencies)
  */
-function unzipFile(zipPath, destDir) {
+async function unzipFile(zipPath, destDir) {
   mkdirSync(destDir, { recursive: true });
-  try {
-    execSync(`unzip -o "${zipPath}" -d "${destDir}"`, { stdio: 'pipe' });
-  } catch {
-    try {
-      execSync(`python3 -c "import zipfile; zipfile.ZipFile('${zipPath}').extractall('${destDir}')"`, { stdio: 'pipe' });
-    } catch {
-      try {
-        execSync(`python -c "import zipfile; zipfile.ZipFile('${zipPath}').extractall('${destDir}')"`, { stdio: 'pipe' });
-      } catch {
-        throw new Error('Cannot unzip: no unzip, python3, or python available');
-      }
+  const AdmZip = (await import('adm-zip')).default;
+  const zip = new AdmZip(zipPath);
+  zip.extractAllTo(destDir, true);
+}
+
+/**
+ * Recursively find an Excel file (.xlsx or .xls) in a directory tree
+ */
+function findExcelFile(dir) {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      const found = findExcelFile(fullPath);
+      if (found) return found;
+    } else if (entry.name.endsWith('.xlsx') || entry.name.endsWith('.xls')) {
+      return fullPath;
     }
   }
+  return null;
 }
 
 /**
@@ -248,22 +253,30 @@ async function main() {
       console.log(`\nTrying OEWS ${year} data...`);
       await downloadFile(url, zipPath);
 
-      // Step 2: Extract
-      console.log('  Extracting ZIP...');
-      unzipFile(zipPath, extractDir);
-
-      // Find Excel file
-      const files = readdirSync(extractDir);
-      const xlsxFile = files.find(f => f.endsWith('.xlsx') || f.endsWith('.xls'));
-      if (!xlsxFile) {
-        console.warn(`  No Excel file found. Contents: ${files.join(', ')}`);
+      // Validate download size (error pages are typically < 1MB, real data is 50-100MB)
+      const zipSize = statSync(zipPath).size;
+      if (zipSize < 1_000_000) {
+        console.warn(`  Download too small (${(zipSize / 1024).toFixed(0)} KB) — likely an error page, not real data`);
         continue;
       }
+
+      // Step 2: Extract
+      console.log('  Extracting ZIP...');
+      await unzipFile(zipPath, extractDir);
+
+      // Find Excel file (search recursively — ZIP may extract to a subdirectory)
+      const xlsxPath = findExcelFile(extractDir);
+      if (!xlsxPath) {
+        const contents = readdirSync(extractDir);
+        console.warn(`  No Excel file found. Top-level contents: ${contents.join(', ')}`);
+        continue;
+      }
+      const xlsxFile = path.basename(xlsxPath);
       console.log(`  Found: ${xlsxFile}`);
 
       // Step 3: Parse
       console.log('  Parsing Excel data...');
-      const rawRows = await parseOEWSExcel(path.join(extractDir, xlsxFile));
+      const rawRows = await parseOEWSExcel(xlsxPath);
 
       // Step 4: Normalize
       console.log('  Normalizing...');

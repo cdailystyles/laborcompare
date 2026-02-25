@@ -62,8 +62,13 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+// Track consecutive failures to abort early on rate limits
+let consecutiveFailures = 0;
+const MAX_CONSECUTIVE_FAILURES = 5;
+
 /**
- * Fetch from BLS API with retries
+ * Fetch from BLS API with retries.
+ * Fails fast on rate limit errors (no point retrying until tomorrow).
  */
 async function fetchBLS(seriesIds, startYear, endYear, attempt = 1) {
   const payload = {
@@ -89,11 +94,19 @@ async function fetchBLS(seriesIds, startYear, endYear, attempt = 1) {
 
     if (json.status === 'REQUEST_NOT_PROCESSED') {
       const msg = json.message?.join('; ') || 'Unknown error';
+      // Detect rate limit errors — fail immediately, no retry
+      if (msg.includes('threshold') || msg.includes('daily') || msg.includes('rate')) {
+        throw new RateLimitError(`BLS API rate limit: ${msg}`);
+      }
       throw new Error(`BLS API error: ${msg}`);
     }
 
+    consecutiveFailures = 0; // Reset on success
     return json;
   } catch (err) {
+    // Never retry rate limit errors
+    if (err instanceof RateLimitError) throw err;
+
     if (attempt < MAX_RETRIES) {
       console.warn(`  Retry ${attempt}/${MAX_RETRIES} after error: ${err.message}`);
       await sleep(RETRY_DELAY_MS * attempt);
@@ -101,6 +114,10 @@ async function fetchBLS(seriesIds, startYear, endYear, attempt = 1) {
     }
     throw err;
   }
+}
+
+class RateLimitError extends Error {
+  constructor(msg) { super(msg); this.name = 'RateLimitError'; }
 }
 
 /**
@@ -157,24 +174,32 @@ async function fetchStateLAUS() {
     const batch = batches[i];
     console.log(`  Batch ${i + 1}/${batches.length} (${batch.length} series)`);
 
-    const json = await fetchBLS(batch, startYear, currentYear);
+    try {
+      const json = await fetchBLS(batch, startYear, currentYear);
 
-    if (json.Results?.series) {
-      for (const series of json.Results.series) {
-        const info = seriesMap[series.seriesID];
-        if (!info) continue;
+      if (json.Results?.series) {
+        for (const series of json.Results.series) {
+          const info = seriesMap[series.seriesID];
+          if (!info) continue;
 
-        const value = extractAnnualAverage(series.data);
-        if (value === null || value === undefined) continue;
+          const value = extractAnnualAverage(series.data);
+          if (value === null || value === undefined) continue;
 
-        if (!states[info.fips]) {
-          states[info.fips] = { fips: info.fips };
+          if (!states[info.fips]) {
+            states[info.fips] = { fips: info.fips };
+          }
+
+          const fieldName = LAUS_MEASURES[info.measure];
+          const numVal = parseFloat(value.replace(/,/g, ''));
+          states[info.fips][fieldName] = isNaN(numVal) ? null : numVal;
         }
-
-        const fieldName = LAUS_MEASURES[info.measure];
-        const numVal = parseFloat(value.replace(/,/g, ''));
-        states[info.fips][fieldName] = isNaN(numVal) ? null : numVal;
       }
+    } catch (err) {
+      if (err instanceof RateLimitError) {
+        console.error(`  Rate limited — aborting state fetch. Got ${Object.keys(states).length} states so far.`);
+        break;
+      }
+      console.warn(`  Batch ${i + 1} failed: ${err.message}`);
     }
 
     if (i < batches.length - 1) await sleep(BATCH_DELAY_MS);
@@ -262,8 +287,18 @@ async function fetchCountyLAUS() {
           counties[info.fips][fieldName] = isNaN(numVal) ? null : numVal;
         }
       }
+      consecutiveFailures = 0;
     } catch (err) {
+      if (err instanceof RateLimitError) {
+        console.error(`  Rate limited — aborting county fetch. Got ${Object.keys(counties).length} counties so far.`);
+        break;
+      }
+      consecutiveFailures++;
       console.warn(`  Batch ${i + 1} failed: ${err.message}`);
+      if (consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
+        console.error(`  ${MAX_CONSECUTIVE_FAILURES} consecutive failures — aborting county fetch.`);
+        break;
+      }
     }
 
     if (i < batches.length - 1) await sleep(BATCH_DELAY_MS);

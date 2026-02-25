@@ -19,6 +19,7 @@
     "all": "npm run fetch-all && npm run fetch-new && npm run fetch-oews && npm run generate && npm run process-new && npm run build-search"
   },
   "dependencies": {
+    "adm-zip": "^0.5.16",
     "xlsx": "^0.18.5"
   }
 }
