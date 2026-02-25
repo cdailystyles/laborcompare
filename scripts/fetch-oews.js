@@ -226,9 +226,9 @@ async function fetchFileType(year, fileType) {
   try {
     await downloadFile(url, zipPath);
 
-    // Validate download size
+    // Validate download size (BLS error pages are ~100KB, smallest valid file is ~300KB)
     const zipSize = statSync(zipPath).size;
-    if (zipSize < 10_000) {
+    if (zipSize < 200_000) {
       console.warn(`    Download too small (${(zipSize / 1024).toFixed(0)} KB) — likely an error page`);
       return null;
     }

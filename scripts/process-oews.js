@@ -142,14 +142,16 @@ function main() {
 
   // Categorize rows by area type
   // BLS OEWS area_type codes: 1=National, 2=State, 3=US Territory, 4=MSA, 5=Metro Division, 6=Non-metro
+  // Note: Metro file rows may have null area_type (column missing from individual BLS files)
   const national = [];   // area_type 1
   const stateRows = [];  // area_type 2
-  const metroRows = [];  // area_type 4 (MSA)
+  const metroRows = [];  // area_type 4, or null (metro file rows without AREA_TYPE column)
 
   for (const row of rows) {
     if (row.area_type === 1) national.push(row);
     else if (row.area_type === 2) stateRows.push(row);
-    else if (row.area_type === 4) metroRows.push(row);
+    else if (row.area_type === 3) continue; // Skip US territories
+    else metroRows.push(row); // area_type 4, 5, 6, or null (metro file)
   }
 
   // Debug: show unique area_type values
