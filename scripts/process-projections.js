@@ -42,9 +42,10 @@ function main() {
       title: o.title,
       empBase: o.empBase || null,
       empProjected: o.empProjected || null,
-      changePct: parseFloat(o.changePct.toFixed(1)),
-      changeNum: o.empBase && o.empProjected ? Math.round(o.empProjected - o.empBase) : null,
-      openings: o.openings || null
+      changePct: parseFloat(Number(o.changePct).toFixed(1)),
+      changeNum: o.changeNum != null ? o.changeNum : (o.empBase && o.empProjected ? Math.round(o.empProjected - o.empBase) : null),
+      openings: o.openings || null,
+      median: o.median || null
     }));
 
   // --- national.json: all projections ---

@@ -18,7 +18,7 @@ const OutlookPage = (() => {
                     <span>Outlook</span>
                 </nav>
 
-                <h1 class="page-title">Employment Projections (2023-2033)</h1>
+                <h1 class="page-title">Employment Projections (2024-2034)</h1>
 
                 <section class="section">
                     <h2 class="section-title">Fastest Growing Occupations</h2>
@@ -42,8 +42,8 @@ const OutlookPage = (() => {
                 </section>
 
                 <div class="fresh">
-                    <strong>Note:</strong>
-                    <span>Projections data will populate once the BLS projections pipeline is deployed. Showing placeholder data from BLS Employment Projections 2023-2033.</span>
+                    <strong>Source:</strong>
+                    <span>Bureau of Labor Statistics — Employment Projections 2024-2034. Updated biennially via automated data pipeline.</span>
                 </div>
             </div>
         `;

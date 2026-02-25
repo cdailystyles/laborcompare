@@ -70,7 +70,7 @@ const HomePage = (() => {
                 <span class="fresh-i"><span class="fdot g"></span> Employment Feb 2026</span>
                 <span class="fresh-i"><span class="fdot g"></span> CPI Jan 2026</span>
                 <span class="fresh-i"><span class="fdot b"></span> OEWS May 2024</span>
-                <span class="fresh-i"><span class="fdot b"></span> Projections 2023-33</span>
+                <span class="fresh-i"><span class="fdot b"></span> Projections 2024-34</span>
             </div>
         `;
 

@@ -1,10 +1,8 @@
 /**
  * fetch-bls-projections.js
- * Downloads BLS Employment Projections Excel tables and parses them.
- * Source: https://www.bls.gov/emp/tables.htm
- * - Table 1.3: Fastest growing occupations
- * - Table 1.4: Occupations with most job growth
- * - Table 1.6: Occupations with largest declines
+ * Fetches BLS Employment Projections from the interactive data page.
+ * Source: https://data.bls.gov/projections/occupationProj
+ * Parses HTML table rows — no xlsx dependency needed.
  * Saves to data/raw/bls-projections.json
  */
 
@@ -12,80 +10,78 @@ import { writeFileSync, mkdirSync, existsSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-let XLSX;
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const RAW_DIR = path.join(__dirname, '..', 'data', 'raw');
 
-// BLS Employment Projections Excel URLs (2023-2033)
-const TABLES = {
-  fastest: {
-    url: 'https://www.bls.gov/emp/ind-occ-matrix/occupation.xlsx',
-    name: 'Fastest Growing Occupations'
-  }
-};
+const PROJECTIONS_URL = 'https://data.bls.gov/projections/occupationProj';
 
-// The main occupation projections file has all the data we need
-const PROJECTIONS_URL = 'https://www.bls.gov/emp/ind-occ-matrix/occupation.xlsx';
-
-async function downloadExcel(url) {
-  console.log(`Downloading ${url}...`);
-  const resp = await fetch(url);
-  if (!resp.ok) throw new Error(`Download failed: ${resp.status} ${resp.statusText}`);
-  const buffer = await resp.arrayBuffer();
-  return XLSX.read(Buffer.from(buffer), { type: 'buffer' });
+function parseNum(s) {
+  if (!s) return null;
+  // Remove $, commas, whitespace
+  const cleaned = s.replace(/[$,\s]/g, '');
+  const n = parseFloat(cleaned);
+  return isNaN(n) ? null : n;
 }
 
-function parseProjectionsWorkbook(workbook) {
-  // The occupation projections file has sheets with detailed occupation data
-  const sheetName = workbook.SheetNames[0];
-  const sheet = workbook.Sheets[sheetName];
-  const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: null });
-
-  // Find the header row (contains "Occupation" or "Title")
-  let headerIdx = -1;
-  for (let i = 0; i < Math.min(rows.length, 20); i++) {
-    const row = rows[i];
-    if (row && row.some(cell => typeof cell === 'string' &&
-        (cell.includes('Occupation') || cell.includes('occupation code')))) {
-      headerIdx = i;
-      break;
-    }
-  }
-
-  if (headerIdx === -1) {
-    console.log('Could not find header row, using raw data');
-    return rows;
-  }
-
-  const headers = rows[headerIdx].map(h => String(h || '').trim().toLowerCase());
-  const dataRows = rows.slice(headerIdx + 1);
-
+function parseHTML(html) {
   const occupations = [];
-  for (const row of dataRows) {
-    if (!row || !row[0]) continue;
 
-    // Try to find SOC code and title columns
-    const codeIdx = headers.findIndex(h => h.includes('code'));
-    const titleIdx = headers.findIndex(h => h.includes('title') || h.includes('occupation'));
-    const empBaseIdx = headers.findIndex(h => h.includes('2023') && h.includes('employment'));
-    const empProjIdx = headers.findIndex(h => h.includes('2033') && h.includes('employment'));
-    const changeIdx = headers.findIndex(h => h.includes('change') && h.includes('percent'));
-    const openingsIdx = headers.findIndex(h => h.includes('openings'));
+  // Match each <TR> in the <tbody> section
+  // Each row has: Title, Code, Emp2024, Emp2034, Change, PctChange, Openings, MedianWage, ...
+  const tbodyMatch = html.match(/<tbody>([\s\S]*?)<\/tbody>/i);
+  if (!tbodyMatch) {
+    console.warn('Could not find <tbody> in HTML');
+    return occupations;
+  }
 
-    const code = codeIdx >= 0 ? String(row[codeIdx] || '').trim() : '';
-    const title = titleIdx >= 0 ? String(row[titleIdx] || '').trim() : String(row[0] || '').trim();
+  const tbody = tbodyMatch[1];
+  // Split into individual rows
+  const rowRegex = /<TR>([\s\S]*?)<\/TR>/gi;
+  let match;
 
-    // Skip non-detail SOC codes (want XX-XXXX format)
+  while ((match = rowRegex.exec(tbody)) !== null) {
+    const rowHTML = match[1];
+
+    // Extract all <TD> contents
+    const cells = [];
+    const tdRegex = /<TD[^>]*>([\s\S]*?)<\/TD>/gi;
+    let tdMatch;
+    while ((tdMatch = tdRegex.exec(rowHTML)) !== null) {
+      // Strip HTML tags and trim
+      const text = tdMatch[1].replace(/<[^>]+>/g, '').trim();
+      // Remove "Show/hide Example Job Titles" and example titles (layN paragraphs)
+      cells.push(text.replace(/Show\/hide Example Job Titles/g, '').replace(/\*[^*]+(?:\n|$)/g, '').trim());
+    }
+
+    if (cells.length < 8) continue;
+
+    // cells[0] = Title (may have extra text from example job titles)
+    // cells[1] = SOC Code
+    // cells[2] = Employment 2024
+    // cells[3] = Employment 2034
+    // cells[4] = Employment Change
+    // cells[5] = Percent Change
+    // cells[6] = Occupational Openings
+    // cells[7] = Median Annual Wage
+
+    const code = cells[1].trim();
+    // Only keep detail-level SOC codes (XX-XXXX)
     if (!code.match(/^\d{2}-\d{4}$/)) continue;
+
+    // Clean up title — take just the first line (occupation name)
+    let title = cells[0].split('\n')[0].trim();
+    // Remove any residual asterisk content
+    title = title.replace(/\s*\*.*$/, '').trim();
 
     occupations.push({
       code,
       title,
-      empBase: empBaseIdx >= 0 ? parseFloat(row[empBaseIdx]) : null,
-      empProjected: empProjIdx >= 0 ? parseFloat(row[empProjIdx]) : null,
-      changePct: changeIdx >= 0 ? parseFloat(row[changeIdx]) : null,
-      openings: openingsIdx >= 0 ? parseFloat(row[openingsIdx]) : null
+      empBase: parseNum(cells[2]),
+      empProjected: parseNum(cells[3]),
+      changeNum: parseNum(cells[4]),
+      changePct: parseNum(cells[5]),
+      openings: parseNum(cells[6]),
+      median: parseNum(cells[7])
     });
   }
 
@@ -95,35 +91,41 @@ function parseProjectionsWorkbook(workbook) {
 async function main() {
   if (!existsSync(RAW_DIR)) mkdirSync(RAW_DIR, { recursive: true });
 
-  // Dynamic import for xlsx (ESM compatible)
-  try {
-    XLSX = (await import('xlsx')).default || (await import('xlsx'));
-  } catch (err) {
-    console.error('Could not load xlsx package:', err.message);
-    console.log('Writing empty projections file.');
-    writeFileSync(path.join(RAW_DIR, 'bls-projections.json'), JSON.stringify({
-      fetched: new Date().toISOString(),
-      source: 'BLS Employment Projections 2023-2033',
-      occupations: []
-    }, null, 2));
-    return;
-  }
-
   console.log('Fetching BLS Employment Projections...');
+  console.log(`URL: ${PROJECTIONS_URL}`);
 
   let occupations = [];
   try {
-    const workbook = await downloadExcel(PROJECTIONS_URL);
-    occupations = parseProjectionsWorkbook(workbook);
-    console.log(`Parsed ${occupations.length} occupation projections`);
+    const resp = await fetch(PROJECTIONS_URL, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml',
+        'Accept-Language': 'en-US,en;q=0.9'
+      }
+    });
+
+    if (!resp.ok) {
+      throw new Error(`HTTP ${resp.status} ${resp.statusText}`);
+    }
+
+    const html = await resp.text();
+    console.log(`  Downloaded ${(html.length / 1024).toFixed(0)} KB HTML`);
+
+    occupations = parseHTML(html);
+    console.log(`  Parsed ${occupations.length} occupation projections`);
+
+    if (occupations.length > 0) {
+      console.log(`  Sample: ${occupations[0].code} — ${occupations[0].title} (${occupations[0].changePct}%)`);
+    }
   } catch (err) {
-    console.error(`Failed to download/parse projections: ${err.message}`);
-    console.log('Projections data will need to be added manually or URL updated.');
+    console.error(`Failed to fetch/parse projections: ${err.message}`);
+    console.log('Projections data will use fallback values.');
   }
 
   const output = {
     fetched: new Date().toISOString(),
-    source: 'BLS Employment Projections 2023-2033',
+    source: 'BLS Employment Projections 2024-2034',
+    url: PROJECTIONS_URL,
     occupations
   };
 
@@ -134,6 +136,5 @@ async function main() {
 
 main().catch(err => {
   console.error('Projections fetch warning:', err.message);
-  console.log('Projections data will use fallback/placeholder values.');
   // Exit 0 so workflow continues
 });
