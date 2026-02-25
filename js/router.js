@@ -125,6 +125,14 @@ const Router = (() => {
             document.title = handler.getTitle(params) + ' | LaborCompare';
         }
 
+        // Track pageview in Google Analytics
+        if (typeof gtag === 'function') {
+            gtag('event', 'page_view', {
+                page_path: '/' + (hash.startsWith('#') ? hash.slice(1) : hash),
+                page_title: document.title
+            });
+        }
+
         // Scroll to top
         window.scrollTo(0, 0);
     }
