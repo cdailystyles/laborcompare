@@ -92,12 +92,31 @@ function buildSOCHierarchy(occupations) {
 
 /**
  * Extract state FIPS from OEWS area code
- * OEWS state areas are 7-digit: SS00000 (state FIPS + 00000)
+ * Handles multiple formats:
+ *   7-digit: SS00000 (e.g., 0100000 for Alabama) — from "all" data file
+ *   Numeric: 1000000, 100000, etc. — padded variants
+ *   Direct:  01, 02, etc. — from state-specific files
+ *   With zeros: 0100000 or just the state code
  */
 function getStateFips(areaCode) {
-  if (areaCode.length >= 2 && areaCode.endsWith('00000')) {
-    return areaCode.slice(0, 2);
+  const s = String(areaCode).trim();
+
+  // 7-digit format: SS00000
+  if (s.length === 7 && s.endsWith('00000')) {
+    return s.slice(0, 2);
   }
+
+  // Numeric that ends in zeros (e.g., "100000" for state 10, or "4200000" for PA)
+  if (/^\d+0{4,}$/.test(s) && s.length >= 6) {
+    const fips = s.replace(/0+$/, '').padStart(2, '0');
+    if (fips.length === 2 && STATE_FIPS_TO_NAME[fips]) return fips;
+  }
+
+  // Direct 2-digit FIPS (from state-specific download files)
+  if (s.length <= 2 && /^\d+$/.test(s)) {
+    return s.padStart(2, '0');
+  }
+
   return null;
 }
 
@@ -133,6 +152,12 @@ function main() {
   }
 
   console.log(`  National: ${national.length}, State: ${stateRows.length}, Metro: ${metroRows.length}`);
+
+  // Debug: show sample area codes for states
+  if (stateRows.length > 0) {
+    const sampleAreas = [...new Set(stateRows.slice(0, 100).map(r => r.area))].slice(0, 10);
+    console.log(`  Sample state area codes: ${sampleAreas.join(', ')}`);
+  }
 
   // ================================================================
   // 1. national.json — all occupations with national stats
