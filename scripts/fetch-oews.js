@@ -35,7 +35,7 @@ const RETRY_DELAY_MS = 10000;
 const FILE_TYPES = [
   { suffix: 'nat', label: 'National', areaType: 1 },
   { suffix: 'st',  label: 'State',    areaType: 2 },
-  { suffix: 'ma',  label: 'Metro',    areaType: 3 },
+  { suffix: 'ma',  label: 'Metro',    areaType: 4 },
 ];
 
 function sleep(ms) {
@@ -246,6 +246,14 @@ async function fetchFileType(year, fileType) {
 
     const rawRows = await parseOEWSExcel(xlsxPath);
     const normalized = rawRows.map(normalizeRow);
+
+    // Ensure area_type is set — individual BLS files may omit AREA_TYPE column
+    for (const row of normalized) {
+      if (row.area_type === null || row.area_type === undefined) {
+        row.area_type = fileType.areaType;
+      }
+    }
+
     const filtered = filterRelevantRows(normalized);
 
     console.log(`    ${filtered.length} relevant rows (from ${normalized.length} total)`);

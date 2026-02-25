@@ -152,6 +152,13 @@ function main() {
     else if (row.area_type === 4) metroRows.push(row);
   }
 
+  // Debug: show unique area_type values
+  const areaTypeCounts = {};
+  for (const row of rows) {
+    const t = row.area_type === null ? 'null' : row.area_type;
+    areaTypeCounts[t] = (areaTypeCounts[t] || 0) + 1;
+  }
+  console.log(`  Area type distribution: ${JSON.stringify(areaTypeCounts)}`);
   console.log(`  National: ${national.length}, State: ${stateRows.length}, Metro: ${metroRows.length}`);
 
   // Debug: show sample area codes
