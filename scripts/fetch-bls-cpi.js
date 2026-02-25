@@ -53,7 +53,12 @@ async function fetchBLS(seriesIds, startYear, endYear) {
   const json = await resp.json();
 
   if (json.status !== 'REQUEST_SUCCEEDED') {
-    throw new Error(`BLS API error: ${json.message?.join(', ')}`);
+    const msg = json.message?.join(', ') || 'Unknown error';
+    if (msg.includes('threshold') || msg.includes('daily') || msg.includes('rate')) {
+      console.error(`  BLS API rate limit reached: ${msg}`);
+      return []; // Return empty instead of throwing — CPI is single call
+    }
+    throw new Error(`BLS API error: ${msg}`);
   }
 
   return json.Results.series;

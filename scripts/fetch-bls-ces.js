@@ -77,6 +77,10 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+class RateLimitError extends Error {
+  constructor(msg) { super(msg); this.name = 'RateLimitError'; }
+}
+
 async function fetchBLS(seriesIds, startYear, endYear, attempt = 1) {
   const payload = {
     seriesid: seriesIds,
@@ -101,11 +105,15 @@ async function fetchBLS(seriesIds, startYear, endYear, attempt = 1) {
 
     if (json.status === 'REQUEST_NOT_PROCESSED') {
       const msg = json.message?.join('; ') || 'Unknown error';
+      if (msg.includes('threshold') || msg.includes('daily') || msg.includes('rate')) {
+        throw new RateLimitError(`BLS API rate limit: ${msg}`);
+      }
       throw new Error(`BLS API error: ${msg}`);
     }
 
     return json;
   } catch (err) {
+    if (err instanceof RateLimitError) throw err;
     if (attempt < MAX_RETRIES) {
       console.warn(`  Retry ${attempt}/${MAX_RETRIES} after error: ${err.message}`);
       await sleep(RETRY_DELAY_MS * attempt);
@@ -187,6 +195,10 @@ async function fetchStateCES() {
         }
       }
     } catch (err) {
+      if (err instanceof RateLimitError) {
+        console.error(`  Rate limited — aborting state CES fetch. Got ${Object.keys(states).length} states.`);
+        break;
+      }
       console.warn(`  Batch ${i + 1} failed: ${err.message}`);
     }
 
@@ -248,6 +260,10 @@ async function fetchMetroCES() {
         }
       }
     } catch (err) {
+      if (err instanceof RateLimitError) {
+        console.error(`  Rate limited — aborting metro CES fetch. Got ${Object.keys(metros).length} metros.`);
+        break;
+      }
       console.warn(`  Batch ${i + 1} failed: ${err.message}`);
     }
 

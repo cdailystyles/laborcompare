@@ -141,22 +141,27 @@ function main() {
   dirs.forEach(d => mkdirSync(d, { recursive: true }));
 
   // Categorize rows by area type
+  // BLS OEWS area_type codes: 1=National, 2=State, 3=US Territory, 4=MSA, 5=Metro Division, 6=Non-metro
   const national = [];   // area_type 1
   const stateRows = [];  // area_type 2
-  const metroRows = [];  // area_type 3
+  const metroRows = [];  // area_type 4 (MSA)
 
   for (const row of rows) {
     if (row.area_type === 1) national.push(row);
     else if (row.area_type === 2) stateRows.push(row);
-    else if (row.area_type === 3) metroRows.push(row);
+    else if (row.area_type === 4) metroRows.push(row);
   }
 
   console.log(`  National: ${national.length}, State: ${stateRows.length}, Metro: ${metroRows.length}`);
 
-  // Debug: show sample area codes for states
+  // Debug: show sample area codes
   if (stateRows.length > 0) {
     const sampleAreas = [...new Set(stateRows.slice(0, 100).map(r => r.area))].slice(0, 10);
     console.log(`  Sample state area codes: ${sampleAreas.join(', ')}`);
+  }
+  if (metroRows.length > 0) {
+    const sampleMetros = [...new Set(metroRows.slice(0, 100).map(r => r.area))].slice(0, 10);
+    console.log(`  Sample metro area codes: ${sampleMetros.join(', ')}`);
   }
 
   // ================================================================
