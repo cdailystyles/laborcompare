@@ -5,7 +5,7 @@
 
 const HomePage = (() => {
     function getTitle() {
-        return 'BLS Data, Built for Humans';
+        return 'LaborCompare — Wages, Jobs, Prices & Projections';
     }
 
     async function mount(params, container) {
@@ -13,8 +13,8 @@ const HomePage = (() => {
             <!-- Compact hero -->
             <div class="hero-compact">
                 <div>
-                    <h1>BLS data, <span class="red">built for humans.</span></h1>
-                    <p>830+ occupations &middot; every state &amp; metro &middot; wages, jobs, prices &amp; projections</p>
+                    <h1>Wages, jobs, prices <span class="red">&amp; projections.</span></h1>
+                    <p>830+ occupations &middot; every state &amp; metro &middot; powered by BLS, Census &amp; BEA data</p>
                 </div>
                 <div class="hero-search-sm">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>

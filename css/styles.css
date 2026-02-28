@@ -504,6 +504,13 @@ main {
     gap: 12px;
     margin-bottom: 28px;
 }
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 28px;
+}
 .d-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -1488,6 +1495,7 @@ footer a:hover { opacity: 1; }
 }
 
 @media (max-width: 900px) {
+    .grid-2 { grid-template-columns: 1fr; }
     .mapx-container {
         flex-direction: column-reverse;
         height: auto;
