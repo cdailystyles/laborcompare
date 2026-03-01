@@ -375,8 +375,8 @@ $(document).ready(function(){
 	
 	  <div class="bls-banner-links-mob"><a href="/schedule/news_release/">Release Calendar</a> | <a href="javascript:window.open('https://public.govdelivery.com/accounts/USDOLBLS/subscriber/new ','Popup','width=800,height=500,toolbar=no,scrollbars=yes,resizable=yes'); void('');" onclick="window.status='Subscribe'; return true" onmouseover="window.status='Subscribe'; return true" onmouseout="window.status=''; return true" id="social-email-2" title="Subscribe to BLS E-mail Updates" aria-label="Subscribe to BLS E-mail Updates">Subscribe</a></div>
 	</li>
-    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="https://www.bls.gov/" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home <span class="circle-arrow"></span></a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown1"><!-- ********************************************** Begin Home Tab LIST ****************************************** -->
+    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="https://www.bls.gov/" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home <span class="circle-arrow"></span></a>
+        <div class="dropdown-menu"><!-- ********************************************** Begin Home Tab LIST ****************************************** -->
 <!-- 1st column -->
 <div class="main-nav-submenu" id="submenu-home">
 	<ul class="main-nav-submenu-inn">
@@ -425,8 +425,8 @@ $(document).ready(function(){
 
 </div>
     </li>
-    <li class="nav-item dropdown active"><a class="nav-link dropdown-toggle" href="/bls/proghome.htm" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Subjects <span class="circle-arrow"></span></a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown2"><!-- ************************************* Begin SUBJECTS TAB list ****************************************** -->
+    <li class="nav-item dropdown active"><a class="nav-link dropdown-toggle" href="/bls/proghome.htm" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Subjects <span class="circle-arrow"></span></a>
+        <div class="dropdown-menu"><!-- ************************************* Begin SUBJECTS TAB list ****************************************** -->
 <!-- 1st column -->
 <div class="main-nav-submenu" id="submenu-programs">
 	<ul class="main-nav-submenu-inn">
@@ -496,8 +496,8 @@ $(document).ready(function(){
 <!-- **************************************End SUBJECT AREAS ******************************************** --> 
 	</div>	
     </li>
-    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="/data/" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Data Tools <span class="circle-arrow"></span></a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown3"><!-- ******************************************** Begin DATA TOOLS LIST ****************************************** -->
+    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="/data/" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Data Tools <span class="circle-arrow"></span></a>
+        <div class="dropdown-menu"><!-- ******************************************** Begin DATA TOOLS LIST ****************************************** -->
 <div class="main-nav-submenu"  id="submenu-data">
     <ul class="main-nav-submenu-inn">
         <li class="heading"><a href="/data/tools.htm" aria-label="Data Retrieval Tools Databases, Tables & Calculators by Subject">Data Retrieval Tools</a></li>
@@ -540,8 +540,8 @@ $(document).ready(function(){
 </div>
 <!-- *********************************************End DATABASES and TOOLS LIST ******************************************** --></div>
     </li>
-    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="/opub/" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Publications <span class="circle-arrow"></span></a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown4"><!-- ********************************************** Begin PUBLICATIONS LIST ****************************************** -->
+    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="/opub/" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Publications <span class="circle-arrow"></span></a>
+        <div class="dropdown-menu"><!-- ********************************************** Begin PUBLICATIONS LIST ****************************************** -->
 <div class="main-nav-submenu"  id="submenu-pubs">    
     <ul class="main-nav-submenu-inn"> 
 		<li class="heading"><a href="/opub/" aria-label="Latest Publications">Latest Publications</a></li>
@@ -566,8 +566,8 @@ $(document).ready(function(){
 </div>
 <!-- ***********************************************End PUBLICATIONS LIST ******************************************** --> </div>
     </li>
-    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="/bls/newsrels.htm" id="navbarDropdown5" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Economic Releases <span class="circle-arrow"></span></a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown5"><!-- ********************************************** Begin ECONOMIC RELEASES LIST ****************************************** -->
+    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="/bls/newsrels.htm" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Economic Releases <span class="circle-arrow"></span></a>
+        <div class="dropdown-menu"><!-- ********************************************** Begin ECONOMIC RELEASES LIST ****************************************** -->
 <!-- 1st column -->
 
 <div class="main-nav-submenu" id="submenu-news">
@@ -594,8 +594,8 @@ $(document).ready(function(){
     </ul>
 </div></div>
     </li>
-    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="/k12/" id="navbarDropdown6" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Classroom <span class="circle-arrow"></span></a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown6"><!-- ********************************************** Begin Students Tab LIST ****************************************** -->
+    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="/k12/" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Classroom <span class="circle-arrow"></span></a>
+        <div class="dropdown-menu"><!-- ********************************************** Begin Students Tab LIST ****************************************** -->
 <div class="main-nav-submenu" id="submenu-students">
 	<ul class="main-nav-submenu-inn">
 		<li class="heading"><a href="/k12/" aria-label="K-12 Student & Teacher Resources">K-12 Student &amp; Teacher Resources</a></li>		
@@ -607,8 +607,8 @@ $(document).ready(function(){
 </div>
 <!-- ***********************************************End Students Tab LIST ******************************************** --></div>
     </li>
-    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="/beta/" id="navbarDropdown7" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Beta <span class="circle-arrow"></span></a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown7"><!-- ***********************************************Start BETA LIST ******************************************** -->
+    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="/beta/" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Beta <span class="circle-arrow"></span></a>
+        <div class="dropdown-menu"><!-- ***********************************************Start BETA LIST ******************************************** -->
 
 <div class="main-nav-submenu" id="submenu-beta">
   <ul class="main-nav-submenu-inn">

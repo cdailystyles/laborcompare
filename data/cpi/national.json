@@ -1,0 +1,414 @@
+{
+  "updated": "2026-03-01T06:53:51.934Z",
+  "seriesId": "CUSR0000SA0",
+  "name": "CPI-U All Items (Seasonally Adjusted)",
+  "data": [
+    {
+      "year": 2026,
+      "month": 1,
+      "value": 326.588,
+      "momChange": 0.17,
+      "yoyChange": 2.39
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "value": 326.031,
+      "momChange": 0.3,
+      "yoyChange": 2.65
+    },
+    {
+      "year": 2025,
+      "month": 11,
+      "value": 325.063,
+      "momChange": 0.25,
+      "yoyChange": 2.7
+    },
+    {
+      "year": 2025,
+      "month": 9,
+      "value": 324.245,
+      "momChange": 0.3,
+      "yoyChange": 3.02
+    },
+    {
+      "year": 2025,
+      "month": 8,
+      "value": 323.291,
+      "momChange": 0.35,
+      "yoyChange": 2.94
+    },
+    {
+      "year": 2025,
+      "month": 7,
+      "value": 322.169,
+      "momChange": 0.23,
+      "yoyChange": 2.74
+    },
+    {
+      "year": 2025,
+      "month": 6,
+      "value": 321.435,
+      "momChange": 0.25,
+      "yoyChange": 2.68
+    },
+    {
+      "year": 2025,
+      "month": 5,
+      "value": 320.62,
+      "momChange": 0.1,
+      "yoyChange": 2.38
+    },
+    {
+      "year": 2025,
+      "month": 4,
+      "value": 320.302,
+      "momChange": 0.16,
+      "yoyChange": 2.33
+    },
+    {
+      "year": 2025,
+      "month": 3,
+      "value": 319.785,
+      "momChange": 0.03,
+      "yoyChange": 2.38
+    },
+    {
+      "year": 2025,
+      "month": 2,
+      "value": 319.679,
+      "momChange": 0.23,
+      "yoyChange": 2.8
+    },
+    {
+      "year": 2025,
+      "month": 1,
+      "value": 318.961,
+      "momChange": 0.43,
+      "yoyChange": 2.99
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "value": 317.604,
+      "momChange": 0.34,
+      "yoyChange": 2.87
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "value": 316.528,
+      "momChange": 0.28,
+      "yoyChange": 2.72
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "value": 315.631,
+      "momChange": 0.29,
+      "yoyChange": 2.58
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "value": 314.732,
+      "momChange": 0.21,
+      "yoyChange": 2.43
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "value": 314.062,
+      "momChange": 0.16,
+      "yoyChange": 2.61
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "value": 313.569,
+      "momChange": 0.17,
+      "yoyChange": 2.94
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "value": 313.044,
+      "momChange": -0.04,
+      "yoyChange": 2.97
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "value": 313.175,
+      "momChange": 0.05,
+      "yoyChange": 3.24
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "value": 313.023,
+      "momChange": 0.22,
+      "yoyChange": 3.36
+    },
+    {
+      "year": 2024,
+      "month": 3,
+      "value": 312.345,
+      "momChange": 0.44,
+      "yoyChange": 3.49
+    },
+    {
+      "year": 2024,
+      "month": 2,
+      "value": 310.967,
+      "momChange": 0.41,
+      "yoyChange": 3.16
+    },
+    {
+      "year": 2024,
+      "month": 1,
+      "value": 309.698,
+      "momChange": 0.31,
+      "yoyChange": 3.09
+    },
+    {
+      "year": 2023,
+      "month": 12,
+      "value": 308.741,
+      "momChange": 0.19,
+      "yoyChange": 3.32
+    },
+    {
+      "year": 2023,
+      "month": 11,
+      "value": 308.148,
+      "momChange": 0.15,
+      "yoyChange": 3.13
+    },
+    {
+      "year": 2023,
+      "month": 10,
+      "value": 307.696,
+      "momChange": 0.14,
+      "yoyChange": 3.25
+    },
+    {
+      "year": 2023,
+      "month": 9,
+      "value": 307.276,
+      "momChange": 0.39,
+      "yoyChange": 3.69
+    },
+    {
+      "year": 2023,
+      "month": 8,
+      "value": 306.082,
+      "momChange": 0.48,
+      "yoyChange": 3.72
+    },
+    {
+      "year": 2023,
+      "month": 7,
+      "value": 304.609,
+      "momChange": 0.2,
+      "yoyChange": 3.29
+    },
+    {
+      "year": 2023,
+      "month": 6,
+      "value": 304.014,
+      "momChange": 0.22,
+      "yoyChange": 3.07
+    },
+    {
+      "year": 2023,
+      "month": 5,
+      "value": 303.334,
+      "momChange": 0.16,
+      "yoyChange": 4.13
+    },
+    {
+      "year": 2023,
+      "month": 4,
+      "value": 302.845,
+      "momChange": 0.34,
+      "yoyChange": 4.95
+    },
+    {
+      "year": 2023,
+      "month": 3,
+      "value": 301.821,
+      "momChange": 0.12,
+      "yoyChange": 4.92
+    },
+    {
+      "year": 2023,
+      "month": 2,
+      "value": 301.45,
+      "momChange": 0.34,
+      "yoyChange": 5.96
+    },
+    {
+      "year": 2023,
+      "month": 1,
+      "value": 300.42,
+      "momChange": 0.53,
+      "yoyChange": 6.33
+    },
+    {
+      "year": 2022,
+      "month": 12,
+      "value": 298.832,
+      "momChange": 0.02,
+      "yoyChange": 6.4
+    },
+    {
+      "year": 2022,
+      "month": 11,
+      "value": 298.786,
+      "momChange": 0.26,
+      "yoyChange": 7.12
+    },
+    {
+      "year": 2022,
+      "month": 10,
+      "value": 298.007,
+      "momChange": 0.56,
+      "yoyChange": 7.76
+    },
+    {
+      "year": 2022,
+      "month": 9,
+      "value": 296.349,
+      "momChange": 0.42,
+      "yoyChange": 8.19
+    },
+    {
+      "year": 2022,
+      "month": 8,
+      "value": 295.097,
+      "momChange": 0.06,
+      "yoyChange": 8.22
+    },
+    {
+      "year": 2022,
+      "month": 7,
+      "value": 294.913,
+      "momChange": -0.01,
+      "yoyChange": 8.46
+    },
+    {
+      "year": 2022,
+      "month": 6,
+      "value": 294.957,
+      "momChange": 1.26,
+      "yoyChange": 8.98
+    },
+    {
+      "year": 2022,
+      "month": 5,
+      "value": 291.298,
+      "momChange": 0.95,
+      "yoyChange": 8.54
+    },
+    {
+      "year": 2022,
+      "month": 4,
+      "value": 288.561,
+      "momChange": 0.31,
+      "yoyChange": 8.23
+    },
+    {
+      "year": 2022,
+      "month": 3,
+      "value": 287.674,
+      "momChange": 1.12,
+      "yoyChange": 8.57
+    },
+    {
+      "year": 2022,
+      "month": 2,
+      "value": 284.5,
+      "momChange": 0.69,
+      "yoyChange": 7.94
+    },
+    {
+      "year": 2022,
+      "month": 1,
+      "value": 282.543,
+      "momChange": 0.6,
+      "yoyChange": 7.56
+    },
+    {
+      "year": 2021,
+      "month": 12,
+      "value": 280.845,
+      "momChange": 0.69
+    },
+    {
+      "year": 2021,
+      "month": 11,
+      "value": 278.919,
+      "momChange": 0.86
+    },
+    {
+      "year": 2021,
+      "month": 10,
+      "value": 276.55,
+      "momChange": 0.96
+    },
+    {
+      "year": 2021,
+      "month": 9,
+      "value": 273.91,
+      "momChange": 0.45
+    },
+    {
+      "year": 2021,
+      "month": 8,
+      "value": 272.676,
+      "momChange": 0.28
+    },
+    {
+      "year": 2021,
+      "month": 7,
+      "value": 271.903,
+      "momChange": 0.46
+    },
+    {
+      "year": 2021,
+      "month": 6,
+      "value": 270.654,
+      "momChange": 0.85
+    },
+    {
+      "year": 2021,
+      "month": 5,
+      "value": 268.383,
+      "momChange": 0.66
+    },
+    {
+      "year": 2021,
+      "month": 4,
+      "value": 266.614,
+      "momChange": 0.62
+    },
+    {
+      "year": 2021,
+      "month": 3,
+      "value": 264.961,
+      "momChange": 0.52
+    },
+    {
+      "year": 2021,
+      "month": 2,
+      "value": 263.579,
+      "momChange": 0.34
+    },
+    {
+      "year": 2021,
+      "month": 1,
+      "value": 262.687
+    }
+  ]
+}

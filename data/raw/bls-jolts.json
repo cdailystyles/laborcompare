@@ -1,6 +1,1727 @@
 {
-  "fetched": "2026-02-25T12:46:54.839Z",
+  "fetched": "2026-03-01T06:53:52.435Z",
   "startYear": 2021,
   "endYear": 2026,
-  "series": {}
+  "series": {
+    "JTS000000000000000JOL": {
+      "name": "Job Openings",
+      "unit": "thousands",
+      "data": [
+        {
+          "year": 2025,
+          "period": "M12",
+          "month": 12,
+          "value": 6542,
+          "footnotes": [
+            "preliminary"
+          ]
+        },
+        {
+          "year": 2025,
+          "period": "M11",
+          "month": 11,
+          "value": 6928,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M10",
+          "month": 10,
+          "value": 7449,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M09",
+          "month": 9,
+          "value": 7658,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M08",
+          "month": 8,
+          "value": 7227,
+          "footnotes": [
+            "preliminary"
+          ]
+        },
+        {
+          "year": 2025,
+          "period": "M07",
+          "month": 7,
+          "value": 7208,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M06",
+          "month": 6,
+          "value": 7357,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M05",
+          "month": 5,
+          "value": 7712,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M04",
+          "month": 4,
+          "value": 7395,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M03",
+          "month": 3,
+          "value": 7200,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M02",
+          "month": 2,
+          "value": 7480,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M01",
+          "month": 1,
+          "value": 7762,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M12",
+          "month": 12,
+          "value": 7508,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M11",
+          "month": 11,
+          "value": 8031,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M10",
+          "month": 10,
+          "value": 7615,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M09",
+          "month": 9,
+          "value": 7103,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M08",
+          "month": 8,
+          "value": 7649,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M07",
+          "month": 7,
+          "value": 7504,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M06",
+          "month": 6,
+          "value": 7412,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M05",
+          "month": 5,
+          "value": 7901,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M04",
+          "month": 4,
+          "value": 7619,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M03",
+          "month": 3,
+          "value": 8093,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M02",
+          "month": 2,
+          "value": 8445,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M01",
+          "month": 1,
+          "value": 8468,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M12",
+          "month": 12,
+          "value": 8585,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M11",
+          "month": 11,
+          "value": 8663,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M10",
+          "month": 10,
+          "value": 8550,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M09",
+          "month": 9,
+          "value": 9279,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M08",
+          "month": 8,
+          "value": 9287,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M07",
+          "month": 7,
+          "value": 8606,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M06",
+          "month": 6,
+          "value": 9191,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M05",
+          "month": 5,
+          "value": 9310,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M04",
+          "month": 4,
+          "value": 9992,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M03",
+          "month": 3,
+          "value": 9572,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M02",
+          "month": 2,
+          "value": 9846,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M01",
+          "month": 1,
+          "value": 10393,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M12",
+          "month": 12,
+          "value": 10876,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M11",
+          "month": 11,
+          "value": 10619,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M10",
+          "month": 10,
+          "value": 10488,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M09",
+          "month": 9,
+          "value": 10812,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M08",
+          "month": 8,
+          "value": 10148,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M07",
+          "month": 7,
+          "value": 11610,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M06",
+          "month": 6,
+          "value": 11256,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M05",
+          "month": 5,
+          "value": 11483,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M04",
+          "month": 4,
+          "value": 11881,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M03",
+          "month": 3,
+          "value": 12134,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M02",
+          "month": 2,
+          "value": 11661,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M01",
+          "month": 1,
+          "value": 11238,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M12",
+          "month": 12,
+          "value": 11417,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M11",
+          "month": 11,
+          "value": 11119,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M10",
+          "month": 10,
+          "value": 11341,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M09",
+          "month": 9,
+          "value": 10879,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M08",
+          "month": 8,
+          "value": 10956,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M07",
+          "month": 7,
+          "value": 11049,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M06",
+          "month": 6,
+          "value": 10298,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M05",
+          "month": 5,
+          "value": 9905,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M04",
+          "month": 4,
+          "value": 9356,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M03",
+          "month": 3,
+          "value": 8470,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M02",
+          "month": 2,
+          "value": 7752,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M01",
+          "month": 1,
+          "value": 7204,
+          "footnotes": []
+        }
+      ]
+    },
+    "JTS000000000000000HIL": {
+      "name": "Hires",
+      "unit": "thousands",
+      "data": [
+        {
+          "year": 2025,
+          "period": "M12",
+          "month": 12,
+          "value": 5293,
+          "footnotes": [
+            "preliminary"
+          ]
+        },
+        {
+          "year": 2025,
+          "period": "M11",
+          "month": 11,
+          "value": 5121,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M10",
+          "month": 10,
+          "value": 5368,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M09",
+          "month": 9,
+          "value": 5367,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M08",
+          "month": 8,
+          "value": 5126,
+          "footnotes": [
+            "preliminary"
+          ]
+        },
+        {
+          "year": 2025,
+          "period": "M07",
+          "month": 7,
+          "value": 5240,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M06",
+          "month": 6,
+          "value": 5267,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M05",
+          "month": 5,
+          "value": 5465,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M04",
+          "month": 4,
+          "value": 5615,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M03",
+          "month": 3,
+          "value": 5404,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M02",
+          "month": 2,
+          "value": 5370,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M01",
+          "month": 1,
+          "value": 5371,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M12",
+          "month": 12,
+          "value": 5374,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M11",
+          "month": 11,
+          "value": 5307,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M10",
+          "month": 10,
+          "value": 5350,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M09",
+          "month": 9,
+          "value": 5519,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M08",
+          "month": 8,
+          "value": 5230,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M07",
+          "month": 7,
+          "value": 5451,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M06",
+          "month": 6,
+          "value": 5088,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M05",
+          "month": 5,
+          "value": 5573,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M04",
+          "month": 4,
+          "value": 5584,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M03",
+          "month": 3,
+          "value": 5472,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M02",
+          "month": 2,
+          "value": 5664,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M01",
+          "month": 1,
+          "value": 5572,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M12",
+          "month": 12,
+          "value": 5614,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M11",
+          "month": 11,
+          "value": 5501,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M10",
+          "month": 10,
+          "value": 5700,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M09",
+          "month": 9,
+          "value": 5772,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M08",
+          "month": 8,
+          "value": 5824,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M07",
+          "month": 7,
+          "value": 5646,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M06",
+          "month": 6,
+          "value": 5930,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M05",
+          "month": 5,
+          "value": 6128,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M04",
+          "month": 4,
+          "value": 5954,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M03",
+          "month": 3,
+          "value": 5932,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M02",
+          "month": 2,
+          "value": 6020,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M01",
+          "month": 1,
+          "value": 6347,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M12",
+          "month": 12,
+          "value": 6113,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M11",
+          "month": 11,
+          "value": 6134,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M10",
+          "month": 10,
+          "value": 6104,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M09",
+          "month": 9,
+          "value": 6206,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M08",
+          "month": 8,
+          "value": 6443,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M07",
+          "month": 7,
+          "value": 6470,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M06",
+          "month": 6,
+          "value": 6510,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M05",
+          "month": 5,
+          "value": 6461,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M04",
+          "month": 4,
+          "value": 6614,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M03",
+          "month": 3,
+          "value": 6607,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M02",
+          "month": 2,
+          "value": 6806,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M01",
+          "month": 1,
+          "value": 6400,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M12",
+          "month": 12,
+          "value": 6596,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M11",
+          "month": 11,
+          "value": 6811,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M10",
+          "month": 10,
+          "value": 6652,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M09",
+          "month": 9,
+          "value": 6653,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M08",
+          "month": 8,
+          "value": 6390,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M07",
+          "month": 7,
+          "value": 6732,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M06",
+          "month": 6,
+          "value": 6606,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M05",
+          "month": 5,
+          "value": 6013,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M04",
+          "month": 4,
+          "value": 6216,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M03",
+          "month": 3,
+          "value": 6148,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M02",
+          "month": 2,
+          "value": 5772,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M01",
+          "month": 1,
+          "value": 5594,
+          "footnotes": []
+        }
+      ]
+    },
+    "JTS000000000000000QUL": {
+      "name": "Quits",
+      "unit": "thousands",
+      "data": [
+        {
+          "year": 2025,
+          "period": "M12",
+          "month": 12,
+          "value": 3204,
+          "footnotes": [
+            "preliminary"
+          ]
+        },
+        {
+          "year": 2025,
+          "period": "M11",
+          "month": 11,
+          "value": 3193,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M10",
+          "month": 10,
+          "value": 2973,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M09",
+          "month": 9,
+          "value": 3128,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M08",
+          "month": 8,
+          "value": 3091,
+          "footnotes": [
+            "preliminary"
+          ]
+        },
+        {
+          "year": 2025,
+          "period": "M07",
+          "month": 7,
+          "value": 3166,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M06",
+          "month": 6,
+          "value": 3209,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M05",
+          "month": 5,
+          "value": 3270,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M04",
+          "month": 4,
+          "value": 3215,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M03",
+          "month": 3,
+          "value": 3344,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M02",
+          "month": 2,
+          "value": 3250,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M01",
+          "month": 1,
+          "value": 3256,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M12",
+          "month": 12,
+          "value": 3095,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M11",
+          "month": 11,
+          "value": 3032,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M10",
+          "month": 10,
+          "value": 3217,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M09",
+          "month": 9,
+          "value": 3085,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M08",
+          "month": 8,
+          "value": 3177,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M07",
+          "month": 7,
+          "value": 3390,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M06",
+          "month": 6,
+          "value": 3284,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M05",
+          "month": 5,
+          "value": 3355,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M04",
+          "month": 4,
+          "value": 3414,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M03",
+          "month": 3,
+          "value": 3329,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M02",
+          "month": 2,
+          "value": 3468,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M01",
+          "month": 1,
+          "value": 3353,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M12",
+          "month": 12,
+          "value": 3370,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M11",
+          "month": 11,
+          "value": 3549,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M10",
+          "month": 10,
+          "value": 3558,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M09",
+          "month": 9,
+          "value": 3638,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M08",
+          "month": 8,
+          "value": 3618,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M07",
+          "month": 7,
+          "value": 3562,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M06",
+          "month": 6,
+          "value": 3689,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M05",
+          "month": 5,
+          "value": 4013,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M04",
+          "month": 4,
+          "value": 3619,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M03",
+          "month": 3,
+          "value": 3820,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M02",
+          "month": 2,
+          "value": 3926,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M01",
+          "month": 1,
+          "value": 3833,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M12",
+          "month": 12,
+          "value": 4173,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M11",
+          "month": 11,
+          "value": 4080,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M10",
+          "month": 10,
+          "value": 3945,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M09",
+          "month": 9,
+          "value": 4111,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M08",
+          "month": 8,
+          "value": 4200,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M07",
+          "month": 7,
+          "value": 4005,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M06",
+          "month": 6,
+          "value": 4139,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M05",
+          "month": 5,
+          "value": 4259,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M04",
+          "month": 4,
+          "value": 4457,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M03",
+          "month": 3,
+          "value": 4499,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M02",
+          "month": 2,
+          "value": 4321,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M01",
+          "month": 1,
+          "value": 4404,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M12",
+          "month": 12,
+          "value": 4387,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M11",
+          "month": 11,
+          "value": 4491,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M10",
+          "month": 10,
+          "value": 4131,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M09",
+          "month": 9,
+          "value": 4320,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M08",
+          "month": 8,
+          "value": 4122,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M07",
+          "month": 7,
+          "value": 4031,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M06",
+          "month": 6,
+          "value": 3985,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M05",
+          "month": 5,
+          "value": 3836,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M04",
+          "month": 4,
+          "value": 3909,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M03",
+          "month": 3,
+          "value": 3661,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M02",
+          "month": 2,
+          "value": 3429,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M01",
+          "month": 1,
+          "value": 3285,
+          "footnotes": []
+        }
+      ]
+    },
+    "JTS000000000000000TSL": {
+      "name": "Total Separations",
+      "unit": "thousands",
+      "data": [
+        {
+          "year": 2025,
+          "period": "M12",
+          "month": 12,
+          "value": 5251,
+          "footnotes": [
+            "preliminary"
+          ]
+        },
+        {
+          "year": 2025,
+          "period": "M11",
+          "month": 11,
+          "value": 5144,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M10",
+          "month": 10,
+          "value": 5069,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M09",
+          "month": 9,
+          "value": 5264,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M08",
+          "month": 8,
+          "value": 5111,
+          "footnotes": [
+            "preliminary"
+          ]
+        },
+        {
+          "year": 2025,
+          "period": "M07",
+          "month": 7,
+          "value": 5221,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M06",
+          "month": 6,
+          "value": 5341,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M05",
+          "month": 5,
+          "value": 5213,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M04",
+          "month": 4,
+          "value": 5313,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M03",
+          "month": 3,
+          "value": 5183,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M02",
+          "month": 2,
+          "value": 5316,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M01",
+          "month": 1,
+          "value": 5272,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M12",
+          "month": 12,
+          "value": 5082,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M11",
+          "month": 11,
+          "value": 5087,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M10",
+          "month": 10,
+          "value": 5285,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M09",
+          "month": 9,
+          "value": 5197,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M08",
+          "month": 8,
+          "value": 5170,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M07",
+          "month": 7,
+          "value": 5434,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M06",
+          "month": 6,
+          "value": 5064,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M05",
+          "month": 5,
+          "value": 5314,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M04",
+          "month": 4,
+          "value": 5388,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M03",
+          "month": 3,
+          "value": 5268,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M02",
+          "month": 2,
+          "value": 5476,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M01",
+          "month": 1,
+          "value": 5429,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M12",
+          "month": 12,
+          "value": 5342,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M11",
+          "month": 11,
+          "value": 5429,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M10",
+          "month": 10,
+          "value": 5513,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M09",
+          "month": 9,
+          "value": 5533,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M08",
+          "month": 8,
+          "value": 5661,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M07",
+          "month": 7,
+          "value": 5561,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M06",
+          "month": 6,
+          "value": 5668,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M05",
+          "month": 5,
+          "value": 5842,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M04",
+          "month": 4,
+          "value": 5612,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M03",
+          "month": 3,
+          "value": 5910,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M02",
+          "month": 2,
+          "value": 5770,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M01",
+          "month": 1,
+          "value": 6026,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M12",
+          "month": 12,
+          "value": 6029,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M11",
+          "month": 11,
+          "value": 5864,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M10",
+          "month": 10,
+          "value": 5753,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M09",
+          "month": 9,
+          "value": 5862,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M08",
+          "month": 8,
+          "value": 6181,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M07",
+          "month": 7,
+          "value": 5797,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M06",
+          "month": 6,
+          "value": 5991,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M05",
+          "month": 5,
+          "value": 6115,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M04",
+          "month": 4,
+          "value": 6140,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M03",
+          "month": 3,
+          "value": 6235,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M02",
+          "month": 2,
+          "value": 6081,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M01",
+          "month": 1,
+          "value": 6265,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M12",
+          "month": 12,
+          "value": 6144,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M11",
+          "month": 11,
+          "value": 6247,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M10",
+          "month": 10,
+          "value": 5808,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M09",
+          "month": 9,
+          "value": 6107,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M08",
+          "month": 8,
+          "value": 5833,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M07",
+          "month": 7,
+          "value": 5756,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M06",
+          "month": 6,
+          "value": 5681,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M05",
+          "month": 5,
+          "value": 5535,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M04",
+          "month": 4,
+          "value": 5693,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M03",
+          "month": 3,
+          "value": 5477,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M02",
+          "month": 2,
+          "value": 5381,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M01",
+          "month": 1,
+          "value": 5229,
+          "footnotes": []
+        }
+      ]
+    }
+  }
 }
