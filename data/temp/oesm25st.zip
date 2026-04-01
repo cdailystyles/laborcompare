@@ -736,9 +736,9 @@ $(document).ready(function(){
 <div class="content-box"><div class="announcement">
 <h2>Notices</h2>
 <ul style="margin-bottom: 5px;margin-left:0px;padding:0;">
+    <li>Notice about May 2024 wage estimates for mechanical engineers in Columbus, GA-AL <a target="" href="/oes/notices/2026/wage-data-for-mechanical-engineers-in-columbus-ga-al-msa.htm" aria-label="Read more about Notice about May 2024 wage estimates for mechanical engineers in Columbus, GA-AL">Read&nbsp;More&nbsp;&raquo;</a></li>
     <li>May 2024 OEWS data for Colorado and its areas are now available <a target="" href="/oes/notices/2025/colorado-may-2024-oews-estimates.htm" aria-label="Read more about May 2024 OEWS data for Colorado and its areas are now available">Read&nbsp;More&nbsp;&raquo;</a></li>
     <li>Notice Regarding Suspension of Publication of Colorado Occupational Employment and Wage Statistics <a target="" href="/oes/notices/2024/colorado-data.htm" aria-label="Read more about Notice Regarding Suspension of Publication of Colorado Occupational Employment and Wage Statistics">Read&nbsp;More&nbsp;&raquo;</a></li>
-    <li>Notice Regarding Suspension of Publication of Colorado Employment and Unemployment Data <a target="" href="/oes/notices/2024/colorado-response.htm" aria-label="Read more about Notice Regarding Suspension of Publication of Colorado Employment and Unemployment Data">Read&nbsp;More&nbsp;&raquo;</a></li>
 </ul>
 </div>
 <div class="two-col">
@@ -1302,6 +1302,12 @@ $(document).ready(function(){
 <span>Connect With BLS</span>
   <div class="social-media-icons"> 
     
+			<a class="social-media-icon" href="https://bsky.app/profile/usbls.bsky.social" title="Connect with BLS on Bluesky" target="_blank" rel="noopener noreferrer" >
+              <!--?xml version="1.0" encoding="utf-8"?-->
+				<svg aria-hidden="true" data-prefix="fas" data-icon="bluesky" class="svg-inline--fa fa-w-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 530"><path fill="currentColor" xmlns="http://www.w3.org/2000/svg" d="m135.72 44.03c66.496 49.921 138.02 151.14 164.28 205.46 26.262-54.316 97.782-155.54 164.28-205.46 47.98-36.021 125.72-63.892 125.72 24.795 0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964-0.0174-2.9357-1.1937 0.51669-3.7077 7.8964-13.714 40.255-67.233 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07 0-88.687 77.742-60.816 125.72-24.795z"/></svg>
+              <span class="sr-only">Bluesky</span>
+          </a>
+
            <a class="social-media-icon" href="https://www.instagram.com/usbls_gov/" title="Connect with BLS on Instagram" target="_blank" rel="noopener noreferrer" >
               <!--?xml version="1.0" encoding="utf-8"?-->
 				<svg aria-hidden="true" data-prefix="fas" data-icon="instagram" class="svg-inline--fa fa-w-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
@@ -1311,7 +1317,7 @@ $(document).ready(function(){
            <a class="social-media-icon" href="https://www.linkedin.com/company/bureau-of-labor-statistics/" title="Connect with BLS on LinkedIn" target="_blank" rel="noopener noreferrer" >
               <!--?xml version="1.0" encoding="utf-8"?-->
 			  <svg aria-hidden="true" data-prefix="fas" data-icon="linkedin" class="svg-inline--fa fa-w-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
-              <span class="sr-only">Twitter</span>
+              <span class="sr-only">LinkedIn</span>
           </a>
 
            <a class="social-media-icon" href="https://www.threads.net/@usbls_gov" title="Connect with BLS on Threads" target="_blank" rel="noopener noreferrer" >
@@ -1320,10 +1326,10 @@ $(document).ready(function(){
               <span class="sr-only">Threads</span>
           </a>  
     
-           <a class="social-media-icon" href="https://twitter.com/BLS_gov" title="Connect with BLS on X, formerly referred to as Twitter" target="_blank" rel="noopener noreferrer" >
+           <a class="social-media-icon" href="https://x.com/BLS_gov" title="Connect with BLS on X, formerly referred to as Twitter" target="_blank" rel="noopener noreferrer" >
               <!--?xml version="1.0" encoding="utf-8"?-->
-              <svg aria-hidden="true" data-prefix="fab" data-icon="twitter" class="svg-inline--fa fa-twitter fa-w-16"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path></svg>
-              <span class="sr-only">Twitter</span>
+              <svg aria-hidden="true" data-prefix="fab" data-icon="x.com" class="svg-inline--fa fa-twitter fa-w-16"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path></svg>
+              <span class="sr-only">Visit BLS on X</span>
           </a>
                   
            <a class="social-media-icon" href="https://www.youtube.com/channel/UCijn3WBpHtx4AvSya7NER9Q" title="BLS Youtube" target="_blank" rel="noopener noreferrer" >

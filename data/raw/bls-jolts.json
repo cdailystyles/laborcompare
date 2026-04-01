@@ -1,5 +1,5 @@
 {
-  "fetched": "2026-03-01T06:53:52.435Z",
+  "fetched": "2026-04-01T07:41:32.357Z",
   "startYear": 2021,
   "endYear": 2026,
   "series": {
@@ -8,427 +8,439 @@
       "unit": "thousands",
       "data": [
         {
-          "year": 2025,
-          "period": "M12",
-          "month": 12,
-          "value": 6542,
+          "year": 2026,
+          "period": "M02",
+          "month": 2,
+          "value": 6882,
           "footnotes": [
             "preliminary"
           ]
         },
         {
+          "year": 2026,
+          "period": "M01",
+          "month": 1,
+          "value": 7240,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M12",
+          "month": 12,
+          "value": 6550,
+          "footnotes": []
+        },
+        {
           "year": 2025,
           "period": "M11",
           "month": 11,
-          "value": 6928,
+          "value": 6846,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M10",
           "month": 10,
-          "value": 7449,
+          "value": 7170,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M09",
           "month": 9,
-          "value": 7658,
+          "value": 7169,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M08",
           "month": 8,
-          "value": 7227,
-          "footnotes": [
-            "preliminary"
-          ]
+          "value": 6919,
+          "footnotes": []
         },
         {
           "year": 2025,
           "period": "M07",
           "month": 7,
-          "value": 7208,
+          "value": 7089,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M06",
           "month": 6,
-          "value": 7357,
+          "value": 7204,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M05",
           "month": 5,
-          "value": 7712,
+          "value": 7310,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M04",
           "month": 4,
-          "value": 7395,
+          "value": 7098,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M03",
           "month": 3,
-          "value": 7200,
+          "value": 6952,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M02",
           "month": 2,
-          "value": 7480,
+          "value": 7242,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M01",
           "month": 1,
-          "value": 7762,
+          "value": 7431,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M12",
           "month": 12,
-          "value": 7508,
+          "value": 7295,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M11",
           "month": 11,
-          "value": 8031,
+          "value": 7566,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M10",
           "month": 10,
-          "value": 7615,
+          "value": 7379,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M09",
           "month": 9,
-          "value": 7103,
+          "value": 6943,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M08",
           "month": 8,
-          "value": 7649,
+          "value": 7520,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M07",
           "month": 7,
-          "value": 7504,
+          "value": 7426,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M06",
           "month": 6,
-          "value": 7412,
+          "value": 7416,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M05",
           "month": 5,
-          "value": 7901,
+          "value": 7782,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M04",
           "month": 4,
-          "value": 7619,
+          "value": 7529,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M03",
           "month": 3,
-          "value": 8093,
+          "value": 8206,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M02",
           "month": 2,
-          "value": 8445,
+          "value": 8440,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M01",
           "month": 1,
-          "value": 8468,
+          "value": 8378,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M12",
           "month": 12,
-          "value": 8585,
+          "value": 8520,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M11",
           "month": 11,
-          "value": 8663,
+          "value": 8602,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M10",
           "month": 10,
-          "value": 8550,
+          "value": 8580,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M09",
           "month": 9,
-          "value": 9279,
+          "value": 9259,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M08",
           "month": 8,
-          "value": 9287,
+          "value": 9254,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M07",
           "month": 7,
-          "value": 8606,
+          "value": 8657,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M06",
           "month": 6,
-          "value": 9191,
+          "value": 9180,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M05",
           "month": 5,
-          "value": 9310,
+          "value": 9368,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M04",
           "month": 4,
-          "value": 9992,
+          "value": 9966,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M03",
           "month": 3,
-          "value": 9572,
+          "value": 9655,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M02",
           "month": 2,
-          "value": 9846,
+          "value": 9857,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M01",
           "month": 1,
-          "value": 10393,
+          "value": 10318,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M12",
           "month": 12,
-          "value": 10876,
+          "value": 10902,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M11",
           "month": 11,
-          "value": 10619,
+          "value": 10632,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M10",
           "month": 10,
-          "value": 10488,
+          "value": 10447,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M09",
           "month": 9,
-          "value": 10812,
+          "value": 10800,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M08",
           "month": 8,
-          "value": 10148,
+          "value": 10092,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M07",
           "month": 7,
-          "value": 11610,
+          "value": 11576,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M06",
           "month": 6,
-          "value": 11256,
+          "value": 11283,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M05",
           "month": 5,
-          "value": 11483,
+          "value": 11535,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M04",
           "month": 4,
-          "value": 11881,
+          "value": 11861,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M03",
           "month": 3,
-          "value": 12134,
+          "value": 12301,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M02",
           "month": 2,
-          "value": 11661,
+          "value": 11698,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M01",
           "month": 1,
+          "value": 11210,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M12",
+          "month": 12,
+          "value": 11520,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M11",
+          "month": 11,
+          "value": 11199,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M10",
+          "month": 10,
           "value": 11238,
           "footnotes": []
         },
         {
           "year": 2021,
-          "period": "M12",
-          "month": 12,
-          "value": 11417,
-          "footnotes": []
-        },
-        {
-          "year": 2021,
-          "period": "M11",
-          "month": 11,
-          "value": 11119,
-          "footnotes": []
-        },
-        {
-          "year": 2021,
-          "period": "M10",
-          "month": 10,
-          "value": 11341,
-          "footnotes": []
-        },
-        {
-          "year": 2021,
           "period": "M09",
           "month": 9,
-          "value": 10879,
+          "value": 10834,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M08",
           "month": 8,
-          "value": 10956,
+          "value": 10872,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M07",
           "month": 7,
-          "value": 11049,
+          "value": 10983,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M06",
           "month": 6,
-          "value": 10298,
+          "value": 10319,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M05",
           "month": 5,
-          "value": 9905,
+          "value": 9954,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M04",
           "month": 4,
-          "value": 9356,
+          "value": 9346,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M03",
           "month": 3,
-          "value": 8470,
+          "value": 8499,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M02",
           "month": 2,
-          "value": 7752,
+          "value": 7827,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M01",
           "month": 1,
-          "value": 7204,
+          "value": 7162,
           "footnotes": []
         }
       ]
@@ -438,427 +450,439 @@
       "unit": "thousands",
       "data": [
         {
-          "year": 2025,
-          "period": "M12",
-          "month": 12,
-          "value": 5293,
+          "year": 2026,
+          "period": "M02",
+          "month": 2,
+          "value": 4849,
           "footnotes": [
             "preliminary"
           ]
         },
         {
+          "year": 2026,
+          "period": "M01",
+          "month": 1,
+          "value": 5347,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M12",
+          "month": 12,
+          "value": 5272,
+          "footnotes": []
+        },
+        {
           "year": 2025,
           "period": "M11",
           "month": 11,
-          "value": 5121,
+          "value": 5019,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M10",
           "month": 10,
-          "value": 5368,
+          "value": 5180,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M09",
           "month": 9,
-          "value": 5367,
+          "value": 5244,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M08",
           "month": 8,
-          "value": 5126,
-          "footnotes": [
-            "preliminary"
-          ]
+          "value": 5145,
+          "footnotes": []
         },
         {
           "year": 2025,
           "period": "M07",
           "month": 7,
-          "value": 5240,
+          "value": 5225,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M06",
           "month": 6,
-          "value": 5267,
+          "value": 5327,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M05",
           "month": 5,
-          "value": 5465,
+          "value": 5328,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M04",
           "month": 4,
-          "value": 5615,
+          "value": 5391,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M03",
           "month": 3,
-          "value": 5404,
+          "value": 5333,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M02",
           "month": 2,
-          "value": 5370,
+          "value": 5236,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M01",
           "month": 1,
-          "value": 5371,
+          "value": 5238,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M12",
           "month": 12,
-          "value": 5374,
+          "value": 5292,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M11",
           "month": 11,
-          "value": 5307,
+          "value": 5155,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M10",
           "month": 10,
-          "value": 5350,
+          "value": 5228,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M09",
           "month": 9,
-          "value": 5519,
+          "value": 5427,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M08",
           "month": 8,
-          "value": 5230,
+          "value": 5204,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M07",
           "month": 7,
-          "value": 5451,
+          "value": 5430,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M06",
           "month": 6,
-          "value": 5088,
+          "value": 5137,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M05",
           "month": 5,
-          "value": 5573,
+          "value": 5492,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M04",
           "month": 4,
-          "value": 5584,
+          "value": 5469,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M03",
           "month": 3,
-          "value": 5472,
+          "value": 5452,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M02",
           "month": 2,
-          "value": 5664,
+          "value": 5618,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M01",
           "month": 1,
-          "value": 5572,
+          "value": 5591,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M12",
           "month": 12,
-          "value": 5614,
+          "value": 5583,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M11",
           "month": 11,
-          "value": 5501,
+          "value": 5535,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M10",
           "month": 10,
-          "value": 5700,
+          "value": 5765,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M09",
           "month": 9,
-          "value": 5772,
+          "value": 5773,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M08",
           "month": 8,
-          "value": 5824,
+          "value": 5846,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M07",
           "month": 7,
-          "value": 5646,
+          "value": 5672,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M06",
           "month": 6,
-          "value": 5930,
+          "value": 5928,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M05",
           "month": 5,
-          "value": 6128,
+          "value": 6119,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M04",
           "month": 4,
-          "value": 5954,
+          "value": 5876,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M03",
           "month": 3,
-          "value": 5932,
+          "value": 5925,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M02",
           "month": 2,
-          "value": 6020,
+          "value": 5989,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M01",
           "month": 1,
-          "value": 6347,
+          "value": 6370,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M12",
           "month": 12,
-          "value": 6113,
+          "value": 6163,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M11",
           "month": 11,
-          "value": 6134,
+          "value": 6180,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M10",
           "month": 10,
-          "value": 6104,
+          "value": 6151,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M09",
           "month": 9,
-          "value": 6206,
+          "value": 6201,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M08",
           "month": 8,
-          "value": 6443,
+          "value": 6448,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M07",
           "month": 7,
-          "value": 6470,
+          "value": 6478,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M06",
           "month": 6,
-          "value": 6510,
+          "value": 6487,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M05",
           "month": 5,
-          "value": 6461,
+          "value": 6440,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M04",
           "month": 4,
-          "value": 6614,
+          "value": 6528,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M03",
           "month": 3,
-          "value": 6607,
+          "value": 6619,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M02",
           "month": 2,
-          "value": 6806,
+          "value": 6801,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M01",
           "month": 1,
-          "value": 6400,
+          "value": 6431,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M12",
           "month": 12,
-          "value": 6596,
+          "value": 6686,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M11",
           "month": 11,
-          "value": 6811,
+          "value": 6911,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M10",
           "month": 10,
-          "value": 6652,
+          "value": 6678,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M09",
           "month": 9,
-          "value": 6653,
+          "value": 6632,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M08",
           "month": 8,
-          "value": 6390,
+          "value": 6394,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M07",
           "month": 7,
-          "value": 6732,
+          "value": 6720,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M06",
           "month": 6,
-          "value": 6606,
+          "value": 6535,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M05",
           "month": 5,
-          "value": 6013,
+          "value": 5981,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M04",
           "month": 4,
-          "value": 6216,
+          "value": 6138,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M03",
           "month": 3,
-          "value": 6148,
+          "value": 6158,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M02",
           "month": 2,
-          "value": 5772,
+          "value": 5813,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M01",
           "month": 1,
-          "value": 5594,
+          "value": 5598,
           "footnotes": []
         }
       ]
@@ -868,427 +892,439 @@
       "unit": "thousands",
       "data": [
         {
-          "year": 2025,
-          "period": "M12",
-          "month": 12,
-          "value": 3204,
+          "year": 2026,
+          "period": "M02",
+          "month": 2,
+          "value": 2974,
           "footnotes": [
             "preliminary"
           ]
         },
         {
+          "year": 2026,
+          "period": "M01",
+          "month": 1,
+          "value": 3131,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M12",
+          "month": 12,
+          "value": 3225,
+          "footnotes": []
+        },
+        {
           "year": 2025,
           "period": "M11",
           "month": 11,
-          "value": 3193,
+          "value": 3119,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M10",
           "month": 10,
-          "value": 2973,
+          "value": 2980,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M09",
           "month": 9,
-          "value": 3128,
+          "value": 2990,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M08",
           "month": 8,
-          "value": 3091,
-          "footnotes": [
-            "preliminary"
-          ]
+          "value": 3095,
+          "footnotes": []
         },
         {
           "year": 2025,
           "period": "M07",
           "month": 7,
-          "value": 3166,
+          "value": 3132,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M06",
           "month": 6,
-          "value": 3209,
+          "value": 3254,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M05",
           "month": 5,
-          "value": 3270,
+          "value": 3287,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M04",
           "month": 4,
-          "value": 3215,
+          "value": 3144,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M03",
           "month": 3,
-          "value": 3344,
+          "value": 3456,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M02",
           "month": 2,
-          "value": 3250,
+          "value": 3153,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M01",
           "month": 1,
-          "value": 3256,
+          "value": 3203,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M12",
           "month": 12,
-          "value": 3095,
-          "footnotes": []
-        },
-        {
-          "year": 2024,
-          "period": "M11",
-          "month": 11,
-          "value": 3032,
-          "footnotes": []
-        },
-        {
-          "year": 2024,
-          "period": "M10",
-          "month": 10,
-          "value": 3217,
-          "footnotes": []
-        },
-        {
-          "year": 2024,
-          "period": "M09",
-          "month": 9,
           "value": 3085,
           "footnotes": []
         },
         {
           "year": 2024,
+          "period": "M11",
+          "month": 11,
+          "value": 3050,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M10",
+          "month": 10,
+          "value": 3215,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M09",
+          "month": 9,
+          "value": 3123,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
           "period": "M08",
           "month": 8,
-          "value": 3177,
+          "value": 3240,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M07",
           "month": 7,
-          "value": 3390,
+          "value": 3359,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M06",
           "month": 6,
-          "value": 3284,
+          "value": 3280,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M05",
           "month": 5,
-          "value": 3355,
+          "value": 3386,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M04",
           "month": 4,
-          "value": 3414,
+          "value": 3438,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M03",
           "month": 3,
-          "value": 3329,
+          "value": 3289,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M02",
           "month": 2,
-          "value": 3468,
+          "value": 3482,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M01",
           "month": 1,
-          "value": 3353,
+          "value": 3347,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M12",
           "month": 12,
-          "value": 3370,
+          "value": 3412,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M11",
           "month": 11,
-          "value": 3549,
+          "value": 3576,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M10",
           "month": 10,
-          "value": 3558,
+          "value": 3574,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M09",
           "month": 9,
-          "value": 3638,
+          "value": 3644,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M08",
           "month": 8,
-          "value": 3618,
+          "value": 3621,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M07",
           "month": 7,
-          "value": 3562,
+          "value": 3552,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M06",
           "month": 6,
-          "value": 3689,
+          "value": 3693,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M05",
           "month": 5,
-          "value": 4013,
+          "value": 3999,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M04",
           "month": 4,
-          "value": 3619,
+          "value": 3617,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M03",
           "month": 3,
-          "value": 3820,
+          "value": 3800,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M02",
           "month": 2,
-          "value": 3926,
+          "value": 3917,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M01",
           "month": 1,
-          "value": 3833,
+          "value": 3839,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M12",
           "month": 12,
-          "value": 4173,
+          "value": 4125,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M11",
           "month": 11,
-          "value": 4080,
+          "value": 4083,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M10",
           "month": 10,
-          "value": 3945,
+          "value": 3956,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M09",
           "month": 9,
-          "value": 4111,
+          "value": 4134,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M08",
           "month": 8,
-          "value": 4200,
+          "value": 4258,
           "footnotes": []
         },
         {
           "year": 2022,
-          "period": "M07",
-          "month": 7,
-          "value": 4005,
-          "footnotes": []
-        },
-        {
-          "year": 2022,
-          "period": "M06",
-          "month": 6,
-          "value": 4139,
-          "footnotes": []
-        },
-        {
-          "year": 2022,
-          "period": "M05",
-          "month": 5,
-          "value": 4259,
-          "footnotes": []
-        },
-        {
-          "year": 2022,
-          "period": "M04",
-          "month": 4,
-          "value": 4457,
-          "footnotes": []
-        },
-        {
-          "year": 2022,
-          "period": "M03",
-          "month": 3,
-          "value": 4499,
-          "footnotes": []
-        },
-        {
-          "year": 2022,
-          "period": "M02",
-          "month": 2,
-          "value": 4321,
-          "footnotes": []
-        },
-        {
-          "year": 2022,
-          "period": "M01",
-          "month": 1,
-          "value": 4404,
-          "footnotes": []
-        },
-        {
-          "year": 2021,
-          "period": "M12",
-          "month": 12,
-          "value": 4387,
-          "footnotes": []
-        },
-        {
-          "year": 2021,
-          "period": "M11",
-          "month": 11,
-          "value": 4491,
-          "footnotes": []
-        },
-        {
-          "year": 2021,
-          "period": "M10",
-          "month": 10,
-          "value": 4131,
-          "footnotes": []
-        },
-        {
-          "year": 2021,
-          "period": "M09",
-          "month": 9,
-          "value": 4320,
-          "footnotes": []
-        },
-        {
-          "year": 2021,
-          "period": "M08",
-          "month": 8,
-          "value": 4122,
-          "footnotes": []
-        },
-        {
-          "year": 2021,
           "period": "M07",
           "month": 7,
           "value": 4031,
           "footnotes": []
         },
         {
+          "year": 2022,
+          "period": "M06",
+          "month": 6,
+          "value": 4165,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M05",
+          "month": 5,
+          "value": 4237,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M04",
+          "month": 4,
+          "value": 4499,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M03",
+          "month": 3,
+          "value": 4447,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M02",
+          "month": 2,
+          "value": 4233,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M01",
+          "month": 1,
+          "value": 4413,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M12",
+          "month": 12,
+          "value": 4314,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M11",
+          "month": 11,
+          "value": 4453,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M10",
+          "month": 10,
+          "value": 4153,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M09",
+          "month": 9,
+          "value": 4354,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M08",
+          "month": 8,
+          "value": 4171,
+          "footnotes": []
+        },
+        {
+          "year": 2021,
+          "period": "M07",
+          "month": 7,
+          "value": 4059,
+          "footnotes": []
+        },
+        {
           "year": 2021,
           "period": "M06",
           "month": 6,
-          "value": 3985,
+          "value": 4017,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M05",
           "month": 5,
-          "value": 3836,
+          "value": 3817,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M04",
           "month": 4,
-          "value": 3909,
+          "value": 3943,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M03",
           "month": 3,
-          "value": 3661,
+          "value": 3654,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M02",
           "month": 2,
-          "value": 3429,
+          "value": 3373,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M01",
           "month": 1,
-          "value": 3285,
+          "value": 3292,
           "footnotes": []
         }
       ]
@@ -1298,427 +1334,439 @@
       "unit": "thousands",
       "data": [
         {
-          "year": 2025,
-          "period": "M12",
-          "month": 12,
-          "value": 5251,
+          "year": 2026,
+          "period": "M02",
+          "month": 2,
+          "value": 4971,
           "footnotes": [
             "preliminary"
           ]
         },
         {
-          "year": 2025,
-          "period": "M11",
-          "month": 11,
+          "year": 2026,
+          "period": "M01",
+          "month": 1,
           "value": 5144,
           "footnotes": []
         },
         {
           "year": 2025,
+          "period": "M12",
+          "month": 12,
+          "value": 5203,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
+          "period": "M11",
+          "month": 11,
+          "value": 5035,
+          "footnotes": []
+        },
+        {
+          "year": 2025,
           "period": "M10",
           "month": 10,
-          "value": 5069,
+          "value": 5125,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M09",
           "month": 9,
-          "value": 5264,
+          "value": 5161,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M08",
           "month": 8,
-          "value": 5111,
-          "footnotes": [
-            "preliminary"
-          ]
+          "value": 5207,
+          "footnotes": []
         },
         {
           "year": 2025,
           "period": "M07",
           "month": 7,
-          "value": 5221,
+          "value": 5170,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M06",
           "month": 6,
-          "value": 5341,
+          "value": 5432,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M05",
           "month": 5,
-          "value": 5213,
+          "value": 5288,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M04",
           "month": 4,
-          "value": 5313,
+          "value": 5270,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M03",
           "month": 3,
-          "value": 5183,
+          "value": 5288,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M02",
           "month": 2,
-          "value": 5316,
+          "value": 5285,
           "footnotes": []
         },
         {
           "year": 2025,
           "period": "M01",
           "month": 1,
-          "value": 5272,
+          "value": 5241,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M12",
           "month": 12,
+          "value": 5049,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M11",
+          "month": 11,
+          "value": 5156,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M10",
+          "month": 10,
+          "value": 5137,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M09",
+          "month": 9,
+          "value": 5160,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M08",
+          "month": 8,
+          "value": 5226,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M07",
+          "month": 7,
+          "value": 5390,
+          "footnotes": []
+        },
+        {
+          "year": 2024,
+          "period": "M06",
+          "month": 6,
           "value": 5082,
           "footnotes": []
         },
         {
           "year": 2024,
-          "period": "M11",
-          "month": 11,
-          "value": 5087,
-          "footnotes": []
-        },
-        {
-          "year": 2024,
-          "period": "M10",
-          "month": 10,
-          "value": 5285,
-          "footnotes": []
-        },
-        {
-          "year": 2024,
-          "period": "M09",
-          "month": 9,
-          "value": 5197,
-          "footnotes": []
-        },
-        {
-          "year": 2024,
-          "period": "M08",
-          "month": 8,
-          "value": 5170,
-          "footnotes": []
-        },
-        {
-          "year": 2024,
-          "period": "M07",
-          "month": 7,
-          "value": 5434,
-          "footnotes": []
-        },
-        {
-          "year": 2024,
-          "period": "M06",
-          "month": 6,
-          "value": 5064,
-          "footnotes": []
-        },
-        {
-          "year": 2024,
           "period": "M05",
           "month": 5,
-          "value": 5314,
+          "value": 5424,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M04",
           "month": 4,
-          "value": 5388,
+          "value": 5370,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M03",
           "month": 3,
-          "value": 5268,
+          "value": 5265,
           "footnotes": []
         },
         {
           "year": 2024,
           "period": "M02",
           "month": 2,
-          "value": 5476,
-          "footnotes": []
-        },
-        {
-          "year": 2024,
-          "period": "M01",
-          "month": 1,
-          "value": 5429,
-          "footnotes": []
-        },
-        {
-          "year": 2023,
-          "period": "M12",
-          "month": 12,
-          "value": 5342,
-          "footnotes": []
-        },
-        {
-          "year": 2023,
-          "period": "M11",
-          "month": 11,
-          "value": 5429,
-          "footnotes": []
-        },
-        {
-          "year": 2023,
-          "period": "M10",
-          "month": 10,
           "value": 5513,
           "footnotes": []
         },
         {
+          "year": 2024,
+          "period": "M01",
+          "month": 1,
+          "value": 5367,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M12",
+          "month": 12,
+          "value": 5430,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M11",
+          "month": 11,
+          "value": 5494,
+          "footnotes": []
+        },
+        {
+          "year": 2023,
+          "period": "M10",
+          "month": 10,
+          "value": 5530,
+          "footnotes": []
+        },
+        {
           "year": 2023,
           "period": "M09",
           "month": 9,
-          "value": 5533,
+          "value": 5507,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M08",
           "month": 8,
-          "value": 5661,
+          "value": 5651,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M07",
           "month": 7,
-          "value": 5561,
+          "value": 5564,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M06",
           "month": 6,
-          "value": 5668,
+          "value": 5680,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M05",
           "month": 5,
-          "value": 5842,
+          "value": 5840,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M04",
           "month": 4,
-          "value": 5612,
+          "value": 5570,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M03",
           "month": 3,
-          "value": 5910,
+          "value": 5984,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M02",
           "month": 2,
-          "value": 5770,
+          "value": 5767,
           "footnotes": []
         },
         {
           "year": 2023,
           "period": "M01",
           "month": 1,
-          "value": 6026,
+          "value": 5885,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M12",
           "month": 12,
-          "value": 6029,
+          "value": 6004,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M11",
           "month": 11,
-          "value": 5864,
+          "value": 5881,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M10",
           "month": 10,
-          "value": 5753,
+          "value": 5784,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M09",
           "month": 9,
-          "value": 5862,
+          "value": 5886,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M08",
           "month": 8,
+          "value": 6238,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M07",
+          "month": 7,
+          "value": 5839,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M06",
+          "month": 6,
+          "value": 6039,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M05",
+          "month": 5,
+          "value": 6079,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M04",
+          "month": 4,
+          "value": 6138,
+          "footnotes": []
+        },
+        {
+          "year": 2022,
+          "period": "M03",
+          "month": 3,
           "value": 6181,
           "footnotes": []
         },
         {
           "year": 2022,
-          "period": "M07",
-          "month": 7,
-          "value": 5797,
-          "footnotes": []
-        },
-        {
-          "year": 2022,
-          "period": "M06",
-          "month": 6,
-          "value": 5991,
-          "footnotes": []
-        },
-        {
-          "year": 2022,
-          "period": "M05",
-          "month": 5,
-          "value": 6115,
-          "footnotes": []
-        },
-        {
-          "year": 2022,
-          "period": "M04",
-          "month": 4,
-          "value": 6140,
-          "footnotes": []
-        },
-        {
-          "year": 2022,
-          "period": "M03",
-          "month": 3,
-          "value": 6235,
-          "footnotes": []
-        },
-        {
-          "year": 2022,
           "period": "M02",
           "month": 2,
-          "value": 6081,
+          "value": 5986,
           "footnotes": []
         },
         {
           "year": 2022,
           "period": "M01",
           "month": 1,
-          "value": 6265,
+          "value": 6247,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M12",
           "month": 12,
-          "value": 6144,
+          "value": 6103,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M11",
           "month": 11,
-          "value": 6247,
+          "value": 6192,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M10",
           "month": 10,
-          "value": 5808,
+          "value": 5856,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M09",
           "month": 9,
-          "value": 6107,
+          "value": 6118,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M08",
           "month": 8,
-          "value": 5833,
+          "value": 5875,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M07",
           "month": 7,
-          "value": 5756,
+          "value": 5818,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M06",
           "month": 6,
-          "value": 5681,
+          "value": 5741,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M05",
           "month": 5,
-          "value": 5535,
+          "value": 5515,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M04",
           "month": 4,
-          "value": 5693,
+          "value": 5699,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M03",
           "month": 3,
-          "value": 5477,
+          "value": 5488,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M02",
           "month": 2,
-          "value": 5381,
+          "value": 5329,
           "footnotes": []
         },
         {
           "year": 2021,
           "period": "M01",
           "month": 1,
-          "value": 5229,
+          "value": 5145,
           "footnotes": []
         }
       ]
