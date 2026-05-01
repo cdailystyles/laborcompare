@@ -1,5 +1,5 @@
 {
-  "updated": "2026-04-01",
+  "updated": "2026-05-01",
   "ticker": [
     {
       "label": "UNEMP",
@@ -13,9 +13,9 @@
     },
     {
       "label": "CPI",
-      "value": "2.4%",
-      "delta": "0.0",
-      "direction": "flat"
+      "value": "3.3%",
+      "delta": "0.9",
+      "direction": "up"
     },
     {
       "label": "EARNINGS",
@@ -46,9 +46,9 @@
     {
       "id": "cpi",
       "label": "CPI (YoY)",
-      "value": "2.4%",
-      "delta": "— 0.0 pts",
-      "direction": "flat"
+      "value": "3.3%",
+      "delta": "▲ 0.9 pts",
+      "direction": "up"
     },
     {
       "id": "earnings",
