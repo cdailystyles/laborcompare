@@ -1,5 +1,5 @@
 {
-  "fetched": "2026-05-01T08:19:00.146Z",
+  "fetched": "2026-06-01T11:43:46.443Z",
   "startYear": 2021,
   "endYear": 2026,
   "series": {
@@ -7,6 +7,13 @@
       "name": "All Items",
       "seasonal": true,
       "data": [
+        {
+          "year": 2026,
+          "period": "M04",
+          "month": 4,
+          "value": 332.407,
+          "footnotes": []
+        },
         {
           "year": 2026,
           "period": "M03",
@@ -449,6 +456,13 @@
       "data": [
         {
           "year": 2026,
+          "period": "M04",
+          "month": 4,
+          "value": 348.349,
+          "footnotes": []
+        },
+        {
+          "year": 2026,
           "period": "M03",
           "month": 3,
           "value": 346.603,
@@ -887,6 +901,13 @@
       "name": "Shelter",
       "seasonal": true,
       "data": [
+        {
+          "year": 2026,
+          "period": "M04",
+          "month": 4,
+          "value": 426.642,
+          "footnotes": []
+        },
         {
           "year": 2026,
           "period": "M03",
@@ -1329,6 +1350,13 @@
       "data": [
         {
           "year": 2026,
+          "period": "M04",
+          "month": 4,
+          "value": 306.977,
+          "footnotes": []
+        },
+        {
+          "year": 2026,
           "period": "M03",
           "month": 3,
           "value": 300.545,
@@ -1767,6 +1795,13 @@
       "name": "Medical Care",
       "seasonal": true,
       "data": [
+        {
+          "year": 2026,
+          "period": "M04",
+          "month": 4,
+          "value": 591.202,
+          "footnotes": []
+        },
         {
           "year": 2026,
           "period": "M03",
@@ -2209,6 +2244,13 @@
       "data": [
         {
           "year": 2026,
+          "period": "M04",
+          "month": 4,
+          "value": 288.3,
+          "footnotes": []
+        },
+        {
+          "year": 2026,
           "period": "M03",
           "month": 3,
           "value": 284.573,
@@ -2647,6 +2689,13 @@
       "name": "Apparel",
       "seasonal": true,
       "data": [
+        {
+          "year": 2026,
+          "period": "M04",
+          "month": 4,
+          "value": 136.67,
+          "footnotes": []
+        },
         {
           "year": 2026,
           "period": "M03",
@@ -3089,6 +3138,13 @@
       "data": [
         {
           "year": 2026,
+          "period": "M04",
+          "month": 4,
+          "value": 146.902,
+          "footnotes": []
+        },
+        {
+          "year": 2026,
           "period": "M03",
           "month": 3,
           "value": 146.909,
@@ -3529,6 +3585,13 @@
       "data": [
         {
           "year": 2026,
+          "period": "M04",
+          "month": 4,
+          "value": 143.701,
+          "footnotes": []
+        },
+        {
+          "year": 2026,
           "period": "M03",
           "month": 3,
           "value": 143.591,
@@ -3967,6 +4030,13 @@
       "name": "All Items (NSA)",
       "seasonal": false,
       "data": [
+        {
+          "year": 2026,
+          "period": "M04",
+          "month": 4,
+          "value": 333.02,
+          "footnotes": []
+        },
         {
           "year": 2026,
           "period": "M03",

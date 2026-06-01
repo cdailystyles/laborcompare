@@ -1,41 +1,46 @@
 {
-  "updated": "2026-05-01T08:19:00.682Z",
+  "updated": "2026-06-01T11:43:46.930Z",
   "latest": {
     "openings": {
-      "value": 6882,
+      "value": 6866,
       "year": 2026,
-      "month": 2,
-      "change": -358,
+      "month": 3,
+      "change": -56,
       "direction": "down"
     },
     "hires": {
-      "value": 4849,
+      "value": 5554,
       "year": 2026,
-      "month": 2,
-      "change": -498,
-      "direction": "down"
+      "month": 3,
+      "change": 655,
+      "direction": "up"
     },
     "quits": {
-      "value": 2974,
+      "value": 3171,
       "year": 2026,
-      "month": 2,
-      "change": -157,
-      "direction": "down"
+      "month": 3,
+      "change": 125,
+      "direction": "up"
     },
     "separations": {
-      "value": 4971,
+      "value": 5378,
       "year": 2026,
-      "month": 2,
-      "change": -173,
-      "direction": "down"
+      "month": 3,
+      "change": 356,
+      "direction": "up"
     }
   },
   "series": {
     "openings": [
       {
         "year": 2026,
+        "month": 3,
+        "value": 6866
+      },
+      {
+        "year": 2026,
         "month": 2,
-        "value": 6882
+        "value": 6922
       },
       {
         "year": 2026,
@@ -146,18 +151,18 @@
         "year": 2024,
         "month": 4,
         "value": 7529
-      },
-      {
-        "year": 2024,
-        "month": 3,
-        "value": 8206
       }
     ],
     "hires": [
       {
         "year": 2026,
+        "month": 3,
+        "value": 5554
+      },
+      {
+        "year": 2026,
         "month": 2,
-        "value": 4849
+        "value": 4899
       },
       {
         "year": 2026,
@@ -268,18 +273,18 @@
         "year": 2024,
         "month": 4,
         "value": 5469
-      },
-      {
-        "year": 2024,
-        "month": 3,
-        "value": 5452
       }
     ],
     "quits": [
       {
         "year": 2026,
+        "month": 3,
+        "value": 3171
+      },
+      {
+        "year": 2026,
         "month": 2,
-        "value": 2974
+        "value": 3046
       },
       {
         "year": 2026,
@@ -390,18 +395,18 @@
         "year": 2024,
         "month": 4,
         "value": 3438
-      },
-      {
-        "year": 2024,
-        "month": 3,
-        "value": 3289
       }
     ],
     "separations": [
       {
         "year": 2026,
+        "month": 3,
+        "value": 5378
+      },
+      {
+        "year": 2026,
         "month": 2,
-        "value": 4971
+        "value": 5022
       },
       {
         "year": 2026,
@@ -512,11 +517,6 @@
         "year": 2024,
         "month": 4,
         "value": 5370
-      },
-      {
-        "year": 2024,
-        "month": 3,
-        "value": 5265
       }
     ]
   }

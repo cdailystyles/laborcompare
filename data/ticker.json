@@ -1,5 +1,5 @@
 {
-  "updated": "2026-05-01",
+  "updated": "2026-06-01",
   "ticker": [
     {
       "label": "UNEMP",
@@ -13,8 +13,8 @@
     },
     {
       "label": "CPI",
-      "value": "3.3%",
-      "delta": "0.9",
+      "value": "3.8%",
+      "delta": "0.5",
       "direction": "up"
     },
     {
@@ -46,8 +46,8 @@
     {
       "id": "cpi",
       "label": "CPI (YoY)",
-      "value": "3.3%",
-      "delta": "▲ 0.9 pts",
+      "value": "3.8%",
+      "delta": "▲ 0.5 pts",
       "direction": "up"
     },
     {
@@ -68,7 +68,7 @@
       "id": "openings",
       "label": "Job Openings",
       "value": "6.9M",
-      "delta": "▼ 358.0K",
+      "delta": "▼ 56.0K",
       "direction": "down"
     }
   ]

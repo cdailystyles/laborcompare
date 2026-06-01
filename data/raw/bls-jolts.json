@@ -1,5 +1,5 @@
 {
-  "fetched": "2026-05-01T08:19:00.682Z",
+  "fetched": "2026-06-01T11:43:46.930Z",
   "startYear": 2021,
   "endYear": 2026,
   "series": {
@@ -9,12 +9,19 @@
       "data": [
         {
           "year": 2026,
-          "period": "M02",
-          "month": 2,
-          "value": 6882,
+          "period": "M03",
+          "month": 3,
+          "value": 6866,
           "footnotes": [
             "preliminary"
           ]
+        },
+        {
+          "year": 2026,
+          "period": "M02",
+          "month": 2,
+          "value": 6922,
+          "footnotes": []
         },
         {
           "year": 2026,
@@ -451,12 +458,19 @@
       "data": [
         {
           "year": 2026,
-          "period": "M02",
-          "month": 2,
-          "value": 4849,
+          "period": "M03",
+          "month": 3,
+          "value": 5554,
           "footnotes": [
             "preliminary"
           ]
+        },
+        {
+          "year": 2026,
+          "period": "M02",
+          "month": 2,
+          "value": 4899,
+          "footnotes": []
         },
         {
           "year": 2026,
@@ -893,12 +907,19 @@
       "data": [
         {
           "year": 2026,
-          "period": "M02",
-          "month": 2,
-          "value": 2974,
+          "period": "M03",
+          "month": 3,
+          "value": 3171,
           "footnotes": [
             "preliminary"
           ]
+        },
+        {
+          "year": 2026,
+          "period": "M02",
+          "month": 2,
+          "value": 3046,
+          "footnotes": []
         },
         {
           "year": 2026,
@@ -1335,12 +1356,19 @@
       "data": [
         {
           "year": 2026,
-          "period": "M02",
-          "month": 2,
-          "value": 4971,
+          "period": "M03",
+          "month": 3,
+          "value": 5378,
           "footnotes": [
             "preliminary"
           ]
+        },
+        {
+          "year": 2026,
+          "period": "M02",
+          "month": 2,
+          "value": 5022,
+          "footnotes": []
         },
         {
           "year": 2026,

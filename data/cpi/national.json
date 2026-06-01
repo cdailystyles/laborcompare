@@ -1,8 +1,15 @@
 {
-  "updated": "2026-05-01T08:19:00.146Z",
+  "updated": "2026-06-01T11:43:46.443Z",
   "seriesId": "CUSR0000SA0",
   "name": "CPI-U All Items (Seasonally Adjusted)",
   "data": [
+    {
+      "year": 2026,
+      "month": 4,
+      "value": 332.407,
+      "momChange": 0.64,
+      "yoyChange": 3.78
+    },
     {
       "year": 2026,
       "month": 3,
