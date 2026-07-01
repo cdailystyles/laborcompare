@@ -1,5 +1,5 @@
 {
-  "fetched": "2026-06-01T11:43:46.930Z",
+  "fetched": "2026-07-01T09:56:41.360Z",
   "startYear": 2021,
   "endYear": 2026,
   "series": {
@@ -9,12 +9,26 @@
       "data": [
         {
           "year": 2026,
-          "period": "M03",
-          "month": 3,
-          "value": 6866,
+          "period": "M05",
+          "month": 5,
+          "value": 7594,
           "footnotes": [
             "preliminary"
           ]
+        },
+        {
+          "year": 2026,
+          "period": "M04",
+          "month": 4,
+          "value": 7585,
+          "footnotes": []
+        },
+        {
+          "year": 2026,
+          "period": "M03",
+          "month": 3,
+          "value": 6887,
+          "footnotes": []
         },
         {
           "year": 2026,
@@ -458,12 +472,26 @@
       "data": [
         {
           "year": 2026,
-          "period": "M03",
-          "month": 3,
-          "value": 5554,
+          "period": "M05",
+          "month": 5,
+          "value": 5170,
           "footnotes": [
             "preliminary"
           ]
+        },
+        {
+          "year": 2026,
+          "period": "M04",
+          "month": 4,
+          "value": 5215,
+          "footnotes": []
+        },
+        {
+          "year": 2026,
+          "period": "M03",
+          "month": 3,
+          "value": 5535,
+          "footnotes": []
         },
         {
           "year": 2026,
@@ -907,12 +935,26 @@
       "data": [
         {
           "year": 2026,
-          "period": "M03",
-          "month": 3,
-          "value": 3171,
+          "period": "M05",
+          "month": 5,
+          "value": 3065,
           "footnotes": [
             "preliminary"
           ]
+        },
+        {
+          "year": 2026,
+          "period": "M04",
+          "month": 4,
+          "value": 3043,
+          "footnotes": []
+        },
+        {
+          "year": 2026,
+          "period": "M03",
+          "month": 3,
+          "value": 3160,
+          "footnotes": []
         },
         {
           "year": 2026,
@@ -1356,12 +1398,26 @@
       "data": [
         {
           "year": 2026,
-          "period": "M03",
-          "month": 3,
-          "value": 5378,
+          "period": "M05",
+          "month": 5,
+          "value": 5101,
           "footnotes": [
             "preliminary"
           ]
+        },
+        {
+          "year": 2026,
+          "period": "M04",
+          "month": 4,
+          "value": 5038,
+          "footnotes": []
+        },
+        {
+          "year": 2026,
+          "period": "M03",
+          "month": 3,
+          "value": 5377,
+          "footnotes": []
         },
         {
           "year": 2026,

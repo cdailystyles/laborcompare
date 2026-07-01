@@ -1,15 +1,20 @@
 {
-  "updated": "2026-06-01T11:43:46.443Z",
+  "updated": "2026-07-01T09:56:40.947Z",
   "categories": [
     {
       "seriesId": "CUSR0000SAF1",
       "name": "Food",
-      "latestValue": 348.349,
+      "latestValue": 348.892,
       "latestYear": 2026,
-      "latestMonth": 4,
-      "yoyChange": 3.22,
-      "momChange": 0.5,
+      "latestMonth": 5,
+      "yoyChange": 3.08,
+      "momChange": 0.16,
       "history": [
+        {
+          "year": 2026,
+          "month": 5,
+          "value": 348.892
+        },
         {
           "year": 2026,
           "month": 4,
@@ -64,23 +69,23 @@
           "year": 2025,
           "month": 5,
           "value": 338.474
-        },
-        {
-          "year": 2025,
-          "month": 4,
-          "value": 337.493
         }
       ]
     },
     {
       "seriesId": "CUSR0000SAH1",
       "name": "Shelter",
-      "latestValue": 426.642,
+      "latestValue": 427.998,
       "latestYear": 2026,
-      "latestMonth": 4,
-      "yoyChange": 3.29,
-      "momChange": 0.61,
+      "latestMonth": 5,
+      "yoyChange": 3.35,
+      "momChange": 0.32,
       "history": [
+        {
+          "year": 2026,
+          "month": 5,
+          "value": 427.998
+        },
         {
           "year": 2026,
           "month": 4,
@@ -135,23 +140,23 @@
           "year": 2025,
           "month": 5,
           "value": 414.109
-        },
-        {
-          "year": 2025,
-          "month": 4,
-          "value": 413.04
         }
       ]
     },
     {
       "seriesId": "CUSR0000SEHF01",
       "name": "Energy",
-      "latestValue": 306.977,
+      "latestValue": 308.903,
       "latestYear": 2026,
-      "latestMonth": 4,
-      "yoyChange": 6.09,
-      "momChange": 2.14,
+      "latestMonth": 5,
+      "yoyChange": 5.92,
+      "momChange": 0.63,
       "history": [
+        {
+          "year": 2026,
+          "month": 5,
+          "value": 308.903
+        },
         {
           "year": 2026,
           "month": 4,
@@ -206,23 +211,23 @@
           "year": 2025,
           "month": 5,
           "value": 291.637
-        },
-        {
-          "year": 2025,
-          "month": 4,
-          "value": 289.368
         }
       ]
     },
     {
       "seriesId": "CUSR0000SAM",
       "name": "Medical Care",
-      "latestValue": 591.202,
+      "latestValue": 593.057,
       "latestYear": 2026,
-      "latestMonth": 4,
-      "yoyChange": 2.54,
-      "momChange": -0.07,
+      "latestMonth": 5,
+      "yoyChange": 2.59,
+      "momChange": 0.31,
       "history": [
+        {
+          "year": 2026,
+          "month": 5,
+          "value": 593.057
+        },
         {
           "year": 2026,
           "month": 4,
@@ -277,23 +282,23 @@
           "year": 2025,
           "month": 5,
           "value": 578.073
-        },
-        {
-          "year": 2025,
-          "month": 4,
-          "value": 576.548
         }
       ]
     },
     {
       "seriesId": "CUSR0000SAT1",
       "name": "Transportation",
-      "latestValue": 288.3,
+      "latestValue": 292.358,
       "latestYear": 2026,
-      "latestMonth": 4,
-      "yoyChange": 6.25,
-      "momChange": 1.31,
+      "latestMonth": 5,
+      "yoyChange": 8.24,
+      "momChange": 1.41,
       "history": [
+        {
+          "year": 2026,
+          "month": 5,
+          "value": 292.358
+        },
         {
           "year": 2026,
           "month": 4,
@@ -348,23 +353,23 @@
           "year": 2025,
           "month": 5,
           "value": 270.107
-        },
-        {
-          "year": 2025,
-          "month": 4,
-          "value": 271.347
         }
       ]
     },
     {
       "seriesId": "CUSR0000SAA",
       "name": "Apparel",
-      "latestValue": 136.67,
+      "latestValue": 137.069,
       "latestYear": 2026,
-      "latestMonth": 4,
-      "yoyChange": 4.17,
-      "momChange": 0.64,
+      "latestMonth": 5,
+      "yoyChange": 4.81,
+      "momChange": 0.29,
       "history": [
+        {
+          "year": 2026,
+          "month": 5,
+          "value": 137.069
+        },
         {
           "year": 2026,
           "month": 4,
@@ -419,23 +424,23 @@
           "year": 2025,
           "month": 5,
           "value": 130.782
-        },
-        {
-          "year": 2025,
-          "month": 4,
-          "value": 131.201
         }
       ]
     },
     {
       "seriesId": "CUSR0000SAE",
       "name": "Education & Communication",
-      "latestValue": 146.902,
+      "latestValue": 148.007,
       "latestYear": 2026,
-      "latestMonth": 4,
-      "yoyChange": 0.16,
-      "momChange": 0,
+      "latestMonth": 5,
+      "yoyChange": 0.84,
+      "momChange": 0.75,
       "history": [
+        {
+          "year": 2026,
+          "month": 5,
+          "value": 148.007
+        },
         {
           "year": 2026,
           "month": 4,
@@ -490,23 +495,23 @@
           "year": 2025,
           "month": 5,
           "value": 146.776
-        },
-        {
-          "year": 2025,
-          "month": 4,
-          "value": 146.67
         }
       ]
     },
     {
       "seriesId": "CUSR0000SAR",
       "name": "Recreation",
-      "latestValue": 143.701,
+      "latestValue": 144.114,
       "latestYear": 2026,
-      "latestMonth": 4,
-      "yoyChange": 2.36,
-      "momChange": 0.08,
+      "latestMonth": 5,
+      "yoyChange": 2.63,
+      "momChange": 0.29,
       "history": [
+        {
+          "year": 2026,
+          "month": 5,
+          "value": 144.114
+        },
         {
           "year": 2026,
           "month": 4,
@@ -561,11 +566,6 @@
           "year": 2025,
           "month": 5,
           "value": 140.423
-        },
-        {
-          "year": 2025,
-          "month": 4,
-          "value": 140.393
         }
       ]
     }
